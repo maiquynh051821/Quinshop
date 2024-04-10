@@ -29,12 +29,13 @@
         </form>
         <div class="text-center">
           <p>- Hoặc -</p>
-          <button type="button" class="btn btn-danger mb-3"><i class="fab fa-google"></i> Đăng nhập bằng Google+</button>
+          <button type="button" class="btn btn-danger mb-3"> <a style="color:rgb(255, 255, 255); text-decoration: none;" 
+            href="/login/google"><i class="fab fa-google"></i> Đăng nhập bằng Google+</a></button>
           <p><a href="#">Bạn quên mật khẩu?</a></p>
           <p>Bạn chưa có tài khoản? <a href="#">Đăng ký</a></p>
         </div>
       </div>
-    </div>
+    </div> 
   </div>
 @include('admin.footer')
 </body>
