@@ -1,9 +1,10 @@
 <?php
 
 use App\Http\Controllers\Admin\MainController;
-use App\Http\Controllers\Admin\Users\LoginController;
+use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\Users\GoogleLoginController;
+use App\Http\Controllers\Login\GoogleLoginController;
+use App\Http\Controllers\User\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,28 +19,21 @@ use App\Http\Controllers\Admin\Users\GoogleLoginController;
 #Middleware auth duoc su dung de dam bao rang nguoi dung phai dang nhap 
 #de co the truy cap tat ca cac route duoc bao ve boi no
 Route::middleware(["auth"])->group(function () {
-    Route::get('/admin/main',[MainController::class,'index'])->name('admin');
+    Route::get('/admin/home',[MainController::class,'index'])->name('admin');
+    Route::get('/user/home',[HomeController::class,'index'])->name('user');
 });
-Route::get('/admin/users/login',[LoginController::class,'index'])->name('login');
-Route::post('/admin/users/login/store',[LoginController::class,'store']);
+Route::get('/login',[LoginController::class,'index'])->name('login');
+Route::post('/login/store',[LoginController::class,'store']);
 
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
+    // Route::get('/dashboard', function () {
+    //     return view('dashboard');
+    // })->name('dashboard');
+    Route::get('/admin/home',[MainController::class,'index'])->name('admin');
 });
 
 // GoogleLoginController redirect and callback urls

@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Users;
+namespace App\Http\Controllers\Login;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\User;
 class LoginController extends Controller
 {
     //
     public function index()
     {
-        return view("admin.users.login", [
+        return view("login.login", [
             "title" => "Login Quin-Shop",
         ]);
     }
@@ -30,8 +30,16 @@ class LoginController extends Controller
         "email"=> $request->email,
         "password"=>$request->password],
          $request->remember)){
-            return redirect() ->route("admin");
+            $user = Auth::user();
+            $role = $user->role;
+            if($role === 'admin'){
+                return redirect()->route("admin");
+            }elseif($role === 'user'){
+                return redirect()->route("user");
          }
+         }
+        
+     
    return redirect()->back()->withErrors("Email hoặc password không chính xác !");
 }
 }
