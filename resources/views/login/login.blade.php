@@ -26,17 +26,17 @@
 <body>
   <div class="container mt-5">
     <div class="row justify-content-center ">
-      <div id="form-login" class="col-lg-4 border p-4 mt-5"> <!-- Thêm lớp border và p-4 để tạo viền và khoảng cách xung quanh form -->
+      <div id="form-login" class="border border-success rounded-2 col-lg-4 border p-4 mt-5"> <!-- Thêm lớp border và p-4 để tạo viền và khoảng cách xung quanh form -->
         <h2 class="text-center mb-5">Login</h2>
         @include('login.alert')
         <form action="/login/store" method="post">
           <div class="mb-4 input-group">
             <input type="email" class="form-control" id="email" name="email" placeholder="Email" required>
-            <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+            <span class="input-group-text"><i class="fas fa-envelope" style="color:blue"></i></span>
           </div>
           <div class="mb-3 input-group">
             <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
-            <span class="input-group-text"><i class="fas fa-lock"></i></span>
+            <span class="input-group-text"><i class="fas fa-lock" style="color:red"></i></span>
           </div>
           <div class="mb-3 form-check">
             <input type="checkbox" class="form-check-input" id="remember" name="remember">
@@ -52,7 +52,7 @@
           <button type="button" class="btn btn-danger mb-3"> <a style="color:rgb(255, 255, 255); text-decoration: none;" 
             href="/login/google"><i class="fab fa-google"></i> Đăng nhập bằng Google+</a></button>
           <p><a href="#">Bạn quên mật khẩu?</a></p>
-          <p>Bạn chưa có tài khoản? <a href="#">Đăng ký</a></p>
+          <p>Bạn chưa có tài khoản? <a href="/register" >Đăng ký</a></p>
         </div>
       </div>
     </div> 

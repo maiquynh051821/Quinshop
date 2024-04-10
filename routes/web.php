@@ -5,6 +5,7 @@ use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
 use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\Register\RegisterController;
 
 /*
 |--------------------------------------------------------------------------
@@ -24,7 +25,7 @@ Route::middleware(["auth"])->group(function () {
 });
 Route::get('/login',[LoginController::class,'index'])->name('login');
 Route::post('/login/store',[LoginController::class,'store']);
-
+Route::get('/register',[RegisterController::class,'index'])->name('register');
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
