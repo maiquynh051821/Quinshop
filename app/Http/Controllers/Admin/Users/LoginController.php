@@ -24,6 +24,7 @@ class LoginController extends Controller
         "email"=> "required|email:filter",
         "password"=> "required"
        ]);
+     
    //Kiem tra thong tin dang nhap co khop voi du lieu trong DB hay khong 
     if(Auth::attempt([
         "email"=> $request->email,

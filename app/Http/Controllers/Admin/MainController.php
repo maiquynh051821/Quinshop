@@ -9,6 +9,10 @@ class MainController extends Controller
 {
     //
     public function index(){
-        echo "Amin";
+        return view("admin.home",
+   [
+    "title"=> "Trang quan tri Admin"
+    ]
+    );
     }
 }

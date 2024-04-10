@@ -14,10 +14,10 @@ use Illuminate\Support\Facades\Route;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
-
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-Route::get('/admin/users/login',[LoginController::class,'index']);
+#Middleware auth duoc su dung de dam bao rang nguoi dung phai dang nhap 
+#de co the truy cap tat ca cac route duoc bao ve boi no
+Route::middleware(["auth"])->group(function () {
+    Route::get('/admin/main',[MainController::class,'index'])->name('admin');
+});
+Route::get('/admin/users/login',[LoginController::class,'index'])->name('login');
 Route::post('/admin/users/login/store',[LoginController::class,'store']);
-Route::get('/admin/main',[MainController::class,'index'])->name('admin');
