@@ -29,7 +29,7 @@
         <div class="container mt-5">
           <div class="row justify-content-center ">
             <div id="form-login" class="border border-success rounded-2 col-lg-4 border p-4 mt-5"> <!-- Thêm lớp border và p-4 để tạo viền và khoảng cách xung quanh form -->
-              <h2 class="text-center mb-5">Register</h2>
+              <h2 class="text-center mb-5">REGISTER</h2>
               @include('login.alert')
               <form action="/register/store" method="post">
                 <div class="mb-3 input-group">
