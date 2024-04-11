@@ -34,6 +34,7 @@ class LoginController extends Controller
             ],
             $request->remember
         )) {
+
             //Kiem tra ghi nho dang nhap hay khong, luu phien dang nhap trong 300s = 5ph
             if ($request->remember) {
                 setcookie("email", $request->email, time() + 36000,);
@@ -41,7 +42,7 @@ class LoginController extends Controller
             } else {
                 setcookie("email", "");
                 setcookie("password", "");
-            }
+        
             
             //Phan quyen login : admin-user
             $user = Auth::user();
@@ -56,4 +57,5 @@ class LoginController extends Controller
 
         return redirect()->back()->withErrors("Email hoặc password không chính xác !");
     }
+}
 }

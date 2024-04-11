@@ -26,12 +26,13 @@ Route::middleware(["auth"])->group(function () {
 Route::get('/login',[LoginController::class,'index'])->name('login');
 Route::post('/login/store',[LoginController::class,'store']);
 Route::get('/register',[RegisterController::class,'index'])->name('register');
+Route::post('/register/store',[RegisterController::class,'store']);
 Route::middleware([
     'auth:sanctum',
     config('jetstream.auth_session'),
     'verified',
 ])->group(function () {
-    // Route::get('/dashboard', function () {
+    // Route::get('/dashboard', function () { 
     //     return view('dashboard');
     // })->name('dashboard');
     Route::get('/admin/home',[MainController::class,'index'])->name('admin');

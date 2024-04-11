@@ -24,7 +24,7 @@
           }
         </style>
 </head>
-<body>
+
     <body>
         <div class="container mt-5">
           <div class="row justify-content-center ">
@@ -41,11 +41,12 @@
                   <span class="input-group-text"><i class="fas fa-envelope" style="color:blue"></i></span>
                 </div>
                 <div class="mb-3 input-group">
-                  <input type="password" class="form-control" id="password" name="password" placeholder="Password" required>
+                  <input type="password" class="form-control" id="password" name="password" placeholder="Password" required autocomplete="new-password"> 
+                  {{-- autocomplete="new-password": Ngăn chặn tự động điền mật khẩu --}}
                   <span class="input-group-text"><i class="fas fa-lock" style="color:red"></i></span>
                 </div>
                 <div class="mb-3 input-group">
-                    <input type="password" class="form-control" id="retype-password" name="retyle-password" placeholder="Retype password" required>
+                  <input type="password" class="form-control" id="password_confirmation" name="password_confirmation" placeholder="Retype password" required autocomplete="new-password">
                     <span class="input-group-text"><i class="fas fa-lock" style="color:red"></i></span>
                   </div>
                 <div class="mb-3 form-check">
@@ -68,6 +69,22 @@
         <script rel="stylesheet" src="/template/bootstrap-5.3.3-dist/jsbootstrap.bundle.min.js"></script>
         <!-- FontAwesome JS -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+        <div class="container">
+          @if (session()->has('success'))
+          <div class="alert alert-success">
+            {{session()->get('success')}}
+          </div>
+          <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $(".alert-success").fadeOut("slow");
+                }, 3000); // Thay đổi 5000 (5 giây) bằng số miligiây bạn muốn thông báo hiển thị
+            });
+            </script>
+          @endif
+            @yield('content')
+        </div>
+      
       </body>   
-</body>
+
 </html>
