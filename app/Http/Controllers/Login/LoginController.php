@@ -35,15 +35,15 @@ class LoginController extends Controller
             $request->remember
         )) {
 
-            //Kiem tra ghi nho dang nhap hay khong, luu phien dang nhap trong 300s = 5ph
+            //Kiem tra ghi nho dang nhap hay khong, luu phien dang nhap trong 1h = 3600s
             if ($request->remember) {
-                setcookie("email", $request->email, time() + 36000,);
-                setcookie("password", $request->password, time() + 36000,);
+                setcookie("email", $request->email, time() + 3600,);
+                setcookie("password", $request->password, time() + 3600,);
             } else {
                 setcookie("email", "");
                 setcookie("password", "");
         
-            
+            }
             //Phan quyen login : admin-user
             $user = Auth::user();
             $role = $user->role;
@@ -57,5 +57,4 @@ class LoginController extends Controller
 
         return redirect()->back()->withErrors("Email hoặc password không chính xác !");
     }
-}
 }
