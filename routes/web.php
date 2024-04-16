@@ -28,6 +28,7 @@ Route::middleware(["auth"])->group(function () {
         #Menu
         Route::prefix('menus')->group(function () {
            Route::get('add',[MenuController::class,'create']);
+           Route::post('add',[MenuController::class,'store']);
     });
 });
 });
