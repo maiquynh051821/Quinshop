@@ -24,7 +24,7 @@ Route::middleware(["auth"])->group(function () {
   
     Route::get('/user/home',[HomeController::class,'index'])->name('user');
     Route::prefix('admin')->group(function () {
-        Route::get('/admin/home',[MainController::class,'index'])->name('admin');
+        Route::get('/home',[MainController::class,'index'])->name('admin');
         #Menu
         Route::prefix('menus')->group(function () {
            Route::get('add',[MenuController::class,'create']);

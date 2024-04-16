@@ -1,4 +1,4 @@
-<aside class="main-sidebar elevation-4" style="background-color: rgb(232, 238, 174)">
+<aside class="main-sidebar elevation-4" style="background-color: rgb(199, 196, 198)">
   <!-- Brand Logo -->
  <div class="ml-2 mt-4 ">
   <b style="font-size: 30px">QUIN-SHOP</b>
