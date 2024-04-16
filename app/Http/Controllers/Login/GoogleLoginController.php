@@ -40,7 +40,7 @@ class GoogleLoginController extends Controller
                 $newUser->name = $user->name;
                 $newUser->email = $user->email;
                 $newUser->google_id = $user->id;
-                $newUser->password = bcrypt(Str::random()); // Không cần phải tạo mật khẩu ngẫu nhiên vì người dùng đã đăng nhập bằng Google
+                $newUser->password = ''; // Không cần phải tạo mật khẩu ngẫu nhiên vì người dùng đã đăng nhập bằng Google
                 $newUser->save();
 
                 // Đăng nhập người dùng mới
@@ -56,5 +56,6 @@ class GoogleLoginController extends Controller
         } elseif ($role === 'user') {
             return redirect()->route("user");
         }
+        return redirect()->route("login")->with("error","Lỗi không đăng nhập được bằng google!");
     }
 }
