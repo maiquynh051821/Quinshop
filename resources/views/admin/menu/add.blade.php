@@ -15,6 +15,9 @@
         <label>Danh mục</label>
         <select name="parent_id" id="" class="form-control">
             <option value="0">Danh mục cha</option>
+            @foreach ($menus as $menu)
+            <option value="{{$menu->id}}">{{$menu->name}}</option>
+            @endforeach
         </select>
     </div>
     <div class="form-group">
@@ -29,11 +32,11 @@
         <label for="">Kích hoạt</label>
         <div class="d-flex">
             <div class="custom-control custom-radio mr-5">
-                <input class="custom-control-input" type="radio" id="active" name="active" checked> 
+                <input class="custom-control-input" type="radio" id="active" name="active" value="1" checked> 
                 <label for="active" class="custom-control-label">Có</label>
             </div>
             <div class="custom-control custom-radio">
-                <input class="custom-control-input" type="radio" id="no_active" name="active">
+                <input class="custom-control-input" type="radio" id="no_active" name="active" value="0">
                 <label for="no_active" class="custom-control-label">Không</label>
             </div>
         </div>

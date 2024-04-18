@@ -17,7 +17,6 @@ return new class extends Migration
             $table->integer('parent_id');
             $table->text('description');
             $table->longText('content');
-            $table->string('slug',255)->unique();
             $table->integer('active');
             $table->timestamps();
         });
