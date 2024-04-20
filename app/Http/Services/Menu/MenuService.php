@@ -17,6 +17,7 @@ class MenuService
                 'content' => (string) $request->input('content'),
                 'active' => (string) $request->input('active'),
             ]);
+            
             Session::flash('success','Tạo danh mục thành công');
         }catch(\Exception $err){
            Session::flash('error', $err->getMessage());
