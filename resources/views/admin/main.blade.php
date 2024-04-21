@@ -31,7 +31,7 @@
                         <!-- left column -->
                         <div class="col-md-12">
                             <!-- Form -->
-                            <div class="card card-primary">
+                            <div class="card card-dark">
                                   <!-- /.card-header -->
                                 <div class="card-header">
                                     <h3 class="card-title">{{ $title }}</h3>

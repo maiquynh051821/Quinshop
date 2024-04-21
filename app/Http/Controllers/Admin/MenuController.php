@@ -24,4 +24,10 @@ class MenuController extends Controller
       $result = $this->menuService->create($request);
       return redirect()->back();
     }
+    public function index(){
+        return view('admin.menu.list',[
+            'title' => 'Danh sách danh mục',
+            'menus' => $this->menuService->getAll(),
+        ]);
+    }
 }
