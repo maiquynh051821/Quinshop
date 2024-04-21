@@ -9,4 +9,5 @@
   <script rel="stylesheet" src="/template/bootstrap-5.3.3-dist/js/adminlte.min.js"></script>
   <!-- AdminLTE for demo purposes -->
   {{-- <script rel="stylesheet" src="/template/bootstrap-5.3.3-dist/js/demo.js"></script> --}}
+  <script rel="stylesheet" src="/template/admin/js/main.js"></script>
 @yield('footer')
