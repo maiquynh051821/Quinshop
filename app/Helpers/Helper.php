@@ -14,7 +14,7 @@ class Helper
                 <tr>
                 <td style="text-align:center;">' . $menu->id . '</td>
                 <td style="padding-left:20px">' . $char . $menu->name . '</td>
-                <td style="text-align:center;">' . $menu->active . '</td>
+                <td style="text-align:center;">' . self::active($menu->active) . '</td>
                 <td style="text-align:center;">' . $menu->updated_at . '</td>
                 <td> 
                 <a class="btn btn-info" href="/admin/menus/edit/' . $menu->id . '">
@@ -33,5 +33,11 @@ class Helper
             }
         }
         return $html;
+    }
+    public static function active($active = 0) : string
+    {
+        return '<div class="col d-flex justify-content-center">
+        <div class="rounded-circle ' . ($active == 0 ? 'bg-danger' : 'bg-success') . 
+        '" style="width: 20px; height: 20px;"></div></div>';
     }
 }

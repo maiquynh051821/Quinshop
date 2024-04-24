@@ -21,7 +21,6 @@
           <th style="width: 250px;text-align:center;">Update</th>
           <th style="width:25px">Edit</th>
           <th style="width:25px">Delete</th>
-
         </tr>
       </thead>
       <tbody>
