@@ -52,4 +52,23 @@ class MenuService
        }
        return false;
     }
+
+    // Cap nhat danh muc
+    public function update($request,$menu)
+    {   
+        // Kiểm tra xem parent_id mới có khác so với parent_id hiện tại không
+        if($request->input('parent_id') != $menu->id){
+            // Nếu khác, cập nhật parent_id
+            $menu->parent_id = (int) $request->input('parent_id');
+        }
+        $menu->name = (string) $request->input('name');
+        $menu->description = (string) $request->input('description');
+        $menu->content = (string) $request->input('content');
+        $menu->active = (string) $request->input('active');
+        // $menu->fill($request->input()); // Quét toàn bộ thông tin mà request đã lấy thay cho 5 dòng bên trên
+        $menu->save();
+
+        Session::flash('success','Cập nhật thành công danh mục');
+        return true;
+    }
 }
