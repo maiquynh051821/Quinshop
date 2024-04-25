@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\MenuController;
+use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
@@ -25,6 +26,7 @@ Route::middleware(["auth"])->group(function () {
     Route::get('/user/home',[HomeController::class,'index'])->name('user');
     Route::prefix('admin')->group(function () {
         Route::get('/home',[MainController::class,'index'])->name('admin');
+
         #Menu
         Route::prefix('menus')->group(function () {
            Route::get('add',[MenuController::class,'create']);
@@ -33,8 +35,12 @@ Route::middleware(["auth"])->group(function () {
            Route::get('edit/{menu}',[MenuController::class,'show']);
            Route::post('edit/{menu}',[MenuController::class,'update']);
            Route::delete('destroy',[MenuController::class,'destroy']);
-
     });
+
+        #Product
+        Route::prefix('products')->group(function(){
+            Route::get('add',[ProductController::class,'create']);  
+        });
 });
 });
 Route::get('/login',[LoginController::class,'index'])->name('login');

@@ -8,25 +8,37 @@
 <form action="" method="POST">
     <div class="card-body">
       <div class="form-group">
-        <label for="name">Tên danh mục</label>
-        <input type="text" name="name" class="form-control" id="name" placeholder="Nhập tên danh mục">
+        <label for="name">Tên sản phẩm</label>
+        <input type="text" name="name" class="form-control" id="name" placeholder="Nhập tên sản phẩm">
       </div>
       <div class="form-group">
         <label>Danh mục</label>
-        <select name="parent_id" id="" class="form-control">
-            <option value="0">Danh mục cha</option>
-            @foreach ($menus as $menu)
+        <select name="menu_id" id="" class="form-control">
+            <option value="0">Bo su tap</option>
+            {{-- @foreach ($menus as $menu)
             <option value="{{$menu->id}}">{{$menu->name}}</option>
-            @endforeach
+            @endforeach --}}
         </select>
     </div>
     <div class="form-group">
-        <label for="description">Mô tả ngắn</label>
+      <label for="price">Giá gốc</label>
+      <input type="number" name="price" class="form-control" id="price" min="0" step="10000">
+    </div>
+    <div class="form-group">
+      <label for="price_sale">Giá sale</label>
+      <input type="number" name="price_sale" class="form-control" id="price_sale" min="0" step="10000">
+    </div>
+    <div class="form-group">
+        <label for="description">Mô tả</label>
         <textarea name="description" id="description" class="form-control"></textarea>
       </div>
       <div class="form-group">
         <label for="content">Mô tả chi tiết</label>
         <textarea name="content" id="content" class="form-control"></textarea>
+      </div>
+      <div class="form-group">
+        <label for="">Ảnh sản phẩm</label><br>
+        <input type="file" id="thumb" name="thumb" accept="image/*" multiple>
       </div>
       <div class="form-group">
         <label for="">Kích hoạt</label>
@@ -41,11 +53,12 @@
             </div>
         </div>
       </div>
+      
     </div>
     <!-- /.card-body -->
-
+  
     <div class="card-footer">
-      <button type="submit" class="btn btn-primary">Tạo danh mục</button>
+      <button type="submit" class="btn btn-primary">Tạo sản phẩm</button>
     </div>
     @csrf
   </form>
