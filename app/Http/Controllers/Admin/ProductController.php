@@ -1,15 +1,21 @@
 <?php
 
 namespace App\Http\Controllers\Admin;
-
+use App\Models\Admin\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
+use App\Http\Requests\Product\ProductRequest;
+use App\Http\Services\Menu\ProductAdminService;
 class ProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    protected $productService;
+    public function __construct(ProductAdminService $productService)
+    {
+        $this->productService = $productService;
+    }
     public function index()
     {
         //
@@ -19,15 +25,17 @@ class ProductController extends Controller
     {
         return view("admin.product.add",[
             'title' => 'Thêm sản phẩm mới',
+            'menus' => $this->productService->getMenu(),
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        //
+        $this->productService->insert($request);
+        return redirect()->back();
     }
 
     /**

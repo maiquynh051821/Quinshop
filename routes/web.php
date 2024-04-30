@@ -41,7 +41,8 @@ Route::middleware(["auth"])->group(function () {
 
         #Product
         Route::prefix('products')->group(function(){
-            Route::get('add',[ProductController::class,'create']);  
+            Route::get('add',[ProductController::class,'create']); 
+            Route::post('add',[ProductController::class,'store']);
         });
 
         #Upload
@@ -52,14 +53,6 @@ Route::get('/login',[LoginController::class,'index'])->name('login');
 Route::post('/login/store',[LoginController::class,'store']);
 Route::get('/register',[RegisterController::class,'index'])->name('register');
 Route::post('/register/store',[RegisterController::class,'store']);
-
-// Route::middleware([
-//     'auth:sanctum',
-//     config('jetstream.auth_session'),
-//     'verified',
-// ])->group(function () {
-//     Route::get('/admin/home',[MainController::class,'index'])->name('admin');
-// });
 
 // GoogleLoginController redirect and callback urls
 Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle']);

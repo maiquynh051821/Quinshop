@@ -9,7 +9,7 @@
     <div class="card-body">
       <div class="form-group">
         <label for="name">Tên sản phẩm</label>
-        <input type="text" name="name" class="form-control" id="name" placeholder="Nhập tên sản phẩm">
+        <input type="text" name="name" value="{{old('name')}}" class="form-control" id="name" placeholder="Nhập tên sản phẩm">
       </div>
       <div class="form-group">
         <label>Danh mục</label>
@@ -22,27 +22,27 @@
     </div>
     <div class="form-group">
       <label for="price">Giá gốc</label>
-      <input type="number" name="price" class="form-control" id="price" min="0" step="10000">
+      <input type="number" name="price" value="{{old('price')}}" class="form-control" id="price" min="0">
     </div>
     <div class="form-group">
       <label for="price_sale">Giá sale</label>
-      <input type="number" name="price_sale" class="form-control" id="price_sale" min="0" step="10000">
+      <input type="number" name="price_sale" value="{{old('price_sale')}}" class="form-control" id="price_sale" min="0">
     </div>
     <div class="form-group">
         <label for="description">Mô tả</label>
-        <textarea name="description" id="description" class="form-control"></textarea>
+        <textarea name="description" id="description" class="form-control">{{old('description')}} </textarea>
       </div>
       <div class="form-group">
         <label for="content">Mô tả chi tiết</label>
-        <textarea name="content" id="content" class="form-control"></textarea>
+        <textarea name="content" id="content" class="form-control">{{old('content')}} </textarea>
       </div>
       <div class="form-group">
         <label for="">Ảnh sản phẩm</label><br>
-        <input type="file" id="upload" name="file" class="form-control" {{-- accept="image/*" multiple --}}> 
+        <input type="file" id="upload" class="form-control" multiple> 
         <div id="image_show">
 
         </div>
-        <input type="hidden" name="file" id="file">
+        <input type="hidden" name="thumb" id="thumb">
       </div>
       <div class="form-group">
         <label for="">Kích hoạt</label>
