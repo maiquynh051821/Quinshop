@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<form action="" method="POST">
+<form action="" method="POST" enctype="multipart/form-data">
     <div class="card-body">
       <div class="form-group">
         <label for="name">Tên sản phẩm</label>
@@ -38,7 +38,11 @@
       </div>
       <div class="form-group">
         <label for="">Ảnh sản phẩm</label><br>
-        <input type="file" id="thumb" name="thumb" accept="image/*" multiple>
+        <input type="file" id="upload" name="file" class="form-control" {{-- accept="image/*" multiple --}}> 
+        <div id="image_show">
+
+        </div>
+        <input type="hidden" name="file" id="file">
       </div>
       <div class="form-group">
         <label for="">Kích hoạt</label>

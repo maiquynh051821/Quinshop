@@ -3,11 +3,13 @@
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
 use App\Http\Controllers\User\HomeController;
 use App\Http\Controllers\Register\RegisterController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -41,6 +43,9 @@ Route::middleware(["auth"])->group(function () {
         Route::prefix('products')->group(function(){
             Route::get('add',[ProductController::class,'create']);  
         });
+
+        #Upload
+        Route::post('upload/services',[UploadController::class,'store']);
 });
 });
 Route::get('/login',[LoginController::class,'index'])->name('login');
