@@ -75,6 +75,29 @@
                       </li>
                   </ul>
               </li>
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-tv"></i>
+                    <p>
+                        Slider
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview ml-3">
+                    <li class="nav-item">
+                        <a href="/admin/sliders/add" class="nav-link">
+                            <i class="fa-solid fa-carrot"></i>
+                            <p>Thêm slider</p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a href="/admin/sliders/list" class="nav-link">
+                            <i class="fa-solid fa-circle-right"></i>
+                            <p>Danh sách slider</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
           </ul>
       </nav>
       <!-- /.sidebar-menu -->
