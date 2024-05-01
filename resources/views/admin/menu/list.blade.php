@@ -29,7 +29,6 @@
       </tbody>
     </table>
      {{-- Phan trang --}}
-     <div style="text-align: center;">
       {!! $menus->links() !!}
-  </div>
+
 @endsection

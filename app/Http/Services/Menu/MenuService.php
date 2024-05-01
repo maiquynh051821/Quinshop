@@ -16,11 +16,12 @@ class MenuService
     }
 
     // Phương thức này trả về tất cả các menu từ cơ sở dữ liệu, được sắp xếp theo id theo thứ tự giảm dần (orderByDesc) tăng dan(orderBy) 
-    // và được phân trang với mỗi trang chứa tối đa 20 menu. Sử dụng phương thức paginate() của Laravel để phân trang kết quả trả về
+    // và được phân trang với mỗi trang chứa tối đa 150 menu. Sử dụng phương thức paginate() của Laravel để phân trang kết quả trả về
    
     public function getAll()
     {
-        return Menu::orderByDesc("id")->paginate(5);
+        return Menu::orderByDesc('id')->paginate(150);
+
     }
     
     // Phương thức này thực hiện việc tạo mới một menu trong cơ sở dữ liệu dựa trên dữ liệu được gửi từ biểu mẫu (request).

@@ -52,7 +52,7 @@ class ProductAdminService
     public function get()
     {
        return Product::with('menu') // 'menu' la relationship trong Models/Admin/Product
-       ->orderByDesc('id')->paginate(5);
+       ->orderByDesc('id')->paginate(10);
  
     }
 
