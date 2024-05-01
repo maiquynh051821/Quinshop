@@ -40,4 +40,6 @@ class Helper
         <div class="rounded-circle ' . ($active == 0 ? 'bg-danger' : 'bg-success') . 
         '" style="width: 20px; height: 20px;"></div></div>';
     }
+    
+
 }

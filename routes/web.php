@@ -25,9 +25,9 @@ use App\Http\Controllers\Register\RegisterController;
 #de co the truy cap tat ca cac route duoc bao ve boi no
 Route::middleware(["auth"])->group(function () {
   
-    Route::get('/user/home',[HomeController::class,'index'])->name('user');
+    Route::get('user/home',[HomeController::class,'index'])->name('user');
     Route::prefix('admin')->group(function () {
-        Route::get('/home',[MainController::class,'index'])->name('admin');
+        Route::get('home',[MainController::class,'index'])->name('admin');
 
         #Menu
         Route::prefix('menus')->group(function () {
@@ -43,17 +43,18 @@ Route::middleware(["auth"])->group(function () {
         Route::prefix('products')->group(function(){
             Route::get('add',[ProductController::class,'create']); 
             Route::post('add',[ProductController::class,'store']);
+            Route::get('list',[ProductController::class,'index']);
         });
 
         #Upload
         Route::post('upload/services',[UploadController::class,'store']);
 });
 });
-Route::get('/login',[LoginController::class,'index'])->name('login');
-Route::post('/login/store',[LoginController::class,'store']);
-Route::get('/register',[RegisterController::class,'index'])->name('register');
+Route::get('login',[LoginController::class,'index'])->name('login');
+Route::post('login/store',[LoginController::class,'store']);
+Route::get('register',[RegisterController::class,'index'])->name('register');
 Route::post('/register/store',[RegisterController::class,'store']);
 
 // GoogleLoginController redirect and callback urls
-Route::get('/login/google', [GoogleLoginController::class, 'redirectToGoogle']);
-Route::get('/login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+Route::get('login/google', [GoogleLoginController::class, 'redirectToGoogle']);
+Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);

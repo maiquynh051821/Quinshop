@@ -11,7 +11,8 @@ class ProductAdminService
     {
         return Menu::where('active', 1)->get();
     }
-    //Kiem tra gia giam so voi gia goc
+
+    #Kiem tra gia giam so voi gia goc
     protected function isValidPrice($request)
     {
         if (
@@ -27,6 +28,8 @@ class ProductAdminService
         }
         return true;
     }
+
+    #Them san pham
     public function insert($request)
     {
        $isValidPrice = $this->isValidPrice($request);
@@ -43,4 +46,14 @@ class ProductAdminService
        }
       
     }
+
+    #Hien thi danh sach san pham
+
+    public function get()
+    {
+       return Product::with('menu') // 'menu' la relationship trong Models/Admin/Product
+       ->orderByDesc('id')->paginate(5);
+ 
+    }
+
 }
