@@ -53,7 +53,22 @@ class ProductAdminService
     {
        return Product::with('menu') // 'menu' la relationship trong Models/Admin/Product
        ->orderByDesc('id')->paginate(10);
- 
+    }
+
+    public function update($request,$product)
+    {
+        $isValidPrice = $this->isValidPrice($request);
+       if($isValidPrice == false) return false;
+       try{
+        $product->fill($request->input());
+        $product->save();
+        Session::flash('success','Cập nhật thành công');
+       }catch(\Exception $err){
+        Session::flash('error','Cập nhật không thành công');
+        Log::info($err->getMessage());
+        return false;
+       }
+       return true;
     }
 
 }

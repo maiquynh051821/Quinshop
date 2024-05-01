@@ -47,33 +47,27 @@ class ProductController extends Controller
     public function show(Product $product) //tu dong kiem tra id/san pham co trong data hay chua
     {
         return view('admin.product.edit',[
-            'title' => 'Chỉnh sửa sản phẩm',
+            'title' => 'Chỉnh sửa sản phẩm: ' . $product->name,
             'product' => $product,
             'menus' => $this->productService->getMenu(),
         ]);
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(string $id)
-    {
-        //
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Product $product)
     {
-        //
+        $this->productService->update($request,$product);
+        return redirect()->back();
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy()
     {
-        //
+        
     }
 }

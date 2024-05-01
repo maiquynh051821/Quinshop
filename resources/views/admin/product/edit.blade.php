@@ -14,7 +14,6 @@
       <div class="form-group">
         <label>Danh mục</label>
         <select name="menu_id" id="" class="form-control">
-            <option value="0">Bo su tap</option>
             @foreach ($menus as $menu)
             <option value="{{$menu->id}}" {{$product->menu_id == $menu->id ? 'selected' : ''}}>
                 {{$menu->name}}

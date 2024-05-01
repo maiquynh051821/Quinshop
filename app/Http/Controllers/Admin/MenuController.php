@@ -55,7 +55,7 @@ class MenuController extends Controller
   public function show(Menu $menu) //Kiểm tra xem id có tồn tại trong DB hay không
   {
     return view('admin.menu.edit', [
-      'title' => 'Chỉnh sửa danh mục:' . $menu->name,
+      'title' => 'Chỉnh sửa danh mục: ' . $menu->name,
       'menu' => $menu,
       'menus' => $this->menuService->getParent()
     ]);
@@ -65,6 +65,6 @@ class MenuController extends Controller
   public function update(Menu $menu, CreateFormRequest $request)
   {
     $this->menuService->update($request, $menu);
-    return redirect('/admin/menus/list');
+    return redirect()->back();
   }
 }

@@ -45,6 +45,7 @@ Route::middleware(["auth"])->group(function () {
             Route::post('add',[ProductController::class,'store']);
             Route::get('list',[ProductController::class,'index']);
             Route::get('edit/{product}',[ProductController::class,'show']);
+            Route::post('edit/{product}',[ProductController::class,'update']);
 
         });
 

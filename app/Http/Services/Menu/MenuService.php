@@ -1,10 +1,11 @@
 <?php
 
 namespace App\Http\Services\Menu;
-
+use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Admin\Menu;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Log;
 
 class MenuService
 {
@@ -63,14 +64,19 @@ class MenuService
             // Nếu khác, cập nhật parent_id
             $menu->parent_id = (int) $request->input('parent_id');
         }
-        $menu->name = (string) $request->input('name');
+        try{
+            $menu->name = (string) $request->input('name');
         $menu->description = (string) $request->input('description');
         $menu->content = (string) $request->input('content');
         $menu->active = (string) $request->input('active');
         // $menu->fill($request->input()); // Quét toàn bộ thông tin mà request đã lấy thay cho 5 dòng bên trên
         $menu->save();
-
         Session::flash('success','Cập nhật thành công danh mục');
+        }catch(\Exception $err){
+        Session::flash('error','Cập nhật không thành công');
+        Log::info($err->getMessage());
+        return false;
+        }
         return true;
     }
 }
