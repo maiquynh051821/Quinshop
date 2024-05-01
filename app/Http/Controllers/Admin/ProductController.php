@@ -46,7 +46,11 @@ class ProductController extends Controller
      */
     public function show(Product $product) //tu dong kiem tra id/san pham co trong data hay chua
     {
-        //
+        return view('admin.product.edit',[
+            'title' => 'Chỉnh sửa sản phẩm',
+            'product' => $product,
+            'menus' => $this->productService->getMenu(),
+        ]);
     }
 
     /**
