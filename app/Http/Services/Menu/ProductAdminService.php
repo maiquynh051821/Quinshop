@@ -55,6 +55,7 @@ class ProductAdminService
        ->orderByDesc('id')->paginate(10);
     }
 
+    #Cap nhat san pham
     public function update($request,$product)
     {
         $isValidPrice = $this->isValidPrice($request);
@@ -69,6 +70,17 @@ class ProductAdminService
         return false;
        }
        return true;
+    }
+
+    #Xoa san pham
+    public function delete($request)
+    {
+      $product = Product::where('id',$request->input('id'))->first();  // Kiem tra ton tai khong 
+      if($product){
+        $product->delete();
+        return true;
+      }
+      return false;
     }
 
 }

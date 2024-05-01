@@ -33,7 +33,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Luu san pham
      */
     public function store(ProductRequest $request)
     {
@@ -42,7 +42,7 @@ class ProductController extends Controller
     }
 
     /**
-     * Display the specified resource.
+     * Hien thi man hinh edit san pham
      */
     public function show(Product $product) //tu dong kiem tra id/san pham co trong data hay chua
     {
@@ -55,19 +55,30 @@ class ProductController extends Controller
 
 
     /**
-     * Update the specified resource in storage.
+     * Update san pham.
      */
     public function update(Request $request, Product $product)
     {
-        $this->productService->update($request,$product);
+        $result = $this->productService->update($request,$product);
+        if($result){
+            return redirect('/admin/products/list');
+        }
+       
         return redirect()->back();
     }
 
     /**
-     * Remove the specified resource from storage.
+     * Xoa san pham
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
-        
+        $result = $this->productService->delete($request);
+        if($result){
+            return response()->json([
+                'error' => false,
+                'message' => 'Xóa thành công sản phẩm',
+            ]);
+        }
+        return response()->json(['error' => true]);
     }
 }

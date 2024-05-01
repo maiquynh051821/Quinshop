@@ -78,15 +78,6 @@
 <script>
     CKEDITOR.replace('content');
 </script>
-@if (session()->has('success'))
-<script>
-  $(document).ready(function() {
-      setTimeout(function() {
-          $(".alert-success").fadeOut("slow");
-      }, 5000); // Thay đổi bằng số miligiây bạn muốn thông báo hiển thị
-  });
-  </script>
-@endif
 
 @endsection
 
