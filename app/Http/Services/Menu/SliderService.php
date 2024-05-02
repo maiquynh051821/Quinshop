@@ -4,6 +4,7 @@ namespace App\Http\Services\Menu;
 
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\Storage;
 use App\Models\Admin\Menu;
 use App\Models\Admin\Slider;
 
@@ -45,5 +46,16 @@ class SliderService
         }
 
         return true;
+    }
+    public function delete($request)
+    {
+        $slider = Slider::where('id',$request->input('id'))->first();// Kiem tra ton tai khong 
+        if($slider){
+            $path = str_replace('storage','public',$slider->thumb);
+            Storage::delete($path);//xóa tệp liên kết với slider từ bộ lưu trữ 
+            $slider->delete();
+            return true;
+        }
+        return false;
     }
 }

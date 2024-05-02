@@ -13,12 +13,15 @@ class SliderController extends Controller
     {
         $this->slider = $slider;
     }
+    
     public function create()
     {
         return view('admin.slider.add', [
             'title' => 'Thêm Slider',
         ]);
     }
+    
+    #Tao slider
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -29,6 +32,7 @@ class SliderController extends Controller
         $this->slider->insert($request);
         return redirect()->back();
     }
+    #Hien thi list
     public function index()
     {
         return view('admin.slider.list', [
@@ -43,6 +47,8 @@ class SliderController extends Controller
             'slider' => $slider,
         ]);
     }
+
+    #Cap nhat slider
     public function update(Request $request, Slider $slider)
     {
         $this->validate($request, [
@@ -55,6 +61,21 @@ class SliderController extends Controller
             return redirect('/admin/sliders/list');
         }
         return redirect()->back();
+    }
 
+    #Xoa slider
+    public function destroy(Request $request)
+    {
+        $result = $this->slider->delete($request);
+        if($result){
+            return response()->json([
+                'error' => false,
+                'message' => 'Xóa thành công slider',
+            ]);
+        }
+        return response()->json([
+            'error' => true,
+            'message' => 'Không xóa thành công slider', 
+        ]);
     }
 }
