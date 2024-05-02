@@ -36,5 +36,25 @@ class SliderController extends Controller
             'sliders' => $this->slider->get(),
         ]);
     }
-    
+    public function show(Slider $slider)
+    {
+        return view('admin.slider.edit', [
+            'title' => 'Chỉnh sửa Slider: ' . $slider->name,
+            'slider' => $slider,
+        ]);
+    }
+    public function update(Request $request, Slider $slider)
+    {
+        $this->validate($request, [
+            'name' => 'required',
+            'thumb' => 'required',
+            'url' => 'required',
+        ]);
+        $result = $this->slider->update($request,$slider);
+        if($request){
+            return redirect('/admin/sliders/list');
+        }
+        return redirect()->back();
+
+    }
 }
