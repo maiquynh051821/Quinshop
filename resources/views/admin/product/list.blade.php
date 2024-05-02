@@ -35,7 +35,9 @@
             <td style="padding-left:20px">{{optional($product->menu)->name}}</td>
             <td style="text-align:center">{{ number_format($product->price, 0, ',', '.') }} ₫</td>
             <td style="text-align:center">{{ number_format($product->price_sale, 0, ',', '.') }} ₫</td>
-            <td style="text-align:center"><img src="{{ $product->thumb }}" alt="Thumbnail" class="img-thumbnail"></td>
+            <td style="text-align:center"><a href="{{ $product->thumb }}">
+              <img src="{{ $product->thumb }}" alt="Thumbnail" class="img-thumbnail"></a>
+            </td>
             <td style="text-align:center;">{!! \App\Helpers\Helper::active($product->active) !!} </td>
             <td style="text-align:center;">{{$product->updated_at}}</td>
             <td> 
