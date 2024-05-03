@@ -8,9 +8,10 @@ use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
-use App\Http\Controllers\User\HomeController;
+use App\Http\Controllers\User\MainshopController;
 use App\Http\Controllers\Register\RegisterController;
-use App\Models\Admin\Product;
+
+
 
 /*
 |--------------------------------------------------------------------------
@@ -24,9 +25,8 @@ use App\Models\Admin\Product;
 */
 #Middleware auth duoc su dung de dam bao rang nguoi dung phai dang nhap 
 #de co the truy cap tat ca cac route duoc bao ve boi no
-Route::middleware(["auth"])->group(function () {
+Route::middleware(['admin'])->group(function () {
   
-    Route::get('user/home',[HomeController::class,'index'])->name('user');
     Route::prefix('admin')->group(function () {
         Route::get('home',[MainController::class,'index'])->name('admin');
 
@@ -71,3 +71,12 @@ Route::post('/register/store',[RegisterController::class,'store']);
 // GoogleLoginController redirect and callback urls
 Route::get('login/google', [GoogleLoginController::class, 'redirectToGoogle']);
 Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+
+
+Route::middleware(['user'])->group(function(){
+    
+    Route::get('user/home',[MainshopController::class,'index'])->name('user');
+
+});
+
+// Route::get('/',[MainshopController::class,'index']);
