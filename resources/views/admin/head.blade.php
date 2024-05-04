@@ -10,4 +10,4 @@
 <!-- Theme style -->
 <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/css/adminlte.min.css">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-@yield('header')
+@yield('head')

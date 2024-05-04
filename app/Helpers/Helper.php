@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Helpers;
-
+use Illuminate\Support\Str;
 class Helper
 {
 // Tao HTML cho menu tu 1 mang cac menu duoc  cung cap
@@ -41,5 +41,19 @@ class Helper
         '" style="width: 20px; height: 20px;"></div></div>';
     }
     
-
+    public static function menus($menus,$parent_id = 0){
+       $html = '';
+       foreach($menus as $key => $menu){
+        if($menu->parent_id == $parent_id){
+            $html .= '
+            <li>
+                <a href="/danh-muc/' . $menu->id . '-'. Str::slug($menu->name,'-') .'.html">
+                ' . $menu->name . '
+                </a>
+            </li>
+            ';
+        }
+       }
+       return $html;
+    }
 }

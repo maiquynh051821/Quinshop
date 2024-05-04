@@ -75,8 +75,8 @@ Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogle
 
 Route::middleware(['user'])->group(function(){
     
-    Route::get('user/home',[MainshopController::class,'index'])->name('user');
+    // Route::get('user/home',[MainshopController::class,'index'])->name('user');
 
 });
 
-// Route::get('/',[MainshopController::class,'index']);
+Route::get('/',[MainshopController::class,'index']);

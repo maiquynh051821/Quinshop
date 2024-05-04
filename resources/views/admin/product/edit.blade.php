@@ -1,6 +1,6 @@
 @extends('admin.main')
 
-@section('header')
+@section('head')
 <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 @endsection
 
