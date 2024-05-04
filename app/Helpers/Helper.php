@@ -1,10 +1,12 @@
 <?php
 
 namespace App\Helpers;
+
 use Illuminate\Support\Str;
+
 class Helper
 {
-// Tao HTML cho menu tu 1 mang cac menu duoc  cung cap
+    // Tao HTML cho menu tu 1 mang cac menu duoc  cung cap
     public static function menu($menus, $parent_id = 0, $char = '')
     {
         $html = '';
@@ -29,31 +31,48 @@ class Helper
                 </tr>
                 ';
                 unset($menus[$key]);
-                $html .= self::menu($menus,$menu->id,$char . ' |--> ');
+                $html .= self::menu($menus, $menu->id, $char . ' |--> ');
             }
         }
         return $html;
     }
-    public static function active($active = 0) : string
+    public static function active($active = 0): string
     {
         return '<div class="col d-flex justify-content-center">
-        <div class="rounded-circle ' . ($active == 0 ? 'bg-danger' : 'bg-success') . 
-        '" style="width: 20px; height: 20px;"></div></div>';
+        <div class="rounded-circle ' . ($active == 0 ? 'bg-danger' : 'bg-success') .
+            '" style="width: 20px; height: 20px;"></div></div>';
     }
-    
-    public static function menus($menus,$parent_id = 0){
-       $html = '';
-       foreach($menus as $key => $menu){
-        if($menu->parent_id == $parent_id){
-            $html .= '
+
+    #Load danh muc ra trang chu
+    public static function menus($menus, $parent_id = 0)
+    {
+        $html = '';
+        foreach ($menus as $key => $menu) {
+            if ($menu->parent_id == $parent_id) {
+                $html .= '
             <li>
-                <a href="/danh-muc/' . $menu->id . '-'. Str::slug($menu->name,'-') .'.html">
+                <a href="/danh-muc/' . $menu->id . '-' . Str::slug($menu->name, '-') . '.html">
                 ' . $menu->name . '
-                </a>
-            </li>
-            ';
+                </a>';
+
+                if(self::isChild($menus,$menu->id)){
+                    $html .= '<ul class="sub-menu">';
+                    $html .= self::menus($menus,$menu->id);
+                    $html .= '</ul>';
+                }
+                $html .= '</li>';
+            }
         }
-       }
-       return $html;
+        return $html;
+    }
+    #Kiem tra danh muc cha co danh muc con khong
+    public static function isChild($menus, $id)
+    {
+        foreach($menus as $key => $menu){
+            if($menu->parent_id == $id){
+                return true;
+            }  
+        }
+        return false;
     }
 }
