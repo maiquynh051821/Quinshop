@@ -11,7 +11,9 @@
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/css/adminlte.min.css">
     <title>Qinnn-Shop</title>
 </head>
-
+@php
+  $menusHtml = \App\Helpers\Helper::menus($menus);
+@endphp
 <body>
     <section class="fixed-header">
         <div class="logo">
@@ -19,20 +21,9 @@
         </div>
         <div class="menu">
 			<li><a href="">Trang chủ</a></li>
-			{!! \App\Helpers\Helper::menus($menus) !!}
+
+			{!! $menusHtml !!}
 			
-            {{-- <li><a href="">HOME</a></li>
-            <a href=""></a>
-            <li><a href="">NỮ</a>
-                <ul class="sub-menu">
-                    <li><a href="category.html">Hàng mới về</a></li>
-                    <li><a href="">Trendy</a></li>
-                    <li><a href="">Áo</a></li>
-                    <li><a href="">Quần</a></li>
-                </ul>
-            </li>
-            <li><a href="">NAM</a></li>
-            <li><a href="">TRẺ EM</a></li> --}}
         </div>
         <div class="others">
             <input placeholder="Tìm kiếm" type="text" >

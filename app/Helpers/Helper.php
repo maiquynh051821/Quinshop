@@ -44,7 +44,7 @@ class Helper
     }
 
     #Load danh muc ra trang chu
-    public static function menus($menus, $parent_id = 0)
+    public static function menus($menus, $parent_id = 0):string
     {
         $html = '';
         foreach ($menus as $key => $menu) {
@@ -54,7 +54,7 @@ class Helper
                 <a href="/danh-muc/' . $menu->id . '-' . Str::slug($menu->name, '-') . '.html">
                 ' . $menu->name . '
                 </a>';
-
+                unset($menus[$key]); // Xoa phan tu cua mang , muc dich loai bo cac danh muc da duoc xu ly ra khoi mang
                 if(self::isChild($menus,$menu->id)){
                     $html .= '<ul class="sub-menu">';
                     $html .= self::menus($menus,$menu->id);
@@ -66,7 +66,7 @@ class Helper
         return $html;
     }
     #Kiem tra danh muc cha co danh muc con khong
-    public static function isChild($menus, $id)
+    public static function isChild($menus, $id):bool
     {
         foreach($menus as $key => $menu){
             if($menu->parent_id == $id){
