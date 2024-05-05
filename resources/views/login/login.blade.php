@@ -54,7 +54,7 @@
         </form>
         <div class="text-center">
           <p>- Hoặc -</p>
-          <button type="button" class="btn btn-danger mb-3"> <a style="color:rgb(255, 255, 255); text-decoration: none;" 
+          <button type="button" class="btn mb-3" style=" background-image: linear-gradient(to right, #ff4e50, #f9d423);"> <a style="color:rgb(255, 255, 255); text-decoration: none;" 
             href="/login/google"><i class="fab fa-google" ></i> Đăng nhập bằng Google+</a></button>
           <p><a href="#">Bạn quên mật khẩu?</a></p>
           <p>Bạn chưa có tài khoản? <a href="/register" >Đăng ký</a></p>

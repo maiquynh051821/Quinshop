@@ -13,7 +13,7 @@ class MainshopController extends Controller
     }
     public function index()
     {
-        return view('user.main',[
+        return view('user.home',[
             'title' => 'Quin shop',
             'sliders'=> $this->slider->show(),
             

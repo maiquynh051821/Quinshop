@@ -20,7 +20,7 @@
             <b>QUIN-SHOP</b>
         </div>
         <div class="menu">
-			<li><a href="">Trang chủ</a></li>
+			<li><a href="/">Trang chủ</a></li>
 
 			{!! $menusHtml !!}
 			
@@ -33,7 +33,7 @@
 			<li><a href="" class="fa fa-shopping-bag"></a></li>
 		</div>
 		<div class="login">
-			<li><a href=""><button class="btn btn-success">Đăng nhập</button></a></li>
+			<li><a href="/login"><button class="btn btn-success">Đăng nhập</button></a></li>
 		</div>
     </section>
     @yield('user.header')
