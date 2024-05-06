@@ -28,53 +28,7 @@
     <section class="category">
         <h2>Tổng quan sản phẩm</h2>
         <h6>Tất cả sản phẩm</h6>
-        <div class="category-content">
-            <div class="category-content-item">
-            <a href="#"><img class="anhsp" src="/template/images/product-01.jpg" alt="">
-                <h1>Đầm trễ vai xoắn ngực</h1>
-                <div class="price-product">
-                    <ins><span>500.000<sup>đ</sup></span></ins>
-                    <del><span>700.000<sup>đ</sup></span></del>
-                </div>
-            </a>
-            </div>
-            <div class="category-content-item">
-                <a href="#"><img class="anhsp" src="/template/images/product-01.jpg" alt="">
-                    <h1>Đầm trễ vai xoắn ngực</h1>
-                    <div class="price-product">
-                        <ins><span>500.000<sup>đ</sup></span></ins>
-                        <del><span>700.000<sup>đ</sup></span></del>
-                    </div>
-                </a>
-                </div>
-                <div class="category-content-item">
-                    <a href="#"><img class="anhsp" src="/template/images/product-01.jpg" alt="">
-                        <h1>Đầm trễ vai xoắn ngực</h1>
-                        <div class="price-product">
-                            <ins><span>500.000<sup>đ</sup></span></ins>
-                            <del><span>700.000<sup>đ</sup></span></del>
-                        </div>
-                    </a>
-                    </div>
-                    <div class="category-content-item">
-                        <a href="#"><img class="anhsp" src="/template/images/product-01.jpg" alt="">
-                            <h1>Đầm trễ vai xoắn ngực</h1>
-                            <div class="price-product">
-                                <ins><span>500.000<sup>đ</sup></span></ins>
-                                <del><span>700.000<sup>đ</sup></span></del>
-                            </div>
-                        </a>
-                        </div>
-                        <div class="category-content-item">
-                            <a href="#"><img class="anhsp" src="/template/images/product-01.jpg" alt="">
-                                <h1>Đầm trễ vai xoắn ngực</h1>
-                                <div class="price-product">
-                                    <ins><span>500.000<sup>đ</sup></span></ins>
-                                    <del><span>700.000<sup>đ</sup></span></del>
-                                </div>
-                            </a>
-                            </div>                
-        </div>
+        @include('user.products.list')
         <div class="button-loadmore">
             <button>XEM THÊM</button>
         </div>

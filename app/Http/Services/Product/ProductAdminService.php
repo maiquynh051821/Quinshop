@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Services\Menu;
+namespace App\Http\Services\Product;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Session;
 use App\Models\Admin\Menu;

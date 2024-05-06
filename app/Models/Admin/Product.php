@@ -22,7 +22,7 @@ class Product extends Model
 
     public function menu()
     {
-        return $this->hasOne(Menu::class,'id','menu_id'); // 'id':khoa chinh, 'menu_id':khoa phu
-        
+        return $this->hasOne(Menu::class,'id','menu_id')// 'id':khoa chinh, 'menu_id':khoa phu
+        ->withDefault(['name'=>'']);
     }
 }

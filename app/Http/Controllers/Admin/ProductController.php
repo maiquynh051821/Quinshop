@@ -5,7 +5,7 @@ use App\Models\Admin\Product;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product\ProductRequest;
-use App\Http\Services\Menu\ProductAdminService;
+use App\Http\Services\Product\ProductAdminService;
 class ProductController extends Controller
 {
     /**
