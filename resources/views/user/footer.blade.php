@@ -16,6 +16,7 @@
         </div>
     </footer>
     <script rel="stylesheet" src="/template/bootstrap-5.3.3-dist/js/bootstrap.bundle.min.js"></script>
+    <script rel="stylesheet" src="/template/js/public.js"></script>
 </body>
 </html>
 @yield('user.footer')

@@ -80,3 +80,4 @@ Route::middleware(['user'])->group(function(){
 });
 
 Route::get('/',[MainshopController::class,'index']);
+Route::post('/services/load-product', [MainshopController::class, 'loadProduct']);

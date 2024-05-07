@@ -326,8 +326,8 @@ margin-right: 20px;
 
 .category-content-item .anhsp {
   width: 100%; /* Chiều rộng của khung hiển thị */
-  height: 600px; /* Chiều cao cố định của khung hiển thị */
-  object-fit: cover; /* Cắt ảnh sao cho vừa với khung hiển thị */
+  /* height: 600px; Chiều cao cố định của khung hiển thị */
+  /* object-fit: cover; Cắt ảnh sao cho vừa với khung hiển thị */
   border-radius: 2px;
   margin-bottom: 10px;
 }
@@ -372,32 +372,32 @@ margin-right: 20px;
   background-color: #6c6c6d; /* Màu nền khi hover */
 }
 
-/* Điều chỉnh độ rộng của item để chỉ hiển thị 4 sản phẩm trên mỗi dòng */
+/* Điều chỉnh độ rộng của item để chỉ hiển thị 3 sản phẩm trên mỗi dòng */
 @media (max-width: 1200px) {
   .category-content-item {
     width: calc(33.33% - 20px);
   }
-  .category-content-item .anhsp {
+  /* .category-content-item .anhsp {
     height: 500px; /* Chiều cao cố định của khung hiển thị */
-  }
+  /* } */ 
 }
 
 @media (max-width: 768px) {
   .category-content-item {
     width: calc(50% - 20px);
   }
-  .category-content-item .anhsp {
+  /* .category-content-item .anhsp {
     height: 400px; /* Chiều cao cố định của khung hiển thị */
-  }
+  /* } */ 
 }
 
 @media (max-width: 576px) {
   .category-content-item {
     width: calc(100% - 20px);
   }
-  .category-content-item .anhsp {
+  /* .category-content-item .anhsp {
     height: 300px; /* Chiều cao cố định của khung hiển thị */
-  }
+  /* }  */
 }
 
 /*--------------- Product------------------- */

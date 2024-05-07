@@ -6,6 +6,7 @@
         <div class="carousel-inner">
             @foreach ($sliders as $key => $slider)
             <div class="carousel-item{{ $key == 0 ? ' active' : '' }}" data-bs-interval="10000">
+                 {{-- Tu dong chuyen slider sau 10s --}}
                 <img src="{{ $slider->thumb }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{{$slider->name }}</h5>
@@ -28,9 +29,13 @@
     <section class="category">
         <h2>Tổng quan sản phẩm</h2>
         <h6>Tất cả sản phẩm</h6>
-        @include('user.products.list')
-        <div class="button-loadmore">
-            <button>XEM THÊM</button>
+        <div id="loadProduct">
+            @include('user.products.list')
+        </div>
+
+        <div class="button-loadmore" id="button-loadMore">
+            <input type="hidden" value="1" id="page">
+            <a onclick="loadMore()"><button>XEM THÊM</button></a>
         </div>
     </section>
 @endsection
