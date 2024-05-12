@@ -16,7 +16,7 @@ class MenushopController extends Controller
     public function index(Request $request, $id, $slug = '')
     {
         $menu = $this->menuService->getId($id);
-        $products = $this->menuService->getProduct($menu);
+        $products = $this->menuService->getProduct($menu, $request);
         return view('user.menu',[
             'title' => $menu->name,
             'products' => $products,

@@ -84,11 +84,16 @@ class MenuService
     {
         return Menu::where('id',$id)->where('active',1)->firstOrFail(); // Kiem tra id neu co thi ok neu khong thi bao loi
     }
-    public function getProduct($menu){
-        return $menu->products()
+    public function getProduct($menu, $request){
+       $query = $menu->products()
         ->select('id','name','price','price_sale', 'thumb')
-        ->where('active',1)
-        ->orderBy('id')
-        ->paginate(12);
+        ->where('active',1);
+        if($request->input('price_sale')){
+            $query->orderBy('price_sale',$request->input('price_sale'));
+        }
+        return $query
+        ->orderByDesc('id')
+        ->paginate(12)
+        ->withQueryString();
     }
 }
