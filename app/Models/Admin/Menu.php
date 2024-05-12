@@ -16,4 +16,8 @@ class Menu extends Model
         'content',
         'active'
     ];
+    public function products()
+    {
+        return $this->hasMany(Product::class,'menu_id','id'); // 1 menu co nhieu san pham
+    }
 }
