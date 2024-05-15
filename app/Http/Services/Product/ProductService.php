@@ -16,4 +16,13 @@ class ProductService
       ->limit(self::LIMIT) // gioi han so lượng kết quả trả về mỗi lần
       ->get();
     }
+
+    public function show($id)
+    {
+      return Product::where('id',$id)
+      ->where('active',1)
+      ->with('menu') // function trong Model/Product
+      ->firstOrFail();
+      
+    }
 }

@@ -1,8 +1,8 @@
 @extends('user.main')
 
 @section('body')
-    <section class="product">
-        <div class="product-top">
+    <section class="menu-product">
+        <div class="menu-product-top">
             <h3>{{ $title }}</h3>
         </div>
         <div class="filter">

@@ -18,7 +18,7 @@ class MainshopController extends Controller
     public function index()
     {
         return view('user.home',[
-            'title' => 'Quin shop',
+            'title' => 'Quin-shop',
             'sliders'=> $this->slider->show(),
             'products' =>$this->product->get(),
         ]);

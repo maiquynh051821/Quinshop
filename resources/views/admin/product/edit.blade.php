@@ -30,11 +30,11 @@
       <input type="number" name="price_sale" value="{{$product->price_sale}}" class="form-control" id="price_sale" min="0">
     </div>
     <div class="form-group">
-        <label for="description">Mô tả</label>
+        <label for="description">Mô tả chi tiết</label>
         <textarea name="description" id="description" class="form-control">{{$product->description}} </textarea>
       </div>
       <div class="form-group">
-        <label for="content">Mô tả chi tiết</label>
+        <label for="content">Cách bảo quản</label>
         <textarea name="content" id="content" class="form-control">{{$product->content}} </textarea>
       </div>
       <div class="form-group">
@@ -77,6 +77,8 @@
 {{-- Tạo ckeditor cho mục mô tả chi tiết --}}
 <script>
     CKEDITOR.replace('content');
+    CKEDITOR.replace('description');
+
 </script>
 
 @endsection

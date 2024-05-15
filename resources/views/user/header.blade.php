@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/css/adminlte.min.css">
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/js/bootstrap.js">
     <link rel="shortcut icon" type="image/png" href="/template/images/icons/logo-quinshop.png"/> 
-    <title>Qinnn-Shop</title>
+    <title>{{$title}}</title>
 </head>
 @php
   $menusHtml = \App\Helpers\Helper::menus($menus);
