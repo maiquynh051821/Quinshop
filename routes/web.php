@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
 use App\Http\Controllers\User\MainshopController;
 use App\Http\Controllers\Register\RegisterController;
+use App\Http\Controllers\User\CartshopController;
 use App\Http\Controllers\User\MenushopController;
 use App\Http\Controllers\User\ProductshopController;
 
@@ -85,3 +86,5 @@ Route::get('/',[MainshopController::class,'index']);
 Route::post('/services/load-product', [MainshopController::class, 'loadProduct']);
 Route::get('danh-muc/{id}-{slug}.html',[MenushopController::class,'index']);
 Route::get('san-pham/{id}-{slug}.html',[ProductshopController::class,'index']);
+Route::post('add-cart',[CartshopController::class,'index']);
+Route::get('carts',[CartshopController::class,'show']);

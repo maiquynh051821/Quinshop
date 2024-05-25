@@ -32,8 +32,8 @@ class ProductRequest extends FormRequest
         return[
           'name.required' => 'Vui lòng nhập tên sản phẩm',
           'thumb.required' => 'Không được để trống ảnh',
-          'description.required' => 'Vui lòng nhập mô tả',
-          'content.required' => 'Vui lòng nhập chi tiết mô tả',
+          'description.required' => 'Vui lòng nhập mô tả chi tiết',
+          'content.required' => 'Vui lòng nhập cách bảo quản',
         //   'thumb.mimes' => 'Tệp ảnh phải có định dạng JPG, JPEG, GIF, PNG hoặc SVG',
         ];
     }
