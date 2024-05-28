@@ -38,22 +38,65 @@ class CartService
             // Log::info('Tăng số lượng sản phẩm trong giỏ hàng', ['cartKey' => $cartKey, 'quantity' => $carts[$cartKey]['quantity']]);
         } else {
             $carts[$cartKey] = [
+                'product_id' => $product_id,
                 'quantity' => $qty,
                 'size' => $size
             ];
             // Log::info('Thêm mới sản phẩm vào giỏ hàng', ['cartKey' => $cartKey]);
         }
 
-        // Đảm bảo rằng không có phần tử không hợp lệ nào trong giỏ hàng
+        //  Kiểm tra phần tử không hợp lệ nào trong giỏ hàng
         foreach ($carts as $key => $value) {
             if (strpos($key, '-') === false || !isset($value['quantity']) || !isset($value['size'])) {
                 unset($carts[$key]);  // Loại bỏ phần tử không hợp lệ
             }
         }
-        Session::put('carts', $carts);
-        Session::save();  // Đảm bảo lưu session sau khi cập nhật
 
-        Log::info('Giỏ hàng đã được cập nhật', ['carts' => Session::get('carts')]);
+        Log::info('Session before save in create method', ['session' => Session::all()]);
+        Session::put('carts', $carts);
+        Session::save();
+        Log::info('Session after save in create method', ['session' => Session::all()]);
+        // dd($carts);
         return true;
+    }
+
+    public function getProduct()
+    {
+
+        Log::info('Session before retrieval in getProduct method', ['session' => Session::all()]);
+        $carts = Session::get('carts', []);
+        Log::info('Session after retrieval in getProduct method', ['session' => Session::all()]);
+        //    dd($carts);
+
+        if (count($carts) == 0) {
+            return [];
+        }
+
+
+        $productIds = array_map(function ($key) {
+            return explode('-', $key)[0];
+        }, array_keys($carts));
+        $productIds = array_unique($productIds);
+
+        $products = Product::select('id', 'name', 'price', 'price_sale', 'thumb')
+            ->where('active', 1)
+            ->whereIn('id', $productIds)
+            ->get();
+
+        $productDetails = [];
+        foreach ($products as $product) {
+            foreach ($carts as $key => $details) {
+                list($productId, $size) = explode('-', $key);
+                if ($productId == $product->id) {
+                    $productDetails[] = [
+                        'product' => $product,
+                        'size' => $details['size'],
+                        'quantity' => $details['quantity']
+                    ];
+                }
+            }
+        }
+
+        return $productDetails;
     }
 }

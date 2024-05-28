@@ -517,12 +517,22 @@ margin-right: 20px;
   margin-top: 30px;
   border-top: 1px solid #ddd;
   padding-top: 20px;
+  position: relative;
 }
 .product-content-right-bottom-top {
-  cursor: pointer;
-  text-align: center;
-  font-size: 18px;
-  font-weight: bold;
+  position: absolute;
+    width: 30px;
+    height: 30px;
+    border: 1px solid rgb(172, 170, 170);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(250, 241, 241);
+    top: -15px;
+    left: 50%;
+    border-radius: 20px;
+    color: rgb(18, 27, 20);
+    transform: translateX(-50%);
 }
 .product-content-right-bottom-content-big {
   display: none;
@@ -542,7 +552,7 @@ margin-right: 20px;
 /* ---------------------- Cart---------------------- */
 
 .cart {
-  padding: 80px 0;
+  padding: 80px 50px;
 }
 
 .cart-top-wrap {
@@ -604,6 +614,7 @@ margin-right: 20px;
 .cart-content-left table p {
   font-family: var(--main-text-font);
   font-size: 12px;
+  padding-top: 13px;
 }
 
 .cart-content-left table input {
@@ -634,7 +645,7 @@ margin-right: 20px;
 .cart-content-right {
   flex: 1;
   padding-left: 40px;
-  border-left: 1px solid rgb(146, 146, 146);
+  border-left: 2px solid rgb(146, 146, 146);
 }
 .cart-content-right table {
   width: 100%;
@@ -651,6 +662,9 @@ margin-right: 20px;
   font-size: 12px;
   color: #333;
   padding: 5px 0;
+}
+.cart-content-right table td p{
+  padding-top: 12px;
 }
 .cart-content-right tr:nth-child(4) td {
   border-bottom: 2px solid #dddd;
@@ -694,4 +708,3 @@ margin-right: 20px;
 }
 
 
-/* ----------- Đăng nhập ------------- */

@@ -41,33 +41,7 @@
                     </div>
 
                     @if ($product->price_sale == null && $product->price == NULL )
-                            <div class="product-content-right-size">
-                                <p style="font-weight: bold;">Size :
-                                    <select class="size" name="size">
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
-                                        <option value="XL">XL</option>
-                                    </select>
-                                </p>
-                                <p style="color: red;font-size: 12px;">Vui lòng chọn size *</p>
-                            </div>
-
-                            <div class="quantity">
-                                <p style="font-weight:bold">Số lượng : </p>
-                                <input type="number" name="num_product" min="1" value="1">
-                            </div>
-
-                            <input type="hidden" name="product_id" value="{{ $product->id }}">
-                            <input type="hidden" name="product_size" value="S">
-
-                            <div class="product-content-right-button">
-                                <button type="submit">
-                                    <i class="fas fa-shopping-cart">
-                                        <p style="padding-top: 7px;">Thêm vào giỏ hàng</p>
-                                    </i>
-                                </button>
-                            </div>
+                           
                         @endif
 
                     <!-- Form để thêm san phẩm vao gio hàng -->
@@ -102,6 +76,7 @@
                                 </button>
                             </div>
                         @endif
+                       
                         @csrf
                     </form>
 

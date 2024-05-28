@@ -15,6 +15,8 @@ class CartshopController extends Controller
     {
         $this->cartService = $cartService;
     }
+
+    // Them san pham vao gio hang 
     public function index(Request $request)
     {
         $result = $this->cartService->create($request);
@@ -22,5 +24,16 @@ class CartshopController extends Controller
             return redirect()->back();
         }
         return redirect('/carts');
+    }
+ 
+    public function show()
+    {
+        $products = $this->cartService->getProduct();
+        // dd($products);
+        return view('user.carts.list',[
+            'title' => "Giỏ hàng",
+            'products' => $products,
+        ]);
+       
     }
 }

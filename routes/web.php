@@ -28,7 +28,7 @@ use App\Http\Controllers\User\ProductshopController;
 */
 #Middleware auth duoc su dung de dam bao rang nguoi dung phai dang nhap 
 #de co the truy cap tat ca cac route duoc bao ve boi no
-Route::middleware(['admin'])->group(function () {
+Route::middleware(['web','admin'])->group(function () {
   
     Route::prefix('admin')->group(function () {
         Route::get('home',[MainController::class,'index'])->name('admin');
@@ -66,25 +66,27 @@ Route::middleware(['admin'])->group(function () {
         Route::post('upload/services',[UploadController::class,'store']);
 });
 });
-Route::get('login',[LoginController::class,'index'])->name('login');
-Route::post('login/store',[LoginController::class,'store']);
-Route::get('register',[RegisterController::class,'index'])->name('register');
-Route::post('/register/store',[RegisterController::class,'store']);
-
-// GoogleLoginController redirect and callback urls
-Route::get('login/google', [GoogleLoginController::class, 'redirectToGoogle']);
-Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
-
-
-Route::middleware(['user'])->group(function(){
+Route::middleware('web')->group(function(){
+    Route::get('login',[LoginController::class,'index'])->name('login');
+    Route::post('login/store',[LoginController::class,'store']);
+    Route::get('register',[RegisterController::class,'index'])->name('register');
+    Route::post('/register/store',[RegisterController::class,'store']);
     
-    // Route::get('user/home',[MainshopController::class,'index'])->name('user');
-
+    // GoogleLoginController redirect and callback urls
+    Route::get('login/google', [GoogleLoginController::class, 'redirectToGoogle']);
+    Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+    
+    
+    Route::middleware(['user'])->group(function(){
+        
+        // Route::get('user/home',[MainshopController::class,'index'])->name('user');
+    
+    });
+    
+    Route::get('/',[MainshopController::class,'index']);
+    Route::post('/services/load-product', [MainshopController::class, 'loadProduct']);
+    Route::get('danh-muc/{id}-{slug}.html',[MenushopController::class,'index']);
+    Route::get('san-pham/{id}-{slug}.html',[ProductshopController::class,'index']);
+    Route::post('add-cart',[CartshopController::class,'index']);
+    Route::get('carts',[CartshopController::class,'show']);
 });
-
-Route::get('/',[MainshopController::class,'index']);
-Route::post('/services/load-product', [MainshopController::class, 'loadProduct']);
-Route::get('danh-muc/{id}-{slug}.html',[MenushopController::class,'index']);
-Route::get('san-pham/{id}-{slug}.html',[ProductshopController::class,'index']);
-Route::post('add-cart',[CartshopController::class,'index']);
-Route::get('carts',[CartshopController::class,'show']);
