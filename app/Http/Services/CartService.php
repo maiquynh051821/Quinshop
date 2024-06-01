@@ -54,13 +54,16 @@ class CartService
         Session::put('carts', $carts);
         Session::save();
         // dd($carts);
+        Log::info('Updated carts in create method', ['carts' => Session::get('carts')]);
         return true;
     }
 
     public function getProduct()
     {
+        Log::info('Retrieved carts in getProduct method', ['carts' => Session::get('carts')]);
         $carts = Session::get('carts', []);
         //    dd($carts);
+        Log::info('Final carts in getProduct method', ['carts' => $carts]);
 
         if (count($carts) == 0) {
             return [];
@@ -80,17 +83,50 @@ class CartService
         $productDetails = [];
         foreach ($products as $product) {
             foreach ($carts as $key => $details) {
-                list($productId, $size) = explode('-', $key);
-                if ($productId == $product->id) {
-                    $productDetails[] = [
-                        'product' => $product,
-                        'size' => $details['size'],
-                        'quantity' => $details['quantity']
-                    ];
+                $parts = explode('-', $key);
+                if (count($parts) == 2) {
+                    list($productId, $size) = $parts;
+                    if ($productId == $product->id) {
+                        $productDetails[] = [
+                            'product' => $product,
+                            'size' => $details['size'],
+                            'quantity' => $details['quantity']
+                        ];
+                    }
+                } else {
+                    // Tùy chọn xử lý lỗi hoặc bỏ qua mục nhập này
+                    Log::error("Định dạng khóa giỏ hàng không hợp lệ: $key");
                 }
             }
         }
 
         return $productDetails;
+    }
+    public function update($request)
+    {
+    $products = $request->input('products');
+    $carts = Session::get('carts', []);
+
+    foreach ($products as $productId => $sizes) {
+        foreach ($sizes as $size => $details) {
+            $quantity = (int) $details['quantity'];
+
+            $cartKey = $productId . '-' . $size;
+            if (!isset($carts[$cartKey])) {
+                continue; // Bỏ qua nếu sản phẩm không tồn tại
+            }
+
+            if ($quantity <= 0) {
+                unset($carts[$cartKey]); // Xóa sản phẩm nếu số lượng là 0 hoặc nhỏ hơn
+            } else {
+                $carts[$cartKey]['quantity'] = $quantity; // Cập nhật số lượng mới
+            }
+        }
+    }
+
+
+    Session::put('carts', $carts); // Lưu lại giỏ hàng đã cập nhật vào session
+    Session::save();
+    return true;
     }
 }

@@ -85,7 +85,7 @@
                             &#8711;
                         </div>
                         <div class="product-content-right-bottom-content-big">
-                            <div class="product-content-right-bottom-content-title">
+                            <div style="border-bottom:1px solid #e2e2e2;"  class="product-content-right-bottom-content-title">
                                 <div class="product-content-right-bottom-content-title-item chitiet">
                                     <p>Mô tả chi tiết</p>
                                 </div>
@@ -93,7 +93,8 @@
                                     <p>Cách bảo quản</p>
                                 </div>
                             </div>
-                            <div class="product-content-right-bottom-content">
+                            
+                            <div style="margin-top: 20px" class="product-content-right-bottom-content">
                                 <div class="product-content-right-bottom-content-chitiet">
                                     <p>{!! $product->description !!}</p>
                                 </div>

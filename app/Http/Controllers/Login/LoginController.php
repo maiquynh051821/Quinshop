@@ -35,10 +35,10 @@ class LoginController extends Controller
             $request->remember
         )) {
 
-            //Kiem tra ghi nho dang nhap hay khong, luu phien dang nhap trong 1h = 3600s
+            //Kiem tra ghi nho dang nhap hay khong, luu phien dang nhap trong 10h = 36000s
             if ($request->remember) {
-                setcookie("email", $request->email, time() + 3600,);
-                setcookie("password", $request->password, time() + 3600,);
+                setcookie("email", $request->email, time() + 36000,);
+                setcookie("password", $request->password, time() + 36000,);
             } else {
                 setcookie("email", "");
                 setcookie("password", "");

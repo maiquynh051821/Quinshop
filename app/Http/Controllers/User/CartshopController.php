@@ -33,7 +33,12 @@ class CartshopController extends Controller
         return view('user.carts.list',[
             'title' => "Giỏ hàng",
             'products' => $products,
+            'carts' => session::get('carts')
         ]);
-       
+    }
+    public function update(Request $request)
+    {
+        $this->cartService->update($request);
+        return redirect('/carts');
     }
 }

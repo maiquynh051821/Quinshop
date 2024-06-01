@@ -34,7 +34,7 @@
 				<button><i class="fas fa-search"></i></button>
         </div>
 		<div class="shopping">
-			<li><a href="" class="fa fa-shopping-bag"></a></li>
+			<li><a href="/carts" class="fa fa-shopping-bag"></a></li>
 		</div>
 		<div class="login">
 			<li><a href="/login"><button class="btn btn-success">Đăng nhập</button></a></li>

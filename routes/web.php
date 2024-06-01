@@ -15,7 +15,6 @@ use App\Http\Controllers\User\MenushopController;
 use App\Http\Controllers\User\ProductshopController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -79,7 +78,7 @@ Route::middleware(['admin'])->group(function () {
     
     Route::middleware(['user'])->group(function(){
         
-        // Route::get('user/home',[MainshopController::class,'index'])->name('user');
+        Route::get('user/home',[MainshopController::class,'index'])->name('user');
     
     });
     
@@ -89,4 +88,5 @@ Route::middleware(['admin'])->group(function () {
     Route::get('san-pham/{id}-{slug}.html',[ProductshopController::class,'index']);
     Route::post('add-cart',[CartshopController::class,'index']);
     Route::get('carts',[CartshopController::class,'show']);
+    Route::post('update-cart',[CartshopController::class,'update']);
 
