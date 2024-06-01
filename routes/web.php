@@ -89,4 +89,4 @@ Route::middleware(['admin'])->group(function () {
     Route::post('add-cart',[CartshopController::class,'index']);
     Route::get('carts',[CartshopController::class,'show']);
     Route::post('update-cart',[CartshopController::class,'update']);
-
+    Route::post('/remove-cart', [CartshopController::class, 'remove']);

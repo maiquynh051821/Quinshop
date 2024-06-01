@@ -25,20 +25,28 @@ class CartshopController extends Controller
         }
         return redirect('/carts');
     }
- 
+
     public function show()
     {
         $products = $this->cartService->getProduct();
         // dd($products);
-        return view('user.carts.list',[
+        return view('user.carts.list', [
             'title' => "Giỏ hàng",
             'products' => $products,
             'carts' => session::get('carts')
         ]);
     }
+
+    //Cap nhat san pham
     public function update(Request $request)
     {
         $this->cartService->update($request);
+        return redirect('/carts');
+    }
+    // Xoa san pham khoi gio hang
+    public function remove(Request $request)
+    {
+        $this->cartService->remove($request);
         return redirect('/carts');
     }
 }

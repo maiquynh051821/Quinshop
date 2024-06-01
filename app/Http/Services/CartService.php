@@ -129,4 +129,20 @@ class CartService
     Session::save();
     return true;
     }
+
+    public function remove($request)
+    {
+        $productId = $request->input('product_id');
+        $size = $request->input('size');
+
+        $carts = Session::get('carts', []);
+
+        $cartKey = $productId . '-' . $size;
+
+        if (isset($carts[$cartKey])) {
+            unset($carts[$cartKey]);
+            Session::put('carts', $carts);
+            Session::save();
+        }
+    }
 }

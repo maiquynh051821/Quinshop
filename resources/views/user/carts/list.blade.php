@@ -63,7 +63,12 @@
                                         <p>{{ number_format($priceEnd, 0, ',', '.') }} <sup>đ</sup></p>
                                     </td>
                                     <td>
-                                        <span>X</span>
+                                        <form action="/remove-cart" method="post">
+                                            @csrf
+                                            <input type="hidden" name="product_id" value="{{ $cartProduct['product']->id }}">
+                                            <input type="hidden" name="size" value="{{ $cartProduct['size'] }}">
+                                            <button class="remove-product" type="submit"><i class="fa fa-trash" aria-hidden="true"></i></button>
+                                        </form>
                                     </td>
                                 </tr>
                             @endforeach
@@ -122,4 +127,32 @@
         {{ Session::get('error') }}
     </div>
 @endif
+<script>
+    $(document).ready(function() {
+    $('.remove-product').click(function() {
+        var productId = $(this).data('product-id');
+        var size = $(this).data('size');
+        
+        // Gửi yêu cầu AJAX để xóa sản phẩm
+        $.ajax({
+            url: '/remove-product', // Địa chỉ URL của route xử lý yêu cầu xóa sản phẩm
+            type: 'POST',
+            data: {
+                productId: productId,
+                size: size,
+                _token: '{{ csrf_token() }}' // Token CSRF để bảo vệ chống tấn công CSRF
+            },
+            success: function(response) {
+                // Xử lý phản hồi từ máy chủ nếu cần
+                // Ví dụ: cập nhật giao diện người dùng để loại bỏ sản phẩm đã xóa
+                console.log(response);
+            },
+            error: function(xhr, status, error) {
+                // Xử lý lỗi nếu có
+                console.error(xhr.responseText);
+            }
+        });
+    });
+});
+</script>
 @endsection
