@@ -21,7 +21,7 @@ class CartshopController extends Controller
     {
         $result = $this->cartService->create($request);
         if ($result === false) {
-            return redirect()->back();
+            return redirect()->back()->with('error', Session::get('error'));
         }
         return redirect('/carts');
     }

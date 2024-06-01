@@ -42,7 +42,7 @@
                         </td>
                         <td><input type="number" value="{{ $cartProduct['quantity'] }}" min="1" style="width: 70px"></td>
                         <td>
-                            <p>{{ number_format($cartProduct['total_price'], 0, ',', '.') }} <sup>đ</sup></p>
+                            {{-- <p>{{ number_format($cartProduct['total_price'], 0, ',', '.') }} <sup>đ</sup></p> --}}
                         </td>
                         <td>
                             <span>X</span>
@@ -64,19 +64,19 @@
                     <tr>
                         <td>Tổng tiền hàng</td>
                         <td>
-                            @php
+                            {{-- @php
                             $total = 0;
                             foreach ($products as $cartProduct) {
                                 $total += $cartProduct['total_price'];
                             }
-                        @endphp
-                        <p>{{ number_format($total, 0, ',', '.') }} <sup>đ</sup></p>
+                        @endphp --}}
+                        {{-- <p>{{ number_format($total, 0, ',', '.') }} <sup>đ</sup></p> --}}
                         </td>
                     </tr>
                     <tr>
                         <td>Tạm tính</td>
                         <td>
-                            <p style="color: black;font-weight: bold;">{{ number_format($total, 0, ',', '.') }}<sup> đ</sup></p>
+                            {{-- <p style="color: black;font-weight: bold;">{{ number_format($total, 0, ',', '.') }}<sup> đ</sup></p> --}}
                         </td>
                     </tr>
                 </table>

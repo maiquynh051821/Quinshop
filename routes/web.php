@@ -28,7 +28,7 @@ use App\Http\Controllers\User\ProductshopController;
 */
 #Middleware auth duoc su dung de dam bao rang nguoi dung phai dang nhap 
 #de co the truy cap tat ca cac route duoc bao ve boi no
-Route::middleware(['web','admin'])->group(function () {
+Route::middleware(['admin'])->group(function () {
   
     Route::prefix('admin')->group(function () {
         Route::get('home',[MainController::class,'index'])->name('admin');
@@ -66,7 +66,7 @@ Route::middleware(['web','admin'])->group(function () {
         Route::post('upload/services',[UploadController::class,'store']);
 });
 });
-Route::middleware('web')->group(function(){
+
     Route::get('login',[LoginController::class,'index'])->name('login');
     Route::post('login/store',[LoginController::class,'store']);
     Route::get('register',[RegisterController::class,'index'])->name('register');
@@ -89,4 +89,4 @@ Route::middleware('web')->group(function(){
     Route::get('san-pham/{id}-{slug}.html',[ProductshopController::class,'index']);
     Route::post('add-cart',[CartshopController::class,'index']);
     Route::get('carts',[CartshopController::class,'show']);
-});
+

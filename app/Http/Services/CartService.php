@@ -51,21 +51,15 @@ class CartService
                 unset($carts[$key]);  // Loại bỏ phần tử không hợp lệ
             }
         }
-
-        Log::info('Session before save in create method', ['session' => Session::all()]);
         Session::put('carts', $carts);
         Session::save();
-        Log::info('Session after save in create method', ['session' => Session::all()]);
         // dd($carts);
         return true;
     }
 
     public function getProduct()
     {
-
-        Log::info('Session before retrieval in getProduct method', ['session' => Session::all()]);
         $carts = Session::get('carts', []);
-        Log::info('Session after retrieval in getProduct method', ['session' => Session::all()]);
         //    dd($carts);
 
         if (count($carts) == 0) {
