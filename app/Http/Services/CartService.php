@@ -54,16 +54,16 @@ class CartService
         Session::put('carts', $carts);
         Session::save();
         // dd($carts);
-        Log::info('Updated carts in create method', ['carts' => Session::get('carts')]);
+        // Log::info('Updated carts in create method', ['carts' => Session::get('carts')]);
         return true;
     }
 
     public function getProduct()
     {
-        Log::info('Retrieved carts in getProduct method', ['carts' => Session::get('carts')]);
+        // Log::info('Retrieved carts in getProduct method', ['carts' => Session::get('carts')]);
         $carts = Session::get('carts', []);
         //    dd($carts);
-        Log::info('Final carts in getProduct method', ['carts' => $carts]);
+        // Log::info('Final carts in getProduct method', ['carts' => $carts]);
 
         if (count($carts) == 0) {
             return [];
@@ -116,11 +116,9 @@ class CartService
                 continue; // Bỏ qua nếu sản phẩm không tồn tại
             }
 
-            if ($quantity <= 0) {
-                unset($carts[$cartKey]); // Xóa sản phẩm nếu số lượng là 0 hoặc nhỏ hơn
-            } else {
+          
                 $carts[$cartKey]['quantity'] = $quantity; // Cập nhật số lượng mới
-            }
+        
         }
     }
 
@@ -134,15 +132,22 @@ class CartService
     {
         $productId = $request->input('product_id');
         $size = $request->input('size');
-
         $carts = Session::get('carts', []);
-
         $cartKey = $productId . '-' . $size;
-
+        Log::debug('Attempting to remove product', ['product_id' => $productId, 'size' => $size, 'key' => $cartKey]);
+        Log::info($carts);
         if (isset($carts[$cartKey])) {
             unset($carts[$cartKey]);
             Session::put('carts', $carts);
-            Session::save();
+            Session::save(); // Đảm bảo lưu lại session sau khi thay đổi
+            Log::debug('Cart after removal', ['carts' => Session::get('carts')]);
+            Log::info($carts);
+
+            return redirect('/carts')->with('success', 'Sản phẩm đã được xóa');
+        } else {
+
+            Log::debug('Failed to remove product', ['product_id' => $productId, 'size' => $size, 'key' => $cartKey]);
+            return redirect('/carts')->with('error', 'Sản phẩm không tìm thấy');
         }
     }
 }

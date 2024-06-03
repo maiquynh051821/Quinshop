@@ -315,6 +315,7 @@ margin-right: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between; /* Căn các item đều ra hai bên */
+  min-height: 60vh;
 }
 
 .category-content-item {
@@ -393,6 +394,7 @@ margin-right: 20px;
     width: calc(100% - 20px);
   }
 }
+
 /*---------------Menu - product------------------- */
 .menu-product {
   padding: 100px 100px 50px; 
@@ -410,6 +412,7 @@ margin-right: 20px;
   margin: 0 12px;
   font-size: 12px;
 }
+
 .filter{
   text-align: right;
   margin-bottom: 20px;
@@ -431,6 +434,7 @@ margin-right: 20px;
     padding: 80px 20px;
   }
 }
+
 /*--------------- Chi tiet - Product------------------- */
 .product {
   padding: 100px 100px; 
@@ -555,7 +559,7 @@ margin-right: 20px;
   padding: 80px 50px;
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
+  min-height: 90vh;
 }
 
 .cart-top-wrap {
@@ -716,5 +720,4 @@ margin-right: 20px;
   background-color:black;
   color: #fff;
 }
-
 
