@@ -4,15 +4,21 @@
     <section class="cart">
         <div class="cart-top-wrap">
             <div class="cart-top">
-                <div class="cart-top-cart cart-top-item">
-                    <i class="fas fa-shopping-cart"></i>
-                </div>
-                <div class="cart-top-adress cart-top-item">
-                    <i class="fas fa-map-marker-alt"></i>
-                </div>
+                <a href="/carts">
+                    <div class="cart-top-cart cart-top-item">
+                        <i class="fas fa-shopping-cart"></i>
+                    </div>
+                </a>
+                <a href="/checkouts">
+                    <div class="cart-top-adress cart-top-item">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                </a>
+               <a href="#">
                 <div class="cart-top-payment cart-top-item">
                     <i class="fas fa-money-check-alt"></i>
                 </div>
+               </a>
             </div>
         </div>
 
@@ -65,10 +71,9 @@
                                             name="products[{{ $cartProduct['product']->id }}][{{ $cartProduct['size'] }}][quantity]"
                                             type="number" value="{{ $cartProduct['quantity'] }}" min="1"
                                             style="width: 50px">
-
-                                        <input style="width: 38px; border:1px solid ;background-color:aqua;font-size:14px" type="submit" value="Lưu"
-                                            formaction="/update-cart" >
-
+                                    <button style="width: 30px;background-color: rgb(255, 255, 255); font-size: 15px; border:none; text-align: center;" type="submit" formaction="/update-cart">
+                                                <i style="color:rgb(131, 253, 131)" class="fas fa-edit"></i>
+                                            </button>
                                     </form>
                                 </td>
                                 <td>
@@ -128,8 +133,8 @@
                     </div>
 
                     <div class="cart-content-right-button">
-                        <a href="category.html"><button>TIẾP TỤC MUA SẮM </button></a>
-                        <button style="margin-top:5px">MUA HÀNG</button>
+                        <a href="/"><button>TIẾP TỤC MUA SẮM </button></a>
+                        <a href="/checkouts"><button style="margin-top:5px">THANH TOÁN</button></a>
                     </div>
 
                 </div>

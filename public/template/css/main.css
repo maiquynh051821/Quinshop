@@ -721,3 +721,10 @@ margin-right: 20px;
   color: #fff;
 }
 
+/* ---------------------- Checkout---------------------- */
+.checkout {
+  padding: 80px 50px;
+  display: flex;
+  flex-direction: column;
+  min-height: 90vh;
+}

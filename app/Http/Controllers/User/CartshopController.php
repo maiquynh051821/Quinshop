@@ -49,4 +49,13 @@ class CartshopController extends Controller
         $this->cartService->remove($request);
         return redirect('/carts');
     }
+    public function showCheckout()
+    {
+        $products = $this->cartService->getProduct();
+        return view('user.carts.checkout',[
+            'title' => 'Đơn hàng',
+            'products' => $products,
+            'carts' => Session::get('carts')
+        ]);
+    }
 }
