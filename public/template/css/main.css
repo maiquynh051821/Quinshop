@@ -149,7 +149,11 @@ margin-right: 20px;
   cursor: pointer; /* Con trỏ chuột khi di chuyển qua nút */
   transition: background-color 0.3s; /* Hiệu ứng chuyển màu */
 }
-
+#logout{
+  padding: 4px 8px;
+  margin-left: 5px;
+  font-size: 13px;
+}
 
 
 /* CSS cho phần Slider */

@@ -6,7 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\CartService;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Auth;
 class CartshopController extends Controller
 {
     protected $cartService;
@@ -52,10 +52,18 @@ class CartshopController extends Controller
     public function showCheckout()
     {
         $products = $this->cartService->getProduct();
+        $user = Auth::user();
         return view('user.carts.checkout',[
             'title' => 'Đơn hàng',
             'products' => $products,
+            'user' => $user,
             'carts' => Session::get('carts')
         ]);
+    }
+    public function addCart(Request $request)
+    {
+       $result = $this->cartService->addCart($request);
+    //    dd($request->all());
+       return redirect()->back();
     }
 }

@@ -78,8 +78,11 @@ Route::middleware(['admin'])->group(function () {
     
     Route::middleware(['user'])->group(function(){
         
-        Route::get('user/home',[MainshopController::class,'index'])->name('user');
-    
+        // Route::get('user/home',[MainshopController::class,'index'])->name('user');
+        #Trang dat hang
+        Route::get('checkouts',[CartshopController::class,'showCheckout'])->name('user');
+        Route::post('checkouts',[CartshopController::class,'addCart']);
+
     });
     
     Route::get('/',[MainshopController::class,'index']);
@@ -90,4 +93,4 @@ Route::middleware(['admin'])->group(function () {
     Route::get('carts',[CartshopController::class,'show']);
     Route::post('/update-cart',[CartshopController::class,'update']);
     Route::post('/remove-cart', [CartshopController::class, 'remove'])->name('cart.remove');
-    Route::get('checkouts',[CartshopController::class,'showCheckout']);
+  

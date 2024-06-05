@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/js/bootstrap.js">
     <link rel="shortcut icon" type="image/png" href="/template/images/icons/logo-quinshop.png"/> 
     <title>{{$title}}</title>
+    
 </head>
 @php
   $menusHtml = \App\Helpers\Helper::menus($menus);
@@ -25,20 +26,34 @@
             <b>QUIN-SHOP</b>
         </div>
         <div class="menu">
-			<li><a href="/">Trang chủ</a></li>
-
-			{!! $menusHtml !!}
-			
+            <li><a href="/">Trang chủ</a></li>
+            {!! $menusHtml !!}
         </div>
         <div class="others">
-            <input placeholder="Tìm kiếm" type="text" >
-				<button><i class="fas fa-search"></i></button>
+            <input placeholder="Tìm kiếm" type="text">
+            <button><i class="fas fa-search"></i></button>
         </div>
-		<div class="shopping">
-			<li><a href="/carts" class="fa fa-shopping-bag"></a></li>
-		</div>
-		<div class="login">
-			<li><a href="/login"><button class="btn btn-success">Đăng nhập</button></a></li>
-		</div>
+        <div class="shopping">
+            <li><a href="/carts" class="fa fa-shopping-bag"></a></li>
+        </div>
+        <div class="login">
+            @guest
+                <li><a href="/login"><button class="btn btn-success">Đăng nhập</button></a></li>
+            @else
+                <div class="user-info">
+                    <i class="fas fa-user"></i> <span>{{ Auth::user()->name }}</span>
+                    <a href="{{ route('logout') }}" 
+                        onclick="event.preventDefault();
+                        document.getElementById('logout-form').submit();">
+                        <button id="logout" class="btn btn-danger btn-logout">Đăng xuất</button>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </div>
+            @endguest
+        </div>
     </section>
     @yield('user.header')
+</body>
+</html>
