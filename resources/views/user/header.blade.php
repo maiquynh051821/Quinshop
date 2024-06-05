@@ -54,6 +54,7 @@
             @endguest
         </div>
     </section>
+    
     @yield('user.header')
 </body>
 </html>

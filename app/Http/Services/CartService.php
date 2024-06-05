@@ -125,6 +125,7 @@ class CartService
 
         Session::put('carts', $carts); // Lưu lại giỏ hàng đã cập nhật vào session
         Session::save();
+        Session::flash('success', 'Cập nhật số lượng thành công');
         return true;
     }
 
@@ -140,27 +141,28 @@ class CartService
             unset($carts[$cartKey]);
             Session::put('carts', $carts);
             Session::save(); // Đảm bảo lưu lại session sau khi thay đổi
-            Log::debug('Cart after removal', ['carts' => Session::get('carts')]);
+            // Log::debug('Cart after removal', ['carts' => Session::get('carts')]);
             Log::info($carts);
-
-            return redirect('/carts')->with('success', 'Sản phẩm đã được xóa');
+             Session::flash('success', 'Xóa thành công sản phẩm');
         } else {
 
-            Log::debug('Failed to remove product', ['product_id' => $productId, 'size' => $size, 'key' => $cartKey]);
-            return redirect('/carts')->with('error', 'Sản phẩm không tìm thấy');
+            // Log::debug('Failed to remove product', ['product_id' => $productId, 'size' => $size, 'key' => $cartKey]);
+            Session::flash('success', 'Xóa không thành công sản phẩm');
+
         }
     }
 
     public function addCart($request)
     {
         try {
-            DB::beginTransaction(); // Neu chay bi loi se rollBack lai
+        DB::beginTransaction(); //Bat dau 1 giao dich trong DB. Neu chay bi loi se rollBack lai trang thai truoc khi bat dau
         $carts = Session::get('carts');
 
         if (is_null($carts))
             return false;
 
         $customer = Customer::create([
+            'user_id' => $request->input('user_id'),
             'name' => $request->input('name'),
             'phone' => $request->input('phone'),
             'address' => $request->input('address'),
@@ -169,7 +171,7 @@ class CartService
             'pay_method' => $request->input('pay_method')
         ]);
 
-        $this->infoProductCart($carts, $customer->id);
+        $this->infoProductCart($carts, $customer->id); // Gọi pthuc infoProductCart để lưu thông tin sản phẩm trong giỏ hàng vào bảng carts
         DB::commit();
         Session::flash('success', 'Đặt hàng thành công');
 

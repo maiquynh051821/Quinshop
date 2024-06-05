@@ -2,6 +2,7 @@
 @section('body')
 
     <section class="cart">
+        @include('login.alert')
         <div class="cart-top-wrap">
             <div class="cart-top">
                 <a href="/carts">
@@ -145,6 +146,14 @@
             </div>
         @endif
     </section>
-
+    @if (session()->has('success'))
+    <script>
+      $(document).ready(function() {
+          setTimeout(function() {
+              $(".alert-success").fadeOut("slow");
+          }, 5000); // Thay đổi bằng số miligiây bạn muốn thông báo hiển thị
+      });
+      </script>
+    @endif
 
 @endsection

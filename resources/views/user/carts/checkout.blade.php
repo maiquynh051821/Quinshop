@@ -1,6 +1,7 @@
 @extends('user.main')
 @section('body')
     <section class="checkout">
+        @include('login.alert')
         <div class="cart-top-wrap">
             <div class="cart-top">
                 <a href="/carts">
@@ -20,6 +21,8 @@
                 </a>
             </div>
         </div>
+
+
         @if (count($products) > 0)
             <form class="needs-validation" name="frmthanhtoan" method="post" action="/checkouts">
                 @csrf
@@ -27,9 +30,9 @@
                     @php
                         $total = 0;
                     @endphp
-                    <input type="hidden" name="iddangnhap" value="{{ $user->id }}">
-                    <input type="hidden" name="tendangnhap" value="{{ $user->name }}">
-    
+                    <input type="hidden" name="user_id" value="{{ $user->id }}">
+                    <input type="hidden" name="user_name value="{{ $user->name }}">
+
                     <div class="row">
                         <div class="col-md-4 order-md-2 mb-4">
                             <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -53,20 +56,24 @@
                                     <input type="hidden" name="sanphamgiohang[{{ $loop->index }}][price]"
                                         value="{{ $price }}">
                                     <input type="hidden" name="sanphamgiohang[{{ $loop->index }}][size]"
-                                        value="{{ $product['size']}}">
-    
+                                        value="{{ $product['size'] }}">
+
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                                         <div class="d-flex">
-                                            <img src="{{ $product['product']->thumb }}" alt="{{ $product['product']->name }}"
-                                                class="img-thumbnail" style="width: 100px; height: auto;">
+                                            <img src="{{ $product['product']->thumb }}"
+                                                alt="{{ $product['product']->name }}" class="img-thumbnail"
+                                                style="width: 100px; height: auto;">
                                             <div class="ml-3">
-                                                <h6 class="my-0">{{ $product['product']->name }} [ {{$product['size']}} ] </h6>
-                                                <small class="text-muted">{{ number_format($price, 0, ',', '.') }}<sup>đ</sup>
+                                                <h6 class="my-0">{{ $product['product']->name }} [
+                                                    {{ $product['size'] }} ] </h6>
+                                                <small
+                                                    class="text-muted">{{ number_format($price, 0, ',', '.') }}<sup>đ</sup>
                                                     x
                                                     {{ $product['quantity'] }}</small>
                                             </div>
                                         </div>
-                                        <span class="text-muted">{{ number_format($priceEnd, 0, ',', '.') }}<sup>đ</sup></span>
+                                        <span
+                                            class="text-muted">{{ number_format($priceEnd, 0, ',', '.') }}<sup>đ</sup></span>
                                     </li>
                                 @endforeach
                                 <li class="list-group-item d-flex justify-content-between">
@@ -77,7 +84,7 @@
                         </div>
                         <div class="col-md-8 order-md-1">
                             <h4 class="mb-3">Thông tin khách hàng</h4>
-    
+
                             <div class="row">
                                 <div class="col-md-12">
                                     <label for="name">Họ tên</label>
@@ -92,11 +99,11 @@
                                 <div class="col-md-12">
                                     <label for="phone">Điện thoại</label>
                                     <input style="background-color:rgb(243, 243, 242)" type="text" class="form-control"
-                                        name="phone" id="phone" value="" required>
+                                        name="phone" id="phone" value="" required pattern="[0-9]{10,11}">
                                 </div>
                                 <div class="col-md-12">
                                     <label for="email">Email</label>
-                                    <input style="background-color:rgb(243, 243, 242)" type="text" class="form-control"
+                                    <input style="background-color:rgb(243, 243, 242)" type="email" class="form-control"
                                         name="email" id="email" value="" required>
                                 </div>
                                 <div class="col-md-12">
@@ -104,9 +111,9 @@
                                     <textarea class="form-control" name="content" id="content" value=""></textarea>
                                 </div>
                             </div>
-    
+
                             <h4 class="mb-3">Hình thức thanh toán</h4>
-    
+
                             <div class="d-block my-3">
                                 <div class="custom-control custom-radio">
                                     <input id="pay-1" name="pay_method" type="radio" class="custom-control-input"
@@ -124,15 +131,24 @@
                                 hàng</button>
                         </div>
                     </div>
-    
-    
+
+
                 </div>
             </form>
-          @else
+        @else
             <div class="text-center">
-                <h2>Vui lòng thêm sản phẩm vào giỏ hàng để đặt hàng</h2>
+                <h2>Vui lòng thêm sản phẩm vào giỏ hàng để tiếp tục đặt hàng</h2>
             </div>
         @endif
-       
+
     </section>
+    @if (session()->has('success'))
+        <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $(".alert-success").fadeOut("slow");
+                }, 5000); // Thay đổi bằng số miligiây bạn muốn thông báo hiển thị
+            });
+        </script>
+    @endif
 @endsection

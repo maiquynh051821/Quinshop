@@ -17,10 +17,11 @@ return new class extends Migration
             $table->string('phone',255);
             $table->string('address',255);
             $table->string('email',255);
-            $table->text('content');
+            $table->text('content')->nullable();
             $table->string('pay_method',255);
             $table->timestamps();
-
+            $table->unsignedBigInteger('user_id')->after('id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
