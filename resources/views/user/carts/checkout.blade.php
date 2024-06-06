@@ -51,6 +51,10 @@
                                     @endphp
                                     <input type="hidden" name="sanphamgiohang[{{ $loop->index }}][id]"
                                         value="{{ $product['product']->id }}">
+                                    <input type="hidden" name="sanphamgiohang[{{ $loop->index }}][name]"
+                                        value="{{ $product['product']->name }}">
+                                    <input type="hidden" name="sanphamgiohang[{{ $loop->index }}][thumb]"
+                                        value="{{ $product['product']->thumb }}">
                                     <input type="hidden" name="sanphamgiohang[{{ $loop->index }}][quantity]"
                                         value="{{ $product['quantity'] }}">
                                     <input type="hidden" name="sanphamgiohang[{{ $loop->index }}][price]"

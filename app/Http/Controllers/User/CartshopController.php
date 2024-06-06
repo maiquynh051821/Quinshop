@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Services\CartService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Cart;
+
 class CartshopController extends Controller
 {
     protected $cartService;
@@ -66,4 +68,6 @@ class CartshopController extends Controller
     //    dd($request->all());
        return redirect()->back();
     }
+   
+
 }

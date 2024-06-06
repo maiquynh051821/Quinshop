@@ -143,42 +143,46 @@ class CartService
             Session::save(); // Đảm bảo lưu lại session sau khi thay đổi
             // Log::debug('Cart after removal', ['carts' => Session::get('carts')]);
             Log::info($carts);
-             Session::flash('success', 'Xóa thành công sản phẩm');
+            Session::flash('success', 'Xóa thành công sản phẩm');
         } else {
 
             // Log::debug('Failed to remove product', ['product_id' => $productId, 'size' => $size, 'key' => $cartKey]);
             Session::flash('success', 'Xóa không thành công sản phẩm');
-
         }
     }
 
     public function addCart($request)
     {
         try {
-        DB::beginTransaction(); //Bat dau 1 giao dich trong DB. Neu chay bi loi se rollBack lai trang thai truoc khi bat dau
-        $carts = Session::get('carts');
+            DB::beginTransaction(); //Bat dau 1 giao dich trong DB. Neu chay bi loi se rollBack lai trang thai truoc khi bat dau
+            $carts = Session::get('carts');
 
-        if (is_null($carts))
-            return false;
+            if (is_null($carts))
+                return false;
 
-        $customer = Customer::create([
-            'user_id' => $request->input('user_id'),
-            'name' => $request->input('name'),
-            'phone' => $request->input('phone'),
-            'address' => $request->input('address'),
-            'email' => $request->input('email'),
-            'content' => $request->input('content'),
-            'pay_method' => $request->input('pay_method')
-        ]);
+            $customer = Customer::create([
+                'user_id' => $request->input('user_id'),
+                'name' => $request->input('name'),
+                'phone' => $request->input('phone'),
+                'address' => $request->input('address'),
+                'email' => $request->input('email'),
+                'content' => $request->input('content'),
+                'pay_method' => $request->input('pay_method')
+            ]);
 
-        $this->infoProductCart($carts, $customer->id); // Gọi pthuc infoProductCart để lưu thông tin sản phẩm trong giỏ hàng vào bảng carts
-        DB::commit();
-        Session::flash('success', 'Đặt hàng thành công');
+            $this->infoProductCart($carts, $customer->id); // Gọi pthuc infoProductCart để lưu thông tin sản phẩm trong giỏ hàng vào bảng carts
+            DB::commit();
+            Session::flash('success', 'Đặt hàng thành công');
+            // Lấy lại giỏ hàng từ database
+            $updatedCarts = $this->getCartByCustomerId($customer->id);
+            #Gửi mail sau khi đặt hàng
+            $email = $customer->email;
+            Sendmail::dispatch($email, $customer, $updatedCarts)->delay(now()->addSeconds(3)); // Sau khi dat hang 3s, tien hanh gui mail
 
-        Session::forget('carts'); // Xóa giỏ hàng sau khi đặt hàng thành công
+            Session::forget('carts'); // Xóa giỏ hàng sau khi đặt hàng thành công
         } catch (\Exception $err) {
             DB::rollBack(); //Neu loi se khoi phuc lai trang thai ban dau
-            Session::flash('success','Đã xảy ra lỗi, vui lòng thử lại sau');
+            Session::flash('success', 'Đã xảy ra lỗi, vui lòng thử lại sau');
             return false;
         }
         return true;
@@ -192,17 +196,25 @@ class CartService
             $productId = $productInfo[0];
             $size = $productInfo[1];
             $quantity = $cartItem['quantity'];
-            // Truy vấn sản phẩm để lấy giá
+            // Truy vấn sản phẩm để lấy giá , ten , anh
             $product = Product::findOrFail($productId);
             $price = $product->price_sale != 0 ? $product->price_sale : $product->price;
+            $name = $product->name;
+            $thumb = $product->thumb;
             // Tạo bản ghi mới trong bảng carts
             Cart::create([
                 'customer_id' => $customer_id,
                 'product_id' => $productId,
+                'name' => $name,
+                'thumb' => $thumb,
                 'size' => $size,
                 'qty' => $quantity,
                 'price' => $price
             ]);
         }
+    }
+    public function getCartByCustomerId($customer_id)
+    {
+        return Cart::where('customer_id', $customer_id)->get();
     }
 }
