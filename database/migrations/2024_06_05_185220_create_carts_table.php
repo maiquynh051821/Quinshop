@@ -25,7 +25,6 @@ return new class extends Migration
                 ->references('id')
                 ->on('customers')
                 ->onDelete('cascade');
-
         });
     }
 

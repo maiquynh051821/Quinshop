@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\CartController;
 use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\UploadController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
@@ -28,69 +30,78 @@ use App\Http\Controllers\User\ProductshopController;
 #Middleware auth duoc su dung de dam bao rang nguoi dung phai dang nhap 
 #de co the truy cap tat ca cac route duoc bao ve boi no
 Route::middleware(['admin'])->group(function () {
-  
+
     Route::prefix('admin')->group(function () {
-        Route::get('home',[MainController::class,'index'])->name('admin');
+        Route::get('home', [MainController::class, 'index'])->name('admin');
 
         #Menu
         Route::prefix('menus')->group(function () {
-           Route::get('add',[MenuController::class,'create']);
-           Route::post('add',[MenuController::class,'store']);
-           Route::get('list',[MenuController::class,'index']);
-           Route::get('edit/{menu}',[MenuController::class,'show']);
-           Route::post('edit/{menu}',[MenuController::class,'update']);
-           Route::delete('destroy',[MenuController::class,'destroy']);
-    });
+            Route::get('add', [MenuController::class, 'create']);
+            Route::post('add', [MenuController::class, 'store']);
+            Route::get('list', [MenuController::class, 'index']);
+            Route::get('edit/{menu}', [MenuController::class, 'show']);
+            Route::post('edit/{menu}', [MenuController::class, 'update']);
+            Route::delete('destroy', [MenuController::class, 'destroy']);
+        });
 
         #Product
-        Route::prefix('products')->group(function(){
-            Route::get('add',[ProductController::class,'create']); 
-            Route::post('add',[ProductController::class,'store']);
-            Route::get('list',[ProductController::class,'index']);
-            Route::get('edit/{product}',[ProductController::class,'show']);
-            Route::post('edit/{product}',[ProductController::class,'update']);
-            Route::delete('destroy',[ProductController::class,'destroy']);
+        Route::prefix('products')->group(function () {
+            Route::get('add', [ProductController::class, 'create']);
+            Route::post('add', [ProductController::class, 'store']);
+            Route::get('list', [ProductController::class, 'index']);
+            Route::get('edit/{product}', [ProductController::class, 'show']);
+            Route::post('edit/{product}', [ProductController::class, 'update']);
+            Route::delete('destroy', [ProductController::class, 'destroy']);
         });
         #Slider
-        Route::prefix('sliders')->group(function(){
-            Route::get('add',[SliderController::class,'create']); 
-            Route::post('add',[SliderController::class,'store']);
-            Route::get('list',[SliderController::class,'index']);
-            Route::get('edit/{slider}',[SliderController::class,'show']);
-            Route::post('edit/{slider}',[SliderController::class,'update']);
-            Route::delete('destroy',[SliderController::class,'destroy']);
+        Route::prefix('sliders')->group(function () {
+            Route::get('add', [SliderController::class, 'create']);
+            Route::post('add', [SliderController::class, 'store']);
+            Route::get('list', [SliderController::class, 'index']);
+            Route::get('edit/{slider}', [SliderController::class, 'show']);
+            Route::post('edit/{slider}', [SliderController::class, 'update']);
+            Route::delete('destroy', [SliderController::class, 'destroy']);
         });
 
         #Upload
-        Route::post('upload/services',[UploadController::class,'store']);
-});
-});
+        Route::post('upload/services', [UploadController::class, 'store']);
 
-    Route::get('login',[LoginController::class,'index'])->name('login');
-    Route::post('login/store',[LoginController::class,'store']);
-    Route::get('register',[RegisterController::class,'index'])->name('register');
-    Route::post('/register/store',[RegisterController::class,'store']);
-    
-    // GoogleLoginController redirect and callback urls
-    Route::get('login/google', [GoogleLoginController::class, 'redirectToGoogle']);
-    Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
-    
-    
-    Route::middleware(['user'])->group(function(){
-        
-        // Route::get('user/home',[MainshopController::class,'index'])->name('user');
-        #Trang dat hang
-        Route::get('checkouts',[CartshopController::class,'showCheckout'])->name('user');
-        Route::post('checkouts',[CartshopController::class,'addCart']);
+        #Cart
+        Route::get('customers', [CartController::class, 'index']);
+        Route::get('customers/view/{customer}', [CartController::class, 'show']);
 
+        #Tai khoan
+        Route::prefix('users')->group(function () {
+            Route::get('list', [UserController::class, 'index']);
+            Route::get('edit/{user}', [UserController::class, 'show']);
+            Route::post('edit/{user}',[UserController::class,'update']);
+        });
     });
-    
-    Route::get('/',[MainshopController::class,'index']);
-    Route::post('/services/load-product', [MainshopController::class, 'loadProduct']);
-    Route::get('danh-muc/{id}-{slug}.html',[MenushopController::class,'index']);
-    Route::get('san-pham/{id}-{slug}.html',[ProductshopController::class,'index']);
-    Route::post('add-cart',[CartshopController::class,'index']);
-    Route::get('carts',[CartshopController::class,'show']);
-    Route::post('/update-cart',[CartshopController::class,'update']);
-    Route::post('/remove-cart', [CartshopController::class, 'remove'])->name('cart.remove');
-  
+});
+
+Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::post('login/store', [LoginController::class, 'store']);
+Route::get('register', [RegisterController::class, 'index'])->name('register');
+Route::post('/register/store', [RegisterController::class, 'store']);
+
+// GoogleLoginController redirect and callback urls
+Route::get('login/google', [GoogleLoginController::class, 'redirectToGoogle']);
+Route::get('login/google/callback', [GoogleLoginController::class, 'handleGoogleCallback']);
+
+
+Route::middleware(['user'])->group(function () {
+
+    // Route::get('user/home',[MainshopController::class,'index'])->name('user');
+    #Trang dat hang
+    Route::get('checkouts', [CartshopController::class, 'showCheckout'])->name('user');
+    Route::post('checkouts', [CartshopController::class, 'addCart']);
+});
+
+Route::get('/', [MainshopController::class, 'index']);
+Route::post('/services/load-product', [MainshopController::class, 'loadProduct']);
+Route::get('danh-muc/{id}-{slug}.html', [MenushopController::class, 'index']);
+Route::get('san-pham/{id}-{slug}.html', [ProductshopController::class, 'index']);
+Route::post('add-cart', [CartshopController::class, 'index']);
+Route::get('carts', [CartshopController::class, 'show']);
+Route::post('/update-cart', [CartshopController::class, 'update']);
+Route::post('/remove-cart', [CartshopController::class, 'remove'])->name('cart.remove');

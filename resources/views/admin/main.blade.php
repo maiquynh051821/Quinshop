@@ -15,7 +15,19 @@
                     <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i
                             class="fas fa-bars"></i></a>
                 </li>
-
+            </ul>
+            <ul class="navbar-nav ml-auto">
+                <!-- Logout Button -->
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ route('logout') }}" 
+                       onclick="event.preventDefault();
+                       document.getElementById('logout-form').submit();">
+                        <button id="logout" class="btn btn-danger btn-logout">Đăng xuất</button>
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                        @csrf
+                    </form>
+                </li>
             </ul>
         </nav>
   

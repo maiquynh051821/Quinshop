@@ -9,6 +9,7 @@ class ProductService
     {
       return Product::select('id','name','price','price_sale','thumb')  
       ->orderByDesc('id')
+      ->where('active',1)
       ->when($page != null, function ($query) use ($page){ //neu $page khong phai null, them 1 phan ofset vao truy vấn 
         $offset = $page * self::LIMIT;
         $query->offset($offset);

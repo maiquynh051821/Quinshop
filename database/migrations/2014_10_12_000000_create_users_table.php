@@ -17,7 +17,9 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->string('role')->default('user');
+            $table->integer('active')->default(1);
             $table->rememberToken();
+            $table->string('google_id')->nullable()->unique();
             $table->timestamps();
         });
     }

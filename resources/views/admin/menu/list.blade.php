@@ -15,7 +15,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th style="width: 90px;text-align:center;">ID</th>
+          <th style="width: 90px;text-align:center;">STT</th>
           <th style="width: 1200px;text-align:center;">Name</th>
           <th style="text-align:center;">Active</th>
           <th style="width: 250px;text-align:center;">Update</th>
@@ -29,6 +29,6 @@
       </tbody>
     </table>
      {{-- Phan trang --}}
-      {!! $menus->links() !!}
+      {{-- {!! $menus->links() !!} --}}
 
 @endsection

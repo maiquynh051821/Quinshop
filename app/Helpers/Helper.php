@@ -8,14 +8,17 @@ use PhpParser\Node\Stmt\Return_;
 class Helper
 {
     // Tao HTML cho menu tu 1 mang cac menu duoc  cung cap
-    public static function menu($menus, $parent_id = 0, $char = '')
+    public static function menu($menus, $parent_id = 0, $char = '', $parent_stt = '', $stt = 1)
     {
         $html = '';
         foreach ($menus as $key => $menu) {
             if ($menu->parent_id == $parent_id) {
+                // Lấy số thứ tự hiện tại
+                $current_stt = $parent_stt ? $parent_stt . '.' . $stt : $stt;
+
                 $html .= '
                 <tr>
-                <td style="text-align:center;">' . $menu->id . '</td>
+                <td style="text-align:center;">' . $current_stt . '</td>
                 <td style="padding-left:20px">' . $char . $menu->name . '</td>
                 <td style="text-align:center;">' . self::active($menu->active) . '</td>
                 <td style="text-align:center;">' . $menu->updated_at . '</td>
@@ -31,8 +34,15 @@ class Helper
                 </td>
                 </tr>
                 ';
+
+                // Xóa phần tử đã xử lý
                 unset($menus[$key]);
-                $html .= self::menu($menus, $menu->id, $char . ' |--> ');
+
+                // Gọi đệ quy cho các danh mục con với số thứ tự mới
+                $html .= self::menu($menus, $menu->id, $char . ' |--> ', $current_stt, $sub_stt = 1);
+                
+                // Tăng số thứ tự của mục hiện tại
+                $stt++;
             }
         }
         return $html;

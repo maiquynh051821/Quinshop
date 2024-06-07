@@ -18,4 +18,9 @@ class Customer extends Model
         'pay_method'
     ];
 
+    public function carts() // 1 khach hang co the co nhieu san pham
+    {
+        return $this->hasMany(Cart::class,'customer_id','id');
+    }
+
 }

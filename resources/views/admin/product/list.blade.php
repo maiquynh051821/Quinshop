@@ -15,7 +15,7 @@
     <table class="table">
       <thead>
         <tr>
-          <th style="width: 70px;text-align:center;">ID</th>
+          <th style="width: 70px;text-align:center;">STT</th>
           <th style="width: 450px;text-align:center;">Tên Sản Phẩm </th>
           <th style="width: 450px;text-align:center;">Danh Mục </th>
           <th style="width: 200px;text-align:center;">Giá Gốc</th>
@@ -30,7 +30,7 @@
       <tbody>
         @foreach ($products as $key => $product)
         <tr>
-            <td style="text-align:center;">{{$product->id}}</td>
+            <td style="text-align:center;">{{$loop->iteration}}</td>
             <td style="padding-left:20px">{{$product->name}}</td>
             <td style="padding-left:20px">{{optional($product->menu)->name}}</td>
             <td style="text-align:center">{{ number_format($product->price, 0, ',', '.') }} ₫</td>
@@ -56,6 +56,5 @@
     </table>
     {{-- Phan trang --}}
     {{ $products->links() }}
-
     
 @endsection

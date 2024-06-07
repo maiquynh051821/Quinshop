@@ -16,42 +16,45 @@
       <thead>
         <tr>
           <th style="width: 70px;text-align:center;">STT</th>
-          <th style="width: 450px;text-align:center;">Tiêu đề </th>
-          <th style="width: 450px;text-align:center;">Link </th>
-          <th style="text-align:center;width: 250px;">Ảnh</th>
+          <th style="width: 450px;text-align:center;">Tên</th>
+          <th style="width: 450px;text-align:center;">Email</th>
+          <th style="text-align:center;width: 250px;">Quyền</th>
           <th style="text-align:center;">Active</th>
-          <th style="width: 250px;text-align:center;">Update</th>
+          <th style="width: 250px;text-align:center;">Ngày tạo</th>
           <th style="width:25px">Edit</th>
           <th style="width:25px">Delete</th>
         </tr>
       </thead>
       <tbody>
-        @foreach ($sliders as $key => $slider)
+        @if ($users)
+        @foreach ($users as $key => $user)
         <tr>
             <td style="text-align:center;">{{$loop->iteration}}</td>
-            <td style="padding-left:20px">{{$slider->name}}</td>
-            <td style="padding-left:20px">{{$slider->url}}</td>
-            <td style="text-align:center"><a href="{{$slider->thumb}}">
-                <img src="{{ $slider->thumb }}" alt="Thumbnail" class="img-thumbnail"></a>
-            </td>
-            <td style="text-align:center;">{!! \App\Helpers\Helper::active($slider->active) !!} </td>
-            <td style="text-align:center;">{{$slider->updated_at}}</td>
+            <td style="padding-left:20px">{{$user->name}}</td>
+            <td style="padding-left:20px">{{$user->email}}</td>
+            <td style="padding-left:20px">{{$user->role}}</td>
+            <td style="text-align:center;">{!! \App\Helpers\Helper::active($user->active) !!} </td>
+            <td style="text-align:center;">{{$user->created_at}}</td>
             <td> 
-            <a class="btn btn-info" href="/admin/sliders/edit/{{$slider->id}}">
+            <a class="btn btn-info" href="/admin/users/edit/{{$user->id}}">
             <i class="fa-regular fa-pen-to-square"></i>
             </a>
             </td>
             <td> 
-            <a class="btn btn-danger" href="#" onclick="removeRow({{$slider->id}},'/admin/sliders/destroy')">
+            <a class="btn btn-danger" href="#" onclick="removeRow({{$user->id}},'/admin/users/destroy')">
             <i class="fa-solid fa-trash-can"></i>
             </a> 
             </td>
             </tr>
         @endforeach
+        @else 
+        <h3>Không có người dùng nào được tìm thấy. </h3>
+        @endif
+       
       </tbody>
     </table>
     {{-- Phan trang --}}
-    {{ $sliders->links() }}
+    {{-- {{ $users->links() }} --}}
 
     
 @endsection

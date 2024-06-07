@@ -1,0 +1,93 @@
+
+/* Trang xem chi tiet don dat hang */
+.carts table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.carts th, .carts td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+.carts img {
+    max-width: 100px;
+    height: auto;
+}
+
+.carts td p {
+    margin: 0; 
+}
+
+.carts td:last-child p {
+    font-weight: bold; 
+}
+
+.carts td:first-child img {
+    display: block; 
+    margin: auto;
+}
+
+.carts td:nth-child(2) {
+    text-align: center; 
+}
+
+.carts td:nth-child(3),
+.carts td:nth-child(4) {
+    text-align: center; 
+}
+
+.carts td:nth-child(5),
+.carts td:nth-child(6) {
+    font-family: Arial, sans-serif; /* Use Arial font for price and total */
+}
+
+.carts td:nth-child(6) p {
+    color: green; /* Style the total price with green color */
+    font-size: bold;
+}
+
+.cart-content-right table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.cart-content-right th, .cart-content-right td {
+    padding: 10px;
+    text-align: left;
+}
+
+.cart-content-right th {
+    background-color: #80fa80;
+    color: #fff;
+}
+
+.cart-content-right td {
+    border-bottom: 1px solid #ddd;
+}
+
+.cart-content-right td:first-child {
+    width: 60%;
+}
+
+.cart-content-right td:last-child {
+    text-align: right;
+}
+
+.cart-content-right p {
+    margin: 0;
+}
+
+.cart-content-right p.total {
+    font-weight: bold;
+}
+
+/* Header */
+
+.button-logout{
+  display: flex;
+  margin-right: 200px;
+  margin-bottom: 3px;
+}

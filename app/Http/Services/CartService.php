@@ -217,4 +217,10 @@ class CartService
     {
         return Cart::where('customer_id', $customer_id)->get();
     }
+
+    public function getCustomer()
+    {
+       return Customer::orderByDesc('id')->paginate(15);
+    }
+    
 }

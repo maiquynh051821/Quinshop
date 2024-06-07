@@ -8,22 +8,11 @@
       <!-- Sidebar user (optional) -->
       <div class="user-panel mb-3 d-flex">
           <div class="image">
-              <pre style="font-size: 20px;">  <i class="fas fa-user" style="color:rgb(219, 2, 49)"></i>  ADMIN</pre>
+              <pre style="font-size: 20px;">  <i class="fas fa-user" style="color:rgb(219, 2, 49)"></i> {{Auth::user()->name}} </pre>
           </div>
       </div>
 
-      <!-- SidebarSearch Form -->
-      <div class="form-inline">
-          <div class="input-group" data-widget="sidebar-search">
-              <input class="form-control form-control-sidebar" type="search" placeholder="Search"
-                  aria-label="Search">
-              <div class="input-group-append">
-                  <button class="btn btn-sidebar">
-                      <i class="fas fa-search fa-fw"></i>
-                  </button>
-              </div>
-          </div>
-      </div>
+
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
@@ -94,6 +83,40 @@
                         <a href="/admin/sliders/list" class="nav-link">
                             <i class="fa-solid fa-circle-right"></i>
                             <p>Danh sách slider</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fas fa-shopping-cart"></i>
+                    <p>
+                        Giỏ hàng
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview ml-3">
+                    <li class="nav-item">
+                        <a href="/admin/customers" class="nav-link">
+                            <i class="fa-solid fa-circle-right"></i>
+                            <p>Danh sách đơn hàng</p>
+                        </a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">
+                    <i class="fa-solid fa-user"></i>
+                    <p>
+                        Tài khoản
+                        <i class="right fas fa-angle-left"></i>
+                    </p>
+                </a>
+                <ul class="nav nav-treeview ml-3">
+                    <li class="nav-item">
+                        <a href="/admin/users/list" class="nav-link">
+                            <i class="fa-solid fa-circle-right"></i>
+                            <p>Danh sách tài khoản</p>
                         </a>
                     </li>
                 </ul>

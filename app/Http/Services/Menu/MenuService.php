@@ -22,7 +22,7 @@ class MenuService
 
     public function getAll()
     {
-        return Menu::orderByDesc('id')->paginate(150);
+        return Menu::orderByDesc('id')->get();
     }
 
     // Phương thức này thực hiện việc tạo mới một menu trong cơ sở dữ liệu dựa trên dữ liệu được gửi từ biểu mẫu (request).
