@@ -22,9 +22,6 @@ class UserService
            if($request->filled('password')){
                 $data['password'] = Hash::make($request->password);
            }
-        //    if($request->has('active')){
-        //     $data['active'] = $request->active;
-        //    }
            $user->fill($data);
            Log::info($user);
            $user->save();
@@ -35,5 +32,15 @@ class UserService
             return false;
         }
         return true;
+    }
+
+    public function delete($request)
+    {
+        $user = User::where('id',$request->input('id'))->first();
+        if($user){
+            $user->delete();
+            return true;
+        }
+        return false;
     }
 }

@@ -53,7 +53,16 @@ class UserController extends Controller
     }
 
     // Xoa tai khoan
-
-    
+    public function destroy(Request $request)
+    {
+        $result = $this->user->delete($request);
+        if($result){
+            return response()->json([
+                'error'=>false,
+                'message'=> 'Xóa thành công sản phẩm',
+            ]);
+        }
+        return response()->json(['error'=>true]);
+    }
     
 }

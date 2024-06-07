@@ -75,6 +75,7 @@ Route::middleware(['admin'])->group(function () {
             Route::get('list', [UserController::class, 'index']);
             Route::get('edit/{user}', [UserController::class, 'show']);
             Route::post('edit/{user}',[UserController::class,'update']);
+            Route::delete('destroy',[UserController::class,'destroy']);
         });
     });
 });
