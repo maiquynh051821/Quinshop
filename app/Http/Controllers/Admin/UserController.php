@@ -59,7 +59,7 @@ class UserController extends Controller
         if($result){
             return response()->json([
                 'error'=>false,
-                'message'=> 'Xóa thành công sản phẩm',
+                'message'=> 'Xóa thành công tài khoản',
             ]);
         }
         return response()->json(['error'=>true]);

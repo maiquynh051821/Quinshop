@@ -5,6 +5,7 @@ namespace App\Http\Services\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Admin\Menu;
+use App\Models\Admin\Product;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Log;
 
@@ -71,29 +72,67 @@ class MenuService
             $menu->active = (string) $request->input('active');
             // $menu->fill($request->input()); // Quét toàn bộ thông tin mà request đã lấy thay cho 5 dòng bên trên
             $menu->save();
-            Session::flash('success', 'Cập nhật thành công danh mục');
+            //Neu danh muc cha bị non-active, cập nhật tất cả danh mục con và san pham cua dmuc do la non-active
+            if ($menu->active == 0) {
+                $this->updateNonactive($menu->id);
+            } else {
+                $this->updateActive($menu->id);
+            }
+            Session::flash('success', 'Cập nhật thành công danh mục: ' . $menu->name);
         } catch (\Exception $err) {
-            Session::flash('error', 'Cập nhật không thành công');
+            Session::flash('error', 'Cập nhật không thành công danh mục: ' . $menu->name);
             Log::info($err->getMessage());
             return false;
         }
         return true;
     }
-
+    //Phuong thuc de cap nhat trang thai cua danh muc con va san pham
+    private function updateNonactive($parentId)
+    {
+        $childMenus = Menu::where('parent_id', $parentId)->get();
+        foreach ($childMenus as $childMenu) {
+            $childMenu->active = '0';
+            $childMenu->save();
+            $this->updateNonactive($childMenu->id);
+        }
+    
+        $products = Product::where('menu_id', $parentId)->get();
+        foreach ($products as $product) {
+            $product->active = '0';
+            $product->save();
+        }
+    }
+    private function updateActive($parentId)
+    {
+        $childMenus = Menu::where('parent_id', $parentId)->get();
+        foreach ($childMenus as $childMenu) {
+            $childMenu->active = '1';
+            $childMenu->save();
+            $this->updateActive($childMenu->id);
+        }
+    
+        $products = Product::where('menu_id', $parentId)->get();
+        foreach ($products as $product) {
+            $product->active = '1';
+            $product->save();
+        }
+    }
+    //
     public function getId($id)
     {
-        return Menu::where('id',$id)->where('active',1)->firstOrFail(); // Kiem tra id neu co thi ok neu khong thi bao loi
+        return Menu::where('id', $id)->where('active', 1)->firstOrFail(); // Kiem tra id neu co thi ok neu khong thi bao loi
     }
-    public function getProduct($menu, $request){
-       $query = $menu->products()
-        ->select('id','name','price','price_sale', 'thumb')
-        ->where('active',1);
-        if($request->input('price_sale')){
-            $query->orderBy('price_sale',$request->input('price_sale'));
+    public function getProduct($menu, $request)
+    {
+        $query = $menu->products()
+            ->select('id', 'name', 'price', 'price_sale', 'thumb')
+            ->where('active', 1);
+        if ($request->input('price_sale')) {
+            $query->orderBy('price_sale', $request->input('price_sale'));
         }
         return $query
-        ->orderByDesc('id')
-        ->paginate(12)
-        ->withQueryString();
+            ->orderByDesc('id')
+            ->paginate(12)
+            ->withQueryString();
     }
 }

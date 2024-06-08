@@ -63,6 +63,7 @@
               <div class="text-center">
             
                 <p>Bạn đã có tài khoản? <a href="/login" > Đăng nhập</a></p>
+                <p><a href="/">Quay về trang chủ</a></p>
               </div>
             </div>
           </div> 

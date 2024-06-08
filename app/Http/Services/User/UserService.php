@@ -25,7 +25,7 @@ class UserService
            $user->fill($data);
            Log::info($user);
            $user->save();
-           Session::flash('success','Cập nhật thành công tài khoản');
+           Session::flash('success','Cập nhật thành công tài khoản ' . $user->name);
         }catch(\Exception $err){
             Session::flash('error','Cập nhật không thành công');
             Log::info($err->getMessage());

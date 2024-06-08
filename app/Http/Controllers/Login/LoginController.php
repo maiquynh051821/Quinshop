@@ -35,22 +35,26 @@ class LoginController extends Controller
             $request->remember
         )) {
 
-            //Kiem tra ghi nho dang nhap hay khong, luu phien dang nhap trong 10h = 36000s
+            //Kiem tra ghi nho dang nhap hay khong, luu phien dang nhap trong 1d = 12*60*60s
             if ($request->remember) {
-                setcookie("email", $request->email, time() + 36000,);
-                setcookie("password", $request->password, time() + 36000,);
+                setcookie("email", $request->email, time() + 86400,);
+                setcookie("password", $request->password, time() + 86400,);
             } else {
-                setcookie("email", "");
-                setcookie("password", "");
-        
+                setcookie("email", "", time() - 3600);
+                setcookie("password", "", time() - 3600);
             }
             //Phan quyen login : admin-user
             $user = Auth::user();
-            $role = $user->role;
-            if ($role === 'admin') {
-                return redirect()->route("admin");
-            } elseif ($role === 'user') {
-                return redirect()->route("user");
+            if ($user->active == 1) {
+                $role = $user->role;
+                if ($role === 'admin') {
+                    return redirect()->route("admin");
+                } elseif ($role === 'user') {
+                    return redirect()->route("user");
+                }
+            } else {
+                Auth::logout();
+                return redirect()->back()->withErrors("Tài khoản của bạn đang bị khóa ");
             }
         }
 

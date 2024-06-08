@@ -50,11 +50,16 @@ class GoogleLoginController extends Controller
 
         // Redirect đến URL được yêu cầu bởi người dùng
         $user = Auth::user();
-        $role = $user->role;
-        if ($role === 'admin') {
-            return redirect()->route("admin");
-        } elseif ($role === 'user') {
-            return redirect()->route("user");
+        if ($user->active == 1) {
+            $role = $user->role;
+            if ($role === 'admin') {
+                return redirect()->route("admin");
+            } elseif ($role === 'user') {
+                return redirect()->route("user");
+            }
+        } else {
+            Auth::logout();
+            return redirect()->route("login")->withErrors("Tài khoản của bạn đang bị khóa ");
         }
         return redirect()->route("login")->with("error","Lỗi không đăng nhập được bằng google!");
     }

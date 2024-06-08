@@ -1,8 +1,18 @@
 <div class="category-content">
     @foreach ($products as $key => $product)
         <div class="category-content-item">
-            <a href="/san-pham/{{ $product->id }}-{{ \Str::slug($product->name, '-') }}.html"><img class="anhsp"
-                    src="{{ $product->thumb }}" alt="">
+            <a href="/san-pham/{{ $product->id }}-{{ \Str::slug($product->name, '-') }}.html">
+                <div class="image-container">
+                    <img class="anhsp" src="{{ $product->thumb }}" alt="">
+                    @if ($product->price_sale !== NULL)
+                        <div class="sale-badge">
+                            {{ round((($product->price - $product->price_sale) / $product->price) * 100) }}%
+                        </div>
+                    @endif
+                    <div class="favorite-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                </div>
                 <h1>{{ $product->name }}</h1>
                 <div class="price-product">
                     @if ($product->price_sale !== NULL)

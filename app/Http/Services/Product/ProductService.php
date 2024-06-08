@@ -2,6 +2,7 @@
 
 namespace App\Http\Services\Product;
 use App\Models\Admin\Product;
+use App\Models\Admin\Menu;
 class ProductService
 {   
     const LIMIT =16;

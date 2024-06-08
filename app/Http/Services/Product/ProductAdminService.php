@@ -63,9 +63,9 @@ class ProductAdminService
        try{
         $product->fill($request->input());
         $product->save();
-        Session::flash('success','Cập nhật thành công');
+        Session::flash('success','Cập nhật thành công sản phẩm ' .$product->name);
        }catch(\Exception $err){
-        Session::flash('error','Cập nhật không thành công');
+        Session::flash('error','Cập nhật không thành công sản phẩm ' .$product->name);
         Log::info($err->getMessage());
         return false;
        }

@@ -58,6 +58,7 @@
             href="/login/google"><i class="fab fa-google" ></i> Đăng nhập bằng Google+</a></button>
           <p><a href="#">Bạn quên mật khẩu?</a></p>
           <p>Bạn chưa có tài khoản? <a href="/register" >Đăng ký</a></p>
+          <p><a href="/">Quay về trang chủ</a></p>
         </div>
       </div>
     </div> 

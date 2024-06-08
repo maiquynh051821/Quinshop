@@ -335,7 +335,7 @@ margin-right: 20px;
   /* object-fit: cover; Cắt ảnh sao cho vừa với khung hiển thị */
   border-radius: 2px;
   margin-bottom: 15px;
-  border: 2px solid transparent; /* Đặt màu viền là trong suốt */
+  border: 1px solid transparent; /* Đặt màu viền là trong suốt */
   border-image: linear-gradient(to right,  #f886bf, #fae4f4); /* Gradient màu cho đường viền */
   border-image-slice: 1; /* Đảm bảo gradient hiển thị trên toàn bộ đường viền */
 }
