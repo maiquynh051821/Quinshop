@@ -306,8 +306,9 @@ margin-right: 20px;
 
 .category h2 {
   text-align: center; /* Căn giữa tiêu đề */
-  margin-bottom: 20px; /* Khoảng cách dưới tiêu đề */
+  margin-bottom: 40px; /* Khoảng cách dưới tiêu đề */
   font-weight: bold;
+  margin-top: 30px;
 }
 .category h6 {
   text-align: left; /* Căn giữa tiêu đề */
@@ -315,50 +316,85 @@ margin-right: 20px;
   text-decoration:underline;
 }
 .category-content {
-
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between; /* Căn các item đều ra hai bên */
+  justify-content: space-between;
   min-height: 60vh;
+  margin-left: 100px;
+  margin-right: 100px;
 }
 
 .category-content-item {
-  width: calc(25% - 20px); /* Sử dụng calc để tính toán độ rộng của mỗi item */
+  width: calc(25% - 20px);
   margin-bottom: 50px;
-  padding: 10px;
+  padding: 20px;
   text-align: left;
+}
+
+.category-content-item .image-container {
+  position: relative;
 }
 
 .category-content-item .anhsp {
   width: 100%; /* Chiều rộng của khung hiển thị */
-  /* height: 600px; Chiều cao cố định của khung hiển thị */
-  /* object-fit: cover; Cắt ảnh sao cho vừa với khung hiển thị */
+  height: 400px; /* Chiều cao cố định của khung hiển thị */
+  object-fit: fill; /*Cắt ảnh sao cho vừa với khung hiển thị "contain"*/
   border-radius: 2px;
   margin-bottom: 15px;
-  border: 1px solid transparent; /* Đặt màu viền là trong suốt */
-  border-image: linear-gradient(to right,  #f886bf, #fae4f4); /* Gradient màu cho đường viền */
-  border-image-slice: 1; /* Đảm bảo gradient hiển thị trên toàn bộ đường viền */
+  border: 1px solid transparent;
+  border-image: linear-gradient(to right, #f886bf, #fae4f4);
+  border-image-slice: 1;
 }
 
-.category-content-item h1 {
+.category-content-item .sale-badge {
+  position: absolute;
+  top: 10px;
+  left: 0px;
+  background-color: #ffffff;
+  border:1px solid #cfcdcd;
+  color: #f76868;
+  padding: 5px;
+  font-size: 14px;
+  opacity:0.9;
+}
+
+.category-content-item .product-details {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.category-content-item .product-details h1 {
   font-size: 18px;
   margin-bottom: 5px;
-  color: #1f1e1e;
-  font-weight: lighter;
+  color: #312a2a;
+  font-weight: bold;
+}
+
+.category-content-item .favorite-icon {
+  margin-left: auto;
+  margin-right: 3px;
+}
+
+.category-content-item .favorite-icon i {
+  border: 1px solid #a6a6a7;
+  padding: 6px;
+  border-radius: 20px;
 }
 
 .category-content-item .price-product {
-  margin-top: 10px; /* Khoảng cách giữa nội dung sản phẩm và giá */
+  margin-top: 10px;
 }
 
 .category-content-item .price-product ins {
-  color: #ff0000; /* Màu chữ cho giá khuyến mãi */
+  color: #ff0000;
   text-decoration: none;
   font-weight: bold;
 }
 
 .category-content-item .price-product del {
-  color: #888; /* Màu chữ cho giá gốc */
+  color: #888;
 }
 .button-loadmore {
   display: flex;
@@ -384,6 +420,16 @@ margin-right: 20px;
 @media (max-width: 1200px) {
   .category-content-item {
     width: calc(33.33% - 20px);
+    padding: 10px;
+  }
+  .category-content-item .product-details h1 {
+    font-size: 15px;
+  }
+  .category-content-item .sale-badge {
+    font-size: 12px;
+  }
+  .category-content-item .anhsp{
+    height: 170px;
   }
 }
 
@@ -391,11 +437,29 @@ margin-right: 20px;
   .category-content-item {
     width: calc(50% - 20px);
   }
+ 
+  .category-content {
+    margin-left: 50px;
+    margin-right: 50px;
+  }
+  .category-content-item .sale-badge {
+    font-size: 12px;
+  }
+  .category-content-item .anhsp{
+    height: 200px;
+  }
 }
 
 @media (max-width: 576px) {
   .category-content-item {
     width: calc(100% - 20px);
+  }
+  .category-content-item .anhsp{
+    height: 300px;
+  }
+  .category-content {
+    margin-left: 20px;
+    margin-right: 20px;
   }
 }
 

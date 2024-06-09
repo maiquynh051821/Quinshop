@@ -21,6 +21,7 @@ return new class extends Migration
             $table->integer('price_sale')->nullable();
             $table->integer('active');
             $table->string('thumb');
+            $table->integer('likes')->default(0)->after('thumb');
             $table->timestamps();
         });
     }

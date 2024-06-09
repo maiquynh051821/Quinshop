@@ -96,9 +96,12 @@ Route::middleware(['user'])->group(function () {
     #Trang dat hang
     Route::get('checkouts', [CartshopController::class, 'showCheckout'])->name('user');
     Route::post('checkouts', [CartshopController::class, 'addCart']);
+    Route::post('/products/{product}/like', [ProductshopController::class, 'like'])->name('products.like');
+    Route::post('/products/{product}/unlike', [ProductshopController::class, 'unlike'])->name('products.unlike');
+
 });
 
-Route::get('/', [MainshopController::class, 'index']);
+Route::get('/', [MainshopController::class, 'index'])->name('home');
 Route::post('/services/load-product', [MainshopController::class, 'loadProduct']);
 Route::get('danh-muc/{id}-{slug}.html', [MenushopController::class, 'index']);
 Route::get('san-pham/{id}-{slug}.html', [ProductshopController::class, 'index']);

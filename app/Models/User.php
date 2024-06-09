@@ -9,7 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
-
+use App\Models\Admin\Product;
 class User extends Authenticatable
 {
     use HasApiTokens;
@@ -32,6 +32,12 @@ class User extends Authenticatable
         'role'
     ];
 
+    //Thiet lap mqh nhiều - nhiều với model 'Product'
+    public function favoriteProducts()
+    {
+        return $this->belongsToMany(Product::class, 'product_user_likes', 'user_id', 'product_id')
+                    ->withTimestamps();
+    }
     /**
      * The attributes that should be hidden for serialization.
      *
