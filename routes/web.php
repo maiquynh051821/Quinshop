@@ -98,6 +98,7 @@ Route::middleware(['user'])->group(function () {
     Route::post('checkouts', [CartshopController::class, 'addCart']);
     Route::post('/products/{product}/like', [ProductshopController::class, 'like'])->name('products.like');
     Route::post('/products/{product}/unlike', [ProductshopController::class, 'unlike'])->name('products.unlike');
+    Route::get('/likes',[ProductshopController::class,'show']);
 
 });
 

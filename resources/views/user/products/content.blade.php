@@ -25,6 +25,20 @@
                 <div class="product-content-right">
                     <div class="product-content-right-name">
                         <h1>{{ $product->name }}</h1>
+                        <div class="favorite-icon">
+                            @if (Auth::check()) <!-- Kiểm tra xem có người dùng đã đăng nhập hay không -->
+                                <form method="post" action="{{ route('products.like', $product->id) }}">
+                                    @csrf
+                                    <button style="border: none; background-color: transparent" type="submit">
+                                        <i class="fas fa-heart {{ Auth::user()->favoriteProducts->contains($product->id) ? 'liked' : '' }}"></i>
+                                    </button>
+                                </form>
+                            @else
+                            <button style="border: none;background-color:transparent" type="button" class="login-prompt">
+                                <i class="fas fa-heart"></i>
+                            </button>
+                            @endif
+                        </div>
                     </div>
                     <div class="product-content-right-price">
 
@@ -152,4 +166,65 @@
             })
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginPrompts = document.querySelectorAll('.login-prompt');
+            loginPrompts.forEach(button => {
+                button.addEventListener('click', function () {
+                    alert('Vui lòng đăng nhập để thả tim sản phẩm.');
+                });
+            });
+            const favoriteForms = document.querySelectorAll('.favorite-icon form');
+            favoriteForms.forEach(form => {
+                form.addEventListener('submit', function(event) {
+                    event.preventDefault();
+                    const heartIcon = this.querySelector('i');
+                    const isLiked = heartIcon.classList.contains('liked');
+                    const productId = this.action.split('/').pop();
+                    const url = isLiked ? `/products/${productId}/unlike` :
+                        `/products/${productId}/like`;
+    
+                    fetch(url, {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-CSRF-TOKEN': document.querySelector(
+                                    'meta[name="csrf-token"]').getAttribute('content')
+                            },
+                        })
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.liked) {
+                                heartIcon.classList.add('liked');
+                            } else {
+                                heartIcon.classList.remove('liked');
+                            }
+                        })
+                        .catch(error => console.error('Error:', error));
+                });
+            });
+        });
+        .then(data => {
+        console.log(data);  // Thêm dòng này để kiểm tra dữ liệu trả về
+        if (data.liked) {
+            heartIcon.classList.add('liked');
+        } else {
+            heartIcon.classList.remove('liked');
+        }
+    })
+    </script>
+    
+    
+    <style>
+        .fa-heart {
+            color: rgb(219, 218, 218);
+            border: 1px solid #e2e2e2;
+            padding: 5px;
+            border-radius: 20px
+        }
+        .fa-heart.liked {
+            color: rgb(248, 19, 134);
+        }
+    </style>
+    
 @endsection

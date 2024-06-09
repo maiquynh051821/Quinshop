@@ -22,6 +22,7 @@ class MainshopController extends Controller
             'sliders'=> $this->slider->show(),
             'products' =>$this->product->get(),
         ]);
+        
     }
     public function loadProduct(Request $request)
     {

@@ -33,8 +33,20 @@
             <input placeholder="Tìm kiếm" type="text">
             <button><i class="fas fa-search"></i></button>
         </div>
+        <div class="favorite">
+            <li><a href="/likes" class="fas fa-heart">
+                @if ($likeCount != 0)
+                <span style="border-radius:50px" class="badge">{{ $likeCount }}</span>
+            @endif
+            </a></li>
+        </div>
         <div class="shopping">
-            <li><a href="/carts" class="fa fa-shopping-bag"></a></li>
+            <li><a href="/carts" class="fa fa-shopping-bag">
+                @if ($cartCount != 0)
+                <span style="border-radius:50px" class="badge">{{ $cartCount }}</span>
+
+                @endif
+            </a></li>
         </div>
         <div class="login">
             @guest

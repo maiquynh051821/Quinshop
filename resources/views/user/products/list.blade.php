@@ -96,7 +96,10 @@
 
 
 <style>
-    .liked {
-        color: red;
+    .fa-heart {
+        color: rgb(219, 218, 218);
+    }
+    .fa-heart.liked {
+        color: rgb(248, 19, 134);
     }
 </style>

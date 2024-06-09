@@ -51,11 +51,13 @@ class CartshopController extends Controller
         $this->cartService->remove($request);
         return redirect('/carts');
     }
+
+ 
     public function showCheckout()
     {
         $products = $this->cartService->getProduct();
         $user = Auth::user();
-        return view('user.carts.checkout',[
+        return view('user.carts.checkout', [
             'title' => 'Đơn hàng',
             'products' => $products,
             'user' => $user,
@@ -64,10 +66,8 @@ class CartshopController extends Controller
     }
     public function addCart(Request $request)
     {
-       $result = $this->cartService->addCart($request);
-    //    dd($request->all());
-       return redirect()->back();
+        $result = $this->cartService->addCart($request);
+        //    dd($request->all());
+        return redirect()->back();
     }
-   
-
 }

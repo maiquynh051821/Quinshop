@@ -15,11 +15,11 @@
                         <i class="fas fa-map-marker-alt"></i>
                     </div>
                 </a>
-               <a href="#">
-                <div class="cart-top-payment cart-top-item">
-                    <i class="fas fa-money-check-alt"></i>
-                </div>
-               </a>
+                <a href="#">
+                    <div class="cart-top-payment cart-top-item">
+                        <i class="fas fa-money-check-alt"></i>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -72,9 +72,11 @@
                                             name="products[{{ $cartProduct['product']->id }}][{{ $cartProduct['size'] }}][quantity]"
                                             type="number" value="{{ $cartProduct['quantity'] }}" min="1"
                                             style="width: 50px">
-                                    <button style="width: 30px;background-color: rgb(255, 255, 255); font-size: 15px; border:none; text-align: center;" type="submit" formaction="/update-cart">
-                                                <i style="color:rgb(131, 253, 131)" class="fas fa-edit"></i>
-                                            </button>
+                                        <button
+                                            style="width: 30px;background-color: rgb(255, 255, 255); font-size: 15px; border:none; text-align: center;"
+                                            type="submit" formaction="/update-cart">
+                                            <i style="color:rgb(131, 253, 131)" class="fas fa-edit"></i>
+                                        </button>
                                     </form>
                                 </td>
                                 <td>
@@ -102,13 +104,20 @@
 
                 </div>
                 <div class="cart-content-right">
+                    @php
+                        $totalQuantity = 0;
+
+                        foreach ($carts as $item) {
+                            $totalQuantity += $item['quantity'];
+                        }
+                    @endphp
                     <table>
                         <tr>
                             <th colspan="2">Tổng tiền trong giỏ hàng</th>
                         </tr>
                         <tr>
-                            <td>Tổng loại sản phẩm </td>
-                            <td>{{ count($products) }}</td>
+                            <td>Tổng số sản phẩm </td>
+                            <td>{{ $totalQuantity }}</td>
                         </tr>
                         <tr>
                             <td>Tổng tiền hàng</td>
@@ -127,7 +136,8 @@
                     </table>
                     <div class="cart-content-right-text">
                         <p style="color: red;">* Miễn phí ship với hóa đơn trên 1.000.000 <sup>đ</sup> . @if ($total < 1000000)
-                                Mua thêm {{ number_format(1000000 - $total, 0, ',', '.') }}<sup>đ</sup> để được miễn phí ship
+                                Mua thêm {{ number_format(1000000 - $total, 0, ',', '.') }}<sup>đ</sup> để được miễn phí
+                                ship
                             @endif
                         </p>
 
@@ -147,13 +157,13 @@
         @endif
     </section>
     @if (session()->has('success'))
-    <script>
-      $(document).ready(function() {
-          setTimeout(function() {
-              $(".alert-success").fadeOut("slow");
-          }, 5000); // Thay đổi bằng số miligiây bạn muốn thông báo hiển thị
-      });
-      </script>
+        <script>
+            $(document).ready(function() {
+                setTimeout(function() {
+                    $(".alert-success").fadeOut("slow");
+                }, 5000); // Thay đổi bằng số miligiây bạn muốn thông báo hiển thị
+            });
+        </script>
     @endif
 
 @endsection

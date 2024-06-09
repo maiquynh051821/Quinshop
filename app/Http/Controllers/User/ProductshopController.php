@@ -33,7 +33,7 @@ class ProductshopController extends Controller
     } else {
         $user->favoriteProducts()->detach($product->id);
     }
-    return redirect()->route('home')->with('message', 'Product like status updated.');
+    return redirect()->back();
 }
 
 public function unlike(Product $product)
@@ -42,8 +42,16 @@ public function unlike(Product $product)
     if ($user->favoriteProducts()->where('product_id', $product->id)->exists()) {
         $user->favoriteProducts()->detach($product->id);
     }
-    return redirect()->route('home')->with('message', 'Product unlike status updated.');
+    return redirect()->back();
 }
-
+public function show()
+{
+    $user = Auth::user();
+    $favoriteProducts = $user->favoriteProducts()->paginate(12);
+    return view('user.like', [
+        'title' => 'Danh sách sản phẩm đã thích',
+        'products' => $favoriteProducts,
+    ]);
+}
 }
 
