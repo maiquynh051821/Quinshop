@@ -5,7 +5,7 @@ use App\Models\Admin\Product;
 use App\Models\Admin\Menu;
 class ProductService
 {   
-    const LIMIT =16;
+    const LIMIT =12;
     public function get($page = null)
     {
       return Product::select('id','name','price','price_sale','thumb')  

@@ -44,7 +44,6 @@ class ProductAdminService
         Log::info($err->getMessage()); //Ghi log loi
         return false;
        }
-      
     }
 
     #Hien thi danh sach san pham

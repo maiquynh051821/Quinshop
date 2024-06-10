@@ -33,8 +33,16 @@
             <td style="text-align:center;">{{$loop->iteration}}</td>
             <td style="padding-left:20px">{{$product->name}}</td>
             <td style="padding-left:20px">{{optional($product->menu)->name}}</td>
-            <td style="text-align:center">{{ number_format($product->price, 0, ',', '.') }} ₫</td>
-            <td style="text-align:center">{{ number_format($product->price_sale, 0, ',', '.') }} ₫</td>
+            <td style="text-align:center">
+              @if ($product->price !== null)
+              {{ number_format($product->price, 0, ',', '.') }} ₫
+              @endif
+            </td>
+            <td style="text-align:center">
+              @if ($product->price_sale !== null)
+              {{ number_format($product->price_sale, 0, ',', '.') }} ₫ 
+              @endif
+            </td>
             <td style="text-align:center"><a href="{{ $product->thumb }}">
               <img style="width: 70px;height:auto" src="{{ $product->thumb }}" alt="Thumbnail" class="img-thumbnail"></a>
             </td>

@@ -35,7 +35,7 @@ class User extends Authenticatable
     //Thiet lap mqh nhiều - nhiều với model 'Product'
     public function favoriteProducts()
     {
-        return $this->belongsToMany(Product::class, 'product_user_likes', 'user_id', 'product_id');
+        return $this->belongsToMany(Product::class, 'favorite_products', 'user_id', 'product_id');
     }
     /**
      * The attributes that should be hidden for serialization.

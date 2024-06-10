@@ -57,7 +57,9 @@
                                             alt="{{ $cartProduct['product']->name }}"></a>
                                 </td>
                                 <td>
-                                    <p>{{ $cartProduct['product']->name }}</p>
+                                    <a href="/san-pham/{{ $cartProduct['product']->id }}-{{ \Str::slug($cartProduct['product']->name, '-') }}.html">
+                                        <p style="color: rgb(32, 32, 32)">{{ $cartProduct['product']->name }}</p>
+                                    </a>
                                 </td>
                                 <td>
                                     <p>{{ $cartProduct['size'] }}</p>

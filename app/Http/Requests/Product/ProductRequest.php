@@ -19,22 +19,25 @@ class ProductRequest extends FormRequest
      *
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array<mixed>|string>
      */
+
     public function rules(): array
     {
         return [
-           'name' => 'required',
-           'thumb' => 'required',
-           'description' => 'required',//|mimes:jpg,jpeg,gif,png,svg|mime_types:image/jpeg,image/gif,image/png,image/svg+xml
-           'content' => 'required',
+            'name' => 'required',
+            'thumb' => 'required',
+            'description' => 'required', //|mimes:jpg,jpeg,gif,png,svg|mime_types:image/jpeg,image/gif,image/png,image/svg+xml
+            'content' => 'required',
         ];
     }
-    public function messages(){
-        return[
-          'name.required' => 'Vui lòng nhập tên sản phẩm',
-          'thumb.required' => 'Không được để trống ảnh',
-          'description.required' => 'Vui lòng nhập mô tả chi tiết',
-          'content.required' => 'Vui lòng nhập cách bảo quản',
-        //   'thumb.mimes' => 'Tệp ảnh phải có định dạng JPG, JPEG, GIF, PNG hoặc SVG',
+
+    public function messages()
+    {
+        return [
+            'name.required' => 'Vui lòng nhập tên sản phẩm',
+            'thumb.required' => 'Không được để trống ảnh',
+            'description.required' => 'Vui lòng nhập mô tả chi tiết',
+            'content.required' => 'Vui lòng nhập cách bảo quản',
+            //   'thumb.mimes' => 'Tệp ảnh phải có định dạng JPG, JPEG, GIF, PNG hoặc SVG',
         ];
     }
 }

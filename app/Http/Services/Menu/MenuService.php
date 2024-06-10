@@ -95,7 +95,7 @@ class MenuService
             $childMenu->save();
             $this->updateNonactive($childMenu->id);
         }
-    
+
         $products = Product::where('menu_id', $parentId)->get();
         foreach ($products as $product) {
             $product->active = '0';
@@ -110,13 +110,14 @@ class MenuService
             $childMenu->save();
             $this->updateActive($childMenu->id);
         }
-    
+
         $products = Product::where('menu_id', $parentId)->get();
         foreach ($products as $product) {
             $product->active = '1';
             $product->save();
         }
     }
+
     //
     public function getId($id)
     {
@@ -127,12 +128,16 @@ class MenuService
         $query = $menu->products()
             ->select('id', 'name', 'price', 'price_sale', 'thumb')
             ->where('active', 1);
-        if ($request->input('price_sale')) {
-            $query->orderBy('price_sale', $request->input('price_sale'));
+        if ($request->input('sort_price')) {
+            $sortOrder = $request->input('sort_price'); // asc hoặc desc
+
+            // Sắp xếp theo giá sale nếu có, nếu không thì theo giá gốc
+            $query->orderByRaw('COALESCE(price_sale, price) ' . $sortOrder);
         }
         return $query
             ->orderByDesc('id')
             ->paginate(12)
             ->withQueryString();
     }
+    
 }

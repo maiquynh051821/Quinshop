@@ -31,6 +31,6 @@ class Product extends Model
     //Thiet lập mqh nhiều - nhiều với model User
     public function likeByUsers()
     {
-        return $this->belongsToMany(User::class,'product_user_likes')->withTimestamps();
+        return $this->belongsToMany(User::class,'favorite_products', 'product_id', 'user_id');
     }
 }

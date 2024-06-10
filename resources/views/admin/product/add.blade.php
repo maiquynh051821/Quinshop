@@ -21,11 +21,11 @@
     </div>
     <div class="form-group">
       <label for="price">Giá gốc</label>
-      <input type="number" name="price" value="{{old('price')}}" class="form-control" id="price" min="0">
+      <input type="number" name="price" value="{{old('price')}}" class="form-control" id="price" min="1">
     </div>
     <div class="form-group">
       <label for="price_sale">Giá sale</label>
-      <input type="number" name="price_sale" value="{{old('price_sale')}}" class="form-control" id="price_sale" min="0">
+      <input type="number" name="price_sale" value="{{old('price_sale')}}" class="form-control" id="price_sale" min="1">
     </div>
     <div class="form-group">
         <label for="description">Mô tả chi tiết</label>
@@ -37,7 +37,7 @@
       </div>
       <div class="form-group">
         <label for="">Ảnh sản phẩm</label><br>
-        <input type="file" id="upload" class="form-control" multiple> 
+        <input type="file" id="upload" name="images[]" class="form-control" multiple> 
         <div id="image_show">
 
         </div>
