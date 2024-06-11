@@ -21,7 +21,7 @@ class Product extends Model
     'likes',
     'thumb', 
     ];
-
+  
     public function menu()
     {
         return $this->hasOne(Menu::class,'id','menu_id')// 'id':khoa chinh, 'menu_id':khoa phu

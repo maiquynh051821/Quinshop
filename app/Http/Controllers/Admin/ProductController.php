@@ -23,7 +23,6 @@ class ProductController extends Controller
             'products' => $this->productService->get(),
         ]);
     }
-    
     // Tao san pham 
     public function create()
     {
@@ -53,6 +52,7 @@ class ProductController extends Controller
             'menus' => $this->productService->getMenu(),
         ]);
     }
+
 
     /**
      * Update san pham.

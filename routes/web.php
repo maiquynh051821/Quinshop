@@ -110,3 +110,4 @@ Route::post('add-cart', [CartshopController::class, 'index']);
 Route::get('carts', [CartshopController::class, 'show']);
 Route::post('/update-cart', [CartshopController::class, 'update']);
 Route::post('/remove-cart', [CartshopController::class, 'remove'])->name('cart.remove');
+Route::get('/search',[ProductshopController::class,'search'])->name('search');

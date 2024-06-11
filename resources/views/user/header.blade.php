@@ -13,13 +13,14 @@
     <link rel="stylesheet" href="/template/css/style.css">
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/css/adminlte.min.css">
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/js/bootstrap.js">
-    <link rel="shortcut icon" type="image/png" href="/template/images/icons/logo-quinshop.png"/> 
-    <title>{{$title}}</title>
-    
+    <link rel="shortcut icon" type="image/png" href="/template/images/icons/logo-quinshop.png" />
+    <title>{{ $title }}</title>
+
 </head>
 @php
-  $menusHtml = \App\Helpers\Helper::menus($menus);
+    $menusHtml = \App\Helpers\Helper::menus($menus);
 @endphp
+
 <body>
     <section class="fixed-header">
         <div class="logo">
@@ -29,24 +30,27 @@
             <li><a href="/">Trang chủ</a></li>
             {!! $menusHtml !!}
         </div>
-        <div class="others">
-            <input placeholder="Tìm kiếm" type="text">
-            <button><i class="fas fa-search"></i></button>
-        </div>
+
+        <form action="/search" method="get">
+            <div class="others">
+                <input name="query" placeholder="Tìm kiếm" type="text" required>
+                <button type="submit"><i class="fas fa-search"></i></button>
+            </div>
+        </form>
+
         <div class="favorite">
             <li><a href="/likes" class="fas fa-heart">
-                @if ($likeCount != 0)
-                <span style="border-radius:50px" class="badge">{{ $likeCount }}</span>
-            @endif
-            </a></li>
+                    @if ($likeCount != 0)
+                        <span style="border-radius:50px" class="badge">{{ $likeCount }}</span>
+                    @endif
+                </a></li>
         </div>
         <div class="shopping">
             <li><a href="/carts" class="fa fa-shopping-bag">
-                @if ($cartCount != 0)
-                <span style="border-radius:50px" class="badge">{{ $cartCount }}</span>
-
-                @endif
-            </a></li>
+                    @if ($cartCount != 0)
+                        <span style="border-radius:50px" class="badge">{{ $cartCount }}</span>
+                    @endif
+                </a></li>
         </div>
         <div class="login">
             @guest
@@ -54,7 +58,7 @@
             @else
                 <div class="user-info">
                     <i class="fas fa-user"></i> <span>{{ Auth::user()->name }}</span>
-                    <a href="{{ route('logout') }}" 
+                    <a href="{{ route('logout') }}"
                         onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">
                         <button id="logout" class="btn btn-danger btn-logout">Đăng xuất</button>
@@ -66,7 +70,8 @@
             @endguest
         </div>
     </section>
-    
+
     @yield('user.header')
 </body>
+
 </html>

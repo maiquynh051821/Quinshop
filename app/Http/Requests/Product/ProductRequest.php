@@ -24,8 +24,8 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'thumb' => 'required',
-            'description' => 'required', //|mimes:jpg,jpeg,gif,png,svg|mime_types:image/jpeg,image/gif,image/png,image/svg+xml
+            'thumb' => 'required',//|mimes:jpg,jpeg,gif,png,svg|mime_types:image/jpeg,image/gif,image/png,image/svg+xml
+            'description' => 'required', 
             'content' => 'required',
         ];
     }

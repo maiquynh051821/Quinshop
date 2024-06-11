@@ -42,7 +42,7 @@
             </div>
             <div class="form-group">
                 <label for="">Ảnh sản phẩm</label><br>
-                <input type="file" id="upload" name="images[]" class="form-control" multiple>
+                <input type="file" id="upload" name="files[]" class="form-control" multiple>
                 <div id="image_show">
                     <a href="" target="_blank">
                         <img src="{{ $product->thumb }}" alt="" width="100px">

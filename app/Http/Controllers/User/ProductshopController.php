@@ -57,4 +57,12 @@ class ProductshopController extends Controller
             'products' => $favoriteProducts,
         ]);
     }
+    public function search(Request $request)
+    {
+        $query = $request->input('query');
+        $products = Product::where('name','LIKE','%' . $query . '%')->get();
+        return view('user.result', compact('products','query'),[
+            'title' => 'Danh sách kết quả tìm kiếm',
+        ]);
+    }
 }
