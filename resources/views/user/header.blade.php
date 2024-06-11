@@ -72,6 +72,6 @@
     </section>
 
     @yield('user.header')
-</body>
 
-</html>
+
+

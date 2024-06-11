@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('menus', function (Blueprint $table) {
+        Schema::create('footers', function (Blueprint $table) {
             $table->id();
-            $table->string('name',255);
-            $table->integer('parent_id');
-            $table->text('description');
+            $table->string('name');
             $table->longText('content');
             $table->integer('active');
             $table->timestamps();
@@ -27,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('menus');
+        Schema::dropIfExists('footers');
     }
 };

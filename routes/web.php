@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\MainController;
 use App\Http\Controllers\Admin\MenuController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\SliderController;
+use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Login\LoginController;
@@ -74,8 +75,18 @@ Route::middleware(['admin'])->group(function () {
         Route::prefix('users')->group(function () {
             Route::get('list', [UserController::class, 'index']);
             Route::get('edit/{user}', [UserController::class, 'show']);
-            Route::post('edit/{user}',[UserController::class,'update']);
-            Route::delete('destroy',[UserController::class,'destroy']);
+            Route::post('edit/{user}', [UserController::class, 'update']);
+            Route::delete('destroy', [UserController::class, 'destroy']);
+        });
+
+        #Footer
+        Route::prefix('footers')->group(function () {
+            Route::get('add', [FooterController::class, 'create']);
+            Route::post('add', [FooterController::class, 'store']);
+            Route::get('list', [FooterController::class, 'index'])->name('admin.footer.list');
+            Route::get('edit/{footer}', [FooterController::class, 'show']);
+            Route::post('edit/{footer}', [FooterController::class, 'update']);
+            Route::delete('destroy', [FooterController::class, 'destroy']);
         });
     });
 });
@@ -98,8 +109,7 @@ Route::middleware(['user'])->group(function () {
     Route::post('checkouts', [CartshopController::class, 'addCart']);
     Route::post('/products/{product}/like', [ProductshopController::class, 'like'])->name('products.like');
     Route::post('/products/{product}/unlike', [ProductshopController::class, 'unlike'])->name('products.unlike');
-    Route::get('/likes',[ProductshopController::class,'show']);
-
+    Route::get('/likes', [ProductshopController::class, 'show']);
 });
 
 Route::get('/', [MainshopController::class, 'index'])->name('home');
@@ -110,4 +120,4 @@ Route::post('add-cart', [CartshopController::class, 'index']);
 Route::get('carts', [CartshopController::class, 'show']);
 Route::post('/update-cart', [CartshopController::class, 'update']);
 Route::post('/remove-cart', [CartshopController::class, 'remove'])->name('cart.remove');
-Route::get('/search',[ProductshopController::class,'search'])->name('search');
+Route::get('/search', [ProductshopController::class, 'search'])->name('search');
