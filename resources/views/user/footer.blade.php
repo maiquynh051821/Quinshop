@@ -1,4 +1,6 @@
-
+<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Footer -->
     <footer class="footer bg-dark text-white mt-5">
         <div class="container">
@@ -34,6 +36,12 @@
                         <li><a href="#" class="text-white">Mục nhỏ 4.2</a></li>
                         <li><a href="#" class="text-white">Mục nhỏ 4.3</a></li>
                     </ul>
+                </div>
+            </div>
+            <div style="margin-top: 20px" class="row contact-info">
+                <div class="col-12 text-center">
+                    <p>Địa chỉ: Số 123, Đường ABC, Quận XYZ, Thành phố</p>
+                    <p>Điện thoại: 0123-456-789</p>
                 </div>
             </div>
         </div>
