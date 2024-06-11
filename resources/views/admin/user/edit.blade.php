@@ -9,7 +9,7 @@
                 <input type="text" name="name" value="{{ $user->name}}" class="form-control" id="name">
             </div>
             <div class="form-group">
-                <label for="name">Email</label>
+                <label for="email">Email</label>
                 <input type="text" name="email" value="{{ $user->email }}" class="form-control" id="email">
             </div>
             <div class="form-group">

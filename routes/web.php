@@ -8,6 +8,7 @@ use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
+use App\Http\Controllers\Admin\SiteInfoController;
 use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
@@ -87,6 +88,14 @@ Route::middleware(['admin'])->group(function () {
             Route::get('edit/{footer}', [FooterController::class, 'show']);
             Route::post('edit/{footer}', [FooterController::class, 'update']);
             Route::delete('destroy', [FooterController::class, 'destroy']);
+        });
+
+        #SiteInfo
+        Route::prefix('siteInfos')->group(function () {
+            Route::get('list', [SiteInfoController::class, 'index'])->name('admin.site_info.list');
+            Route::get('edit/{siteInfo}', [SiteInfoController::class, 'show']);
+            Route::post('edit/{siteInfo}', [SiteInfoController::class, 'update']);
+            Route::delete('destroy', [SiteInfoController::class, 'destroy']);
         });
     });
 });

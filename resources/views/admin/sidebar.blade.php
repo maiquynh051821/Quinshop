@@ -154,7 +154,7 @@
                     </a>
                     <ul class="nav nav-treeview ml-3">
                         <li class="nav-item">
-                            <a href="/admin/info/list" class="nav-link">
+                            <a href="/admin/siteInfos/list" class="nav-link">
                                 <i class="fa-solid fa-circle-right"></i>
                                 <p>Thông tin cửa hàng</p>
                             </a>
