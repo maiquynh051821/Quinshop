@@ -8,7 +8,7 @@ use App\Http\View\Composers\MenuComposer;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
-
+use App\Models\Admin\Footer;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -32,6 +32,10 @@ class ViewServiceProvider extends ServiceProvider
             $likeCount = $this->countLike();
             $view->with('likeCount', $likeCount);
         });
+        View::composer(['user.footer'], function ($view) {
+            $footers =$this->getFooter();
+            $view->with('footers',$footers);
+        });
     }
 
     // Dem so san pham trong gio hang
@@ -52,4 +56,14 @@ class ViewServiceProvider extends ServiceProvider
             return 0; // Trả về 0 nếu không có người dùng nào đang xác thực
         }
     }
+    private function getFooter()
+    {
+        
+        $footers = Footer::where('active',1)->get();
+        // dd($footers);
+    
+        // Log::info('Footers loaded', ['footers' => $footers]);
+        return $footers;
+    }
+    
 }

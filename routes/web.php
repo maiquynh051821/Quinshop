@@ -17,6 +17,8 @@ use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\User\CartshopController;
 use App\Http\Controllers\User\MenushopController;
 use App\Http\Controllers\User\ProductshopController;
+use App\Http\Controllers\User\FootershopController;
+
 
 
 /*
@@ -130,3 +132,4 @@ Route::get('carts', [CartshopController::class, 'show']);
 Route::post('/update-cart', [CartshopController::class, 'update']);
 Route::post('/remove-cart', [CartshopController::class, 'remove'])->name('cart.remove');
 Route::get('/search', [ProductshopController::class, 'search'])->name('search');
+// Route::get('/footer',[FootershopController::class,'index']);
