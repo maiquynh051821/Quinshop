@@ -11,6 +11,10 @@
             <div class="form-group">
                 <label for="address">Địa chỉ</label>
                 <input type="text" name="address" value="{{ $siteInfos->address }}" class="form-control" id="address">
+            </div>
+            <div class="form-group">
+                <label for="phone">Số điện thoại</label>
+                <input type="text" name="phone" value="{{ $siteInfos->phone }}" class="form-control" id="phone">
             </div>   
             <div class="form-group">
                 <label for="email">Email</label>

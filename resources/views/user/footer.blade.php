@@ -2,6 +2,10 @@
 <footer class="footer bg-dark text-white mt-4">
     <div class="container">
         <div class="row text-center">
+            <div class="col-lg-3 col-md-6">
+                <a href="#" target="_blank">
+                 <h5 style="color: rgb(255, 255, 255)" class="mb-3">Liên hệ</h5></a> 
+             </div>
             @if ($footers->isNotEmpty())
                 @foreach ($footers as $footer)
                     <div class="col-lg-3 col-md-6">
@@ -17,11 +21,12 @@
         </div>
     </div>
 
-    <div style="margin-top: 20px" class="row contact-info">
-        <div class="col-12 text-center">
-            <p>Địa chỉ: Số 123, Đường ABC, Quận XYZ, Thành phố</p>
-            <p>Điện thoại: 0123-456-789</p>
-        </div>
+<div style="margin-top: 20px" class="text-center contact-info">
+        @foreach ($infoSites as $infoSite)
+        <p>Số điện thoại: {{$infoSite->phone}}</p>
+        <p>Email: {{$infoSite->email}}</p>
+        <p>Địa chỉ: {{$infoSite->address}}</p>
+    @endforeach
     </div>
 </footer>
 

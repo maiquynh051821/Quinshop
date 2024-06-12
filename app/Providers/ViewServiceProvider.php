@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\View;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Admin\Footer;
+use App\Models\Admin\SiteInfo;
 
 class ViewServiceProvider extends ServiceProvider
 {
@@ -36,6 +37,10 @@ class ViewServiceProvider extends ServiceProvider
             $footers =$this->getFooter();
             $view->with('footers',$footers);
         });
+        View::composer(['user.footer'], function ($view) {
+            $infoSites =$this->getInfo();
+            $view->with('infoSites',$infoSites);
+        });
     }
 
     // Dem so san pham trong gio hang
@@ -60,10 +65,11 @@ class ViewServiceProvider extends ServiceProvider
     {
         
         $footers = Footer::where('active',1)->get();
-        // dd($footers);
-    
-        // Log::info('Footers loaded', ['footers' => $footers]);
         return $footers;
     }
-    
+    private function getInfo()
+    {
+        $infoSites = SiteInfo::get();
+        return $infoSites;
+    }
 }

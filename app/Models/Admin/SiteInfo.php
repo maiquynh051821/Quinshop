@@ -13,6 +13,8 @@ class SiteInfo extends Model
     protected $fillable = [
         'name',
         'address',
+        'phone',
         'email'
+        
     ];
 }

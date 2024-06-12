@@ -35,7 +35,8 @@ class SiteInfoController extends Controller
         $this->validate($request, [
             'name' => 'required',
             'address'=> 'required',
-            'email' => 'required',
+            'phone'=>'required|numeric',
+            'email' => 'required|email',
         ]);
     
         $this->siteInfoService->update($id, $request->all());
