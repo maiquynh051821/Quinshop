@@ -9,7 +9,7 @@
             @if ($footers->isNotEmpty())
                 @foreach ($footers as $footer)
                     <div class="col-lg-3 col-md-6">
-                       <a href="#" target="_blank">
+                       <a href="{{ route('footers.show', $footer->id) }}" target="_blank">
                         <h5 style="color: rgb(255, 255, 255)" class="mb-3">{{ $footer->name }}</h5></a> 
                     </div>
                 @endforeach

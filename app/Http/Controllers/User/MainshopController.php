@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\Slider\SliderService;
 use App\Http\Services\Product\ProductService;
+use App\Models\Admin\Footer;
 
 class MainshopController extends Controller
 {
@@ -37,5 +38,13 @@ class MainshopController extends Controller
         }
             //Tra ve JSON trống nếu không có sản phẩm nào được tìm thấy
         return response()->json(['html' => '' ]);
+    }
+    
+    public function footerContent($id){
+        $footer = Footer::findOrFail($id);
+        return view('user.info.footerContent', [
+            'title'=> $footer->name,
+            'footer' => $footer,
+        ]);
     }
 }
