@@ -101,8 +101,11 @@ Route::middleware(['admin'])->group(function () {
             Route::delete('destroy', [SiteInfoController::class, 'destroy']);
         });
         #Contact
-        Route::prefix('admin')->name('admin.')->group(function () {
-            Route::get('contacts', [AdminContactController::class, 'index'])->name('contacts.list');
+        Route::prefix('contacts')->name('admin.')->group(function () {
+            Route::get('list', [AdminContactController::class, 'index'])->name('contacts.list');
+            Route::put('/{id}/update-status', [AdminContactController::class, 'updateStatus'])->name('contacts.updateStatus');
+            Route::get('contacts/{id}', [AdminContactController::class, 'show'])->name('contacts.show');
+            Route::post('contacts/{id}/send-reply', [AdminContactController::class, 'sendReply'])->name('contacts.sendReply');
         });
     });
 });

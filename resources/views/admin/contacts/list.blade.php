@@ -13,6 +13,7 @@
                     <th>Email</th>
                     <th>Nội dung</th>
                     <th>Ngày gửi</th>
+                    <th>Trạng thái</th>
                     <th>Xem</th>
                 </tr>
             </thead>
@@ -23,7 +24,19 @@
                         <td>{{ $contact->email }}</td>
                         <td>{!! substr($contact->message, 0, 150) !!}{!! strlen($contact->message) > 100 ? '...' : '' !!}</td>
                         <td>{{ $contact->created_at }}</td>
-                        <td><a href="{{ route('contacts.show', $contact->id) }}" class="btn btn-info btn-sm">Xem chi tiết</a></td>
+                        <td>
+                            <form action="{{ route('admin.contacts.updateStatus', $contact->id) }}" method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="form-group">
+                                    <select name="status" class="form-control" onchange="this.form.submit()">
+                                        <option value="0" {{ $contact->status == 0 ? 'selected' : '' }}>Chưa trả lời</option>
+                                        <option value="1" {{ $contact->status == 1 ? 'selected' : '' }}>Đã trả lời</option>
+                                    </select>
+                                </div>
+                            </form>
+                        </td>
+                        <td><a href="{{ route('admin.contacts.show', $contact->id) }}" class="btn btn-info btn-sm"><i class="fa-regular far fa-eye"></i></a></td>
                     </tr>
                 @endforeach
             </tbody>
