@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row text-center">
             <div class="col-lg-3 col-md-6">
-                <a href="#" target="_blank">
+                <a href="{{ route('contact.form') }}" target="_blank">
                  <h5 style="color: rgb(255, 255, 255)" class="mb-3">Liên hệ</h5></a> 
              </div>
             @if ($footers->isNotEmpty())

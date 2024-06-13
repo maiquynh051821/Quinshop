@@ -159,6 +159,14 @@
                                 <p>Thông tin cửa hàng</p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.contacts.list') }}">
+                                    <i class="fa-solid fa-circle-right"></i>
+                                    <p>Danh sách liên hệ</p>
+                                </a>
+                            </li>
+                        </li>
                     </ul>
                 </li>
             </ul>

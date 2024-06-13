@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\FooterController;
 use App\Http\Controllers\Admin\UploadController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Admin\SiteInfoController;
+use App\Http\Controllers\Admin\AdminContactController;
 use App\Http\Controllers\Login\LoginController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Login\GoogleLoginController;
@@ -17,7 +18,7 @@ use App\Http\Controllers\Register\RegisterController;
 use App\Http\Controllers\User\CartshopController;
 use App\Http\Controllers\User\MenushopController;
 use App\Http\Controllers\User\ProductshopController;
-use App\Http\Controllers\User\FootershopController;
+use App\Http\Controllers\ContactController;
 
 
 
@@ -99,6 +100,10 @@ Route::middleware(['admin'])->group(function () {
             Route::post('edit/{siteInfo}', [SiteInfoController::class, 'update']);
             Route::delete('destroy', [SiteInfoController::class, 'destroy']);
         });
+        #Contact
+        Route::prefix('admin')->name('admin.')->group(function () {
+            Route::get('contacts', [AdminContactController::class, 'index'])->name('contacts.list');
+        });
     });
 });
 
@@ -133,3 +138,5 @@ Route::post('/update-cart', [CartshopController::class, 'update']);
 Route::post('/remove-cart', [CartshopController::class, 'remove'])->name('cart.remove');
 Route::get('/search', [ProductshopController::class, 'search'])->name('search');
 Route::get('/footer/{id}',[MainshopController::class,'footerContent'])->name('footers.show');
+Route::get('/contact', [ContactController::class, 'show'])->name('contact.form');
+Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
