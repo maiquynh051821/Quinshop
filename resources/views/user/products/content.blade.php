@@ -1,3 +1,6 @@
+<?php
+use App\Http\Controllers\Admin\ProductController;
+?>
 @extends('user.main')
 @section('body')
     <section class="product">
@@ -12,14 +15,21 @@
                 <p>{{ $product->name }}</p>
             </div>
             <div class="product-content">
+                <?php
+                    $thumbs = json_decode($product->thumb);
+                    $firstThumb = $thumbs[0] ?? null;   
+                    $oneThumb = $thumbs[1] ?? null;
+                    $twoThumb = $thumbs[2] ?? null;
+                    $threeThumb = $thumbs[3] ?? null; 
+                    ?>
                 <div class="product-content-left">
                     <div class="product-content-left-big-img">
-                        <img src="{{ $product->thumb }}" alt="">
+                        <img src="{{ asset($firstThumb) }}" alt="">
                     </div>
                     <div class="product-content-left-small-img">
-                        <img src="/template/images/product-02.jpg" alt="">
-                        <img src="/template/images/product-03.jpg" alt="">
-                        <img src="/template/images/product-05.jpg" alt="">
+                        <img src="{{ asset($oneThumb) }}" alt="">
+                        <img src="{{ asset($twoThumb) }}" alt="">
+                        <img src="{{ asset($threeThumb) }}" alt="">
                     </div>
                 </div>
                 <div class="product-content-right">
@@ -41,7 +51,6 @@
                         </div>
                     </div>
                     <div class="product-content-right-price">
-
                         <p><span style="font-weight: bold;color:black;">Giá :</span>
                             @if ($product->price_sale !== null)
                                 <ins style=" text-decoration: none;"><span>{!! \App\Helpers\Helper::price($product->price_sale) !!}<sup>đ</sup></span></ins>
@@ -65,10 +74,13 @@
                             <div class="product-content-right-size">
                                 <p style="font-weight: bold;">Size :
                                     <select class="size" name="size">
-                                        <option value="S">S</option>
-                                        <option value="M">M</option>
-                                        <option value="L">L</option>
-                                        <option value="XL">XL</option>
+                                        <?php
+                                    $size = ProductController::getSizeByProductId($product->id);
+                                        ?>
+                                        @foreach($size as $item)
+                                        <option value="{{ $item->size }}">{{ $item->size }}</option>
+                                        @endforeach
+                                        
                                     </select>
                                 </p>
                                 <p style="color: red;font-size: 12px;">Vui lòng chọn size *</p>

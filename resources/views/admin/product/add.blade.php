@@ -5,7 +5,8 @@
 @endsection
 
 @section('content')
-<form action="" method="POST" enctype="multipart/form-data">
+
+<form action="{{ route('store_product') }}" method="POST" enctype="multipart/form-data">
     <div class="card-body">
       <div class="form-group">
         <label for="name">Tên sản phẩm</label>
@@ -37,11 +38,17 @@
       </div>
       <div class="form-group">
         <label for="">Ảnh sản phẩm</label><br>
-        <input type="file" id="upload" class="form-control" multiple> 
-        <div id="image_show">
-
-        </div>
-        <input type="hidden" name="thumb" id="thumb">
+        <input name="file_img[]" type="file" id="upload" class="form-control" multiple> 
+      </div>
+      <div class="form-group">
+        <label class="ms-4" for="">Chọn Size</label>
+        <select multiple class="ms-4" name="size[]" id="">
+          <option value="S">S</option>
+          <option value="M">M</option>
+          <option value="L">L</option>
+          <option value="XL">XL</option>
+          <option value="XXL">XXL</option>
+        </select>
       </div>
       <div class="form-group">
         <label for="">Kích hoạt</label>

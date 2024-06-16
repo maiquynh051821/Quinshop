@@ -3,7 +3,11 @@
         <div class="category-content-item">
             <a href="/san-pham/{{ $product->id }}-{{ \Str::slug($product->name, '-') }}.html">
                 <div class="image-container">
-                    <img class="anhsp" src="{{ $product->thumb }}" alt="">
+                    <?php
+                    $thumbs = json_decode($product->thumb);
+                    $firstThumb = $thumbs[0] ?? null;    
+                    ?>
+                    <img class="anhsp" src="{{ asset($firstThumb) }}" alt="">
                     @if ($product->price_sale !== null)
                         <div class="sale-badge">
                             {{ round((($product->price - $product->price_sale) / $product->price) * 100) }}%

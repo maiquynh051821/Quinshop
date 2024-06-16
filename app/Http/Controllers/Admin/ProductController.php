@@ -2,10 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 use App\Models\Admin\Product;
+use App\Models\Admin\SizeModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product\ProductRequest;
 use App\Http\Services\Product\ProductAdminService;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Storage;
 class ProductController extends Controller
 {
     /**
@@ -81,5 +84,46 @@ class ProductController extends Controller
         }
         return response()->json(['error' => true]);
     }
+
+    public function store_product(Request $request){
+        $data = $request->all();
+        $product = new Product();
+        $product->name = $data['name'];
+        $product->menu_id = $data['menu_id'];
+        $product->price = $data['price'];
+        $product->price_sale = $data['price_sale'];
+        $product->description = $data['description'];
+        $product->content = $data['content'];
+        $product->active = $data['active'];
+        $path_upload = 'uploads/images/';
+        if (!File::exists(public_path($path_upload))) {
+            File::makeDirectory(public_path($path_upload), 0755, true);
+        }
+        $filePaths = [];
+        if($request->hasFile('file_img')){
+            foreach($request->file('file_img') as $file){
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path($path_upload), $filename);
+                $filePaths[] = $path_upload . $filename;
+            }
+            $product->thumb = json_encode($filePaths);
+        }
+
+        $product->save();
+        foreach($data['size'] as $item){
+            $productSize = new SizeModel();
+            $productSize->product_id = $product->id;
+            $productSize->size = $item;
+            $productSize->save();
+        }
+        
+        return redirect()->back()->with('success', 'Sản phẩm đã được lưu thành công');
+        
+    }
+
+    public static function getSizeByProductId($id){
+        $productSize = SizeModel::where('product_id',$id)->get();
+        return $productSize;
+    } 
     
 }
