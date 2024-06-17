@@ -19,7 +19,10 @@ use App\Http\Controllers\User\CartshopController;
 use App\Http\Controllers\User\MenushopController;
 use App\Http\Controllers\User\ProductshopController;
 use App\Http\Controllers\ContactController;
-
+use App\Http\Controllers\CheckoutController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\SuccessController;
+use App\Http\Controllers\PaymentController;
 
 
 /*
@@ -74,6 +77,7 @@ Route::middleware(['admin'])->group(function () {
         #Cart
         Route::get('customers', [CartController::class, 'index']);
         Route::get('customers/view/{customer}', [CartController::class, 'show']);
+        Route::get('cart_status', [CartController::class, 'cartStatus'])->name('cart_status');
 
         #Tai khoan
         Route::prefix('users')->group(function () {
@@ -125,10 +129,26 @@ Route::middleware(['user'])->group(function () {
     // Route::get('user/home',[MainshopController::class,'index'])->name('user');
     #Trang dat hang
     Route::get('checkouts', [CartshopController::class, 'showCheckout'])->name('user');
-    Route::post('checkouts', [CartshopController::class, 'addCart']);
     Route::post('/products/{product}/like', [ProductshopController::class, 'like'])->name('products.like');
     Route::post('/products/{product}/unlike', [ProductshopController::class, 'unlike'])->name('products.unlike');
     Route::get('/likes', [ProductshopController::class, 'show']);
+
+    // pay os
+Route::get('/nap-tien', [CheckoutController::class, 'index'])->name('package.index');
+Route::get('/success', [SuccessController::class, 'successPayment']);
+Route::get('/cancel', [SuccessController::class, 'cancelPayment']);
+Route::post('createPaymentLink', [CheckoutController::class, 'createPaymentLink'])->name('createPaymentLink');
+
+Route::prefix('/order')->group(function () {
+    Route::post('/create', [OrderController::class, 'createOrder']);
+    Route::get('/{id}', [OrderController::class, 'getPaymentLinkInfoOfOrder']);
+    Route::put('/{id}', [OrderController::class, 'cancelPaymentLinkOfOrder']);
+});
+
+Route::prefix('/payment')->group(function () { 
+    Route::post('/payos', [PaymentController::class, 'handlePayOSWebhook']);
+});
+// end pay os
 });
 
 Route::get('/', [MainshopController::class, 'index'])->name('home');
@@ -143,3 +163,5 @@ Route::get('/search', [ProductshopController::class, 'search'])->name('search');
 Route::get('/footer/{id}',[MainshopController::class,'footerContent'])->name('footers.show');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact.form');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::get('/san-pham-vua-mua/{customer_id}', [CartshopController::class, 'cartList'])->name('cart_list');
+Route::get('/san-pham-cua-ban', [CartshopController::class, 'cartListUser'])->name('cart_list_user');

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\CartService;
 use App\Models\Customer;
+use App\Models\Cart;
 
 class CartController extends Controller
 {
@@ -29,5 +30,13 @@ class CartController extends Controller
             'customer' => $customer,
             'carts' => $customer->carts()->get()
         ]);
+    }
+
+    public function cartStatus(Request $request){
+        $data = $request->all();
+        $cart = Cart::where('id',$data['cart_id'])->first();
+        $cart->cart_status = $data['cart_status'];
+        $cart->save();
+        return redirect()->back()->with('success', 'Thay đổi trạng thái thành công');
     }
 }

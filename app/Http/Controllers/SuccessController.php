@@ -1,0 +1,32 @@
+<?php
+
+namespace App\Http\Controllers;
+use App\Models\PaymentModel;
+use Illuminate\Http\Request;
+use App\Models\Customer;
+use Illuminate\Support\Facades\Auth;
+use App\Models\PayosUserModel;
+use Illuminate\Support\Facades\Session;
+use PayOS\PayOS;
+
+class SuccessController extends Controller
+{
+    public function __construct()
+    {
+    }
+    public function successPayment(Request $request) {
+        $data=$request->all();
+        $userId = Auth::user()->id;
+        $customer = Customer::where('user_id', $userId)->latest()->first();
+       if($data['status'] == 'PAID' && $customer){
+            $customer->pay_status = 1;
+            $customer->save();
+            return redirect()->route('cart_list',['customer_id'=>$customer->id]);
+       }
+       return redirect()->route('user');
+    }
+    public function cancelPayment(Request $request) {
+        $data=$request->all();
+        return redirect()->route('user');
+    }
+}

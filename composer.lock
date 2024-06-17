@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "79dffcf298b96b69e32eeea323a15a87",
+    "content-hash": "67f56d4345d114b69d07eac30e983005",
     "packages": [
         {
             "name": "bacon/bacon-qr-code",
@@ -3088,6 +3088,50 @@
                 "source": "https://github.com/paragonie/random_compat"
             },
             "time": "2020-10-15T08:29:30+00:00"
+        },
+        {
+            "name": "payos/payos",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/payOSHQ/payos-lib-php.git",
+                "reference": "09c511ed6b0c8dc8f0dbee6e25eee38ca5293e27"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/payOSHQ/payos-lib-php/zipball/09c511ed6b0c8dc8f0dbee6e25eee38ca5293e27",
+                "reference": "09c511ed6b0c8dc8f0dbee6e25eee38ca5293e27",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=8.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "PayOS\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "locbt"
+                }
+            ],
+            "description": "A payOS package for PHP",
+            "keywords": [
+                "payment",
+                "payos",
+                "payos package"
+            ],
+            "support": {
+                "issues": "https://github.com/payOSHQ/payos-lib-php/issues",
+                "source": "https://github.com/payOSHQ/payos-lib-php/tree/v1.0.5"
+            },
+            "time": "2024-03-29T03:19:59+00:00"
         },
         {
             "name": "phpoption/phpoption",

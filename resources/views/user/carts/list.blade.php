@@ -40,8 +40,12 @@
                             <th>Tổng tiền SP</th>
                             <th>Xóa SP</th>
                         </tr>
-
+                        
                         @foreach ($products as $cartProduct)
+                        <?php
+                        $thumbs = json_decode($cartProduct['product']->thumb);
+                        $firstThumb = $thumbs[0] ?? null;
+                        ?>
                             @php
                                 $price =
                                     $cartProduct['product']->price_sale != 0
@@ -53,7 +57,7 @@
                             <tr>
                                 <td><a
                                         href="/san-pham/{{ $cartProduct['product']->id }}-{{ \Str::slug($cartProduct['product']->name, '-') }}.html">
-                                        <img src="{{ $cartProduct['product']->thumb }}"
+                                        <img src="{{ asset($firstThumb) }}"
                                             alt="{{ $cartProduct['product']->name }}"></a>
                                 </td>
                                 <td>

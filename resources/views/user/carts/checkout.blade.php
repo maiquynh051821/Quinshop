@@ -24,14 +24,14 @@
 
 
         @if (count($products) > 0)
-            <form class="needs-validation" name="frmthanhtoan" method="post" action="/checkouts">
+            <form class="needs-validation" name="frmthanhtoan" method="post" action="/createPaymentLink">
                 @csrf
                 <div class="container">
                     @php
                         $total = 0;
                     @endphp
                     <input type="hidden" name="user_id" value="{{ $user->id }}">
-                    <input type="hidden" name="user_name value="{{ $user->name }}">
+                    <input type="hidden" name="user_name" value="{{ $user->name }}">
 
                     <div class="row">
                         <div class="col-md-4 order-md-2 mb-4">
@@ -64,7 +64,11 @@
 
                                     <li class="list-group-item d-flex justify-content-between lh-condensed">
                                         <div class="d-flex">
-                                            <img src="{{ $product['product']->thumb }}"
+                                            <?php
+                        $thumbs = json_decode($product['product']->thumb);
+                        $firstThumb = $thumbs[0] ?? null;
+                        ?>
+                                            <img src="{{ asset($firstThumb) }}"
                                                 alt="{{ $product['product']->name }}" class="img-thumbnail"
                                                 style="width: 100px; height: auto;">
                                             <div class="ml-3">
@@ -137,6 +141,9 @@
                     </div>
 
 
+                </div>
+                <div>
+                    <input type="hidden" value="{{ $total }}" name="amount">
                 </div>
             </form>
         @else

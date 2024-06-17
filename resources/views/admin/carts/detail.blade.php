@@ -23,6 +23,7 @@
                 <th>Số lượng</th>
                 <th>Đơn giá</th>
                 <th>Tổng tiền SP</th>
+                <th>Trạng thái đơn hàng</th>
             </tr>
 
             @foreach ($carts as $cart)
@@ -30,9 +31,13 @@
                 $priceEnd = $cart->price * $cart->qty;
                 $total += $priceEnd;
             @endphp
+            <?php
+            $thumbs = json_decode($cart->thumb);
+            $firstThumb = $thumbs[0] ?? null;
+            ?>
                 <tr>
                     <td>
-                            <img src="{{ $cart->thumb }}" alt="{{ $cart->name }}"></a>
+                            <img src="{{ asset($firstThumb) }}" alt="{{ $cart->name }}"></a>
                     </td>
                     <td>
                         <p>{{ $cart->name }}</p>
@@ -49,12 +54,21 @@
                     <td>
                         <p>{{ number_format($priceEnd, 0, ',', '.') }} <sup>đ</sup></p>
                     </td>
+                    <td>
+                        <form class="d-flex justify-content-between" action="{{ route('cart_status') }}" method="get">
+                        <input type="hidden" name="cart_id" value="{{ $cart->id }}">
+                        <select class="form-control w-75"  name="cart_status" id="">
+                                <option @if($cart->cart_status == 0) selected @endif value="0">Chờ lấy hàng</option>
+                                <option @if($cart->cart_status == 1) selected @endif value="1">Đang giao hàng</option>
+                                <option @if($cart->cart_status == 2) selected @endif  value="2">Đã giao hàng</option>
+                                <option @if($cart->cart_status == 3) selected @endif value="3">Đơn hàng đã hủy</option>
+                        </select>
+                        <button class="btn btn-primary" type="submit">Thay đổi</button>
+                    </form>
+                    </td>
                 </tr>
             @endforeach
-
         </table>
-
-
     </div>
     <div class="cart-content-right">
         <table>

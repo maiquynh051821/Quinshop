@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Services\CartService;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Customer;
 use App\Models\Cart;
 
 class CartshopController extends Controller
@@ -66,8 +67,35 @@ class CartshopController extends Controller
     }
     public function addCart(Request $request)
     {
-        $result = $this->cartService->addCart($request);
-        //    dd($request->all());
-        return redirect()->back();
+        $data = $request->all();
+        if($data['pay_method'] == 1){
+            $result = $this->cartService->addCart($request);
+            //    dd($request->all());
+            return redirect()->back();
+        }else if($data['pay_method'] == 2){
+            dd($data);
+        }
+       
+    }
+
+    public function cartList($customerId){
+        $customer = Customer::where('customers.id',$customerId)
+        ->join('carts','carts.customer_id','=','customers.id')
+        ->select('customers.name as customer_name','customers.*', 'carts.*')
+        ->get();
+        $title = 'Sản phầm vừa mua';
+        return view('user.carts.list_cart',compact('customer','title'));
+    }
+
+    public function cartListUser(){
+        $userId = Auth::user()->id;
+        $customer = Customer::where('user_id',$userId)->where('pay_status',1)->get();
+        $title = 'Tất cả sản phẩm bạn đã mua';
+        return view('user.carts.list_cart_user',compact('customer','title'));
+    }
+
+    public static function getCart($customerId){
+          $cart = Cart::where('customer_id',$customerId)->get();
+          return $cart;
     }
 }
