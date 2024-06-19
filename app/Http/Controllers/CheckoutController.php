@@ -57,6 +57,8 @@ class CheckoutController extends Controller
         $payos->amount = $amount;
         $payos->status = 1;
         $payos->save();
+        $customer->pay_status = 1;
+        $customer->save();
         return redirect()->route('cart_list',['customer_id'=>$customer->id]);
       }else if($data['pay_method'] == 2){
         $payos = new PayosUserModel();

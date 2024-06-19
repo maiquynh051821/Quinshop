@@ -16,8 +16,6 @@
     <link rel="shortcut icon" type="image/png" href="/template/images/icons/logo-quinshop.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>{{ $title }}</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/css/star-rating.min.css" media="all" rel="stylesheet" type="text/css" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-star-rating/4.0.6/js/star-rating.min.js"></script>
 </head>
 @php
     $menusHtml = \App\Helpers\Helper::menus($menus);
@@ -31,6 +29,7 @@
         <div class="menu">
             <li><a href="/">Trang chủ</a></li>
             {!! $menusHtml !!}
+            <li><a href="{{ route('trending') }}">Trending</a></li>
         </div>
 
         <form action="/search" method="get">

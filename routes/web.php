@@ -23,6 +23,7 @@ use App\Http\Controllers\CheckoutController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\SuccessController;
 use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\DashboardController;
 
 
 /*
@@ -57,8 +58,11 @@ Route::middleware(['admin'])->group(function () {
             Route::get('add', [ProductController::class, 'create']);
             Route::post('store_product', [ProductController::class, 'store_product'])->name('store_product');
             Route::get('list', [ProductController::class, 'index']);
+            Route::get('quan-ly-comment', [ProductController::class, 'comment'])->name('quanly_comment');
+            Route::get('chi-tiet-comment/{id}', [ProductController::class, 'delatilcomment'])->name('delatil_comment');
+            Route::get('edit-comment/{id}', [ProductController::class, 'editcomment'])->name('edit_comment');
             Route::get('edit/{product}', [ProductController::class, 'show']);
-            Route::post('edit/{product}', [ProductController::class, 'update']);
+            Route::post('update_product', [ProductController::class, 'update_product'])->name('update_product');
             Route::delete('destroy', [ProductController::class, 'destroy']);
         });
         #Slider
@@ -132,6 +136,7 @@ Route::middleware(['user'])->group(function () {
     Route::post('/products/{product}/like', [ProductshopController::class, 'like'])->name('products.like');
     Route::post('/products/{product}/unlike', [ProductshopController::class, 'unlike'])->name('products.unlike');
     Route::get('/likes', [ProductshopController::class, 'show']);
+    Route::get('/trending', [ProductshopController::class, 'getLikeMax'])->name('trending');
 
     // pay os
 Route::get('/nap-tien', [CheckoutController::class, 'index'])->name('package.index');
@@ -165,3 +170,6 @@ Route::get('/contact', [ContactController::class, 'show'])->name('contact.form')
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
 Route::get('/san-pham-vua-mua/{customer_id}', [CartshopController::class, 'cartList'])->name('cart_list');
 Route::get('/san-pham-cua-ban', [CartshopController::class, 'cartListUser'])->name('cart_list_user');
+Route::get('danh-gia-san-pham', [CartshopController::class, 'comment'])->name('comment');
+Route::get('disCart/{id}', [CartshopController::class, 'disCart'])->name('disCart');
+Route::get('dashboard', [DashboardController::class, 'index'])->name('dashboard');

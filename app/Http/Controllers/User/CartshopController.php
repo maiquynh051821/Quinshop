@@ -9,7 +9,7 @@ use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Customer;
 use App\Models\Cart;
-
+use App\Models\CommentModel;
 class CartshopController extends Controller
 {
     protected $cartService;
@@ -70,7 +70,6 @@ class CartshopController extends Controller
         $data = $request->all();
         if($data['pay_method'] == 1){
             $result = $this->cartService->addCart($request);
-            //    dd($request->all());
             return redirect()->back();
         }else if($data['pay_method'] == 2){
             dd($data);
@@ -97,5 +96,23 @@ class CartshopController extends Controller
     public static function getCart($customerId){
           $cart = Cart::where('customer_id',$customerId)->get();
           return $cart;
+    }
+
+    public function comment(Request $request){
+        $data=$request->all();
+        $comment = new CommentModel();
+        $comment->product_id = $data['product_id'];
+        $comment->star = $data['rating'];
+        $comment->comment = $data['comment'];
+        $comment->status = 0;
+        $comment->save();
+        return redirect()->back()->with('success', 'Bạn đã thêm bài nhận xét thành công.');
+    }
+
+    public function disCart($id){
+        $cart = Cart::where('id',$id)->first();
+        $cart->cart_status = 3;
+        $cart->save();
+        return redirect()->back()->with('success', 'Bạn đã hủy đơn hàng thành công.');
     }
 }

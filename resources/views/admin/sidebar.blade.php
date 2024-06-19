@@ -18,6 +18,12 @@
         <nav class="mt-2">
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu"
                 data-accordion="false">
+                <a href="{{ route('dashboard') }}" class="nav-link">
+                    <i class="fa-solid fa-shop"></i>
+                    <p>
+                        Dashborad
+                    </p>
+                </a>
                 <li class="nav-item">
                     <a href="#" class="nav-link">
                         <i class="fa-solid fa-list"> </i>
@@ -119,6 +125,24 @@
                                 <p>Danh sách tài khoản</p>
                             </a>
                         </li>
+                    </ul>
+                </li>
+                <li class="nav-item">
+                    <a href="#" class="nav-link">
+                        <i class="fa-solid fa-list"> </i>
+                        <p>
+                           Quản lý Comment
+                            <i class="right fas fa-angle-left"></i>
+                        </p>
+                    </a>
+                    <ul class="nav nav-treeview ml-3">
+                        <li class="nav-item">
+                            <a href="{{ route('quanly_comment') }}" class="nav-link">
+                                <i class="fa-solid fa-carrot"></i>
+                                <p>Danh sách</p>
+                            </a>
+                        </li>
+                        
                     </ul>
                 </li>
                 <li class="nav-item">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 use App\Models\Admin\Product;
 use App\Models\Admin\SizeModel;
+use App\Models\CommentModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product\ProductRequest;
@@ -25,6 +26,35 @@ class ProductController extends Controller
             'title' => 'Danh sách sản phẩm',
             'products' => $this->productService->get(),
         ]);
+    }
+
+    public function comment()
+    {
+        return view('admin.product.comment',[
+            'title' => 'Danh sách sản phẩm',
+            'products' => $this->productService->get(),
+        ]);
+    }
+
+    public function delatilcomment($id)
+    {
+        $title = 'Danh sách bình luận đánh giá';
+        $comments = CommentModel::where('product_id',$id)->get();
+        return view('admin.product.detail_comment',compact('comments','title'));
+    }
+
+    public function editcomment($id)
+    {
+        $title = 'Danh sách bình luận đánh giá';
+        $comments = CommentModel::where('id',$id)->first();
+        $status = $comments->STATUS;
+        if($status == 1){
+            $comments->STATUS = 0;
+        }else{
+            $comments->STATUS = 1;
+        }
+        $comments->save();
+        return redirect()->back()->with('success', 'Thay đổi thành công');
     }
     // Tao san pham 
     public function create()
@@ -121,9 +151,50 @@ class ProductController extends Controller
         
     }
 
+    public function update_product(Request $request){
+        $data = $request->all();
+        $product =  Product::where('id',$data['product_id'])->first();
+        $product->name = $data['name'];
+        $product->menu_id = $data['menu_id'];
+        $product->price = $data['price'];
+        $product->price_sale = $data['price_sale'];
+        $product->description = $data['description'];
+        $product->content = $data['content'];
+        $product->active = $data['active'];
+        
+        $path_upload = 'uploads/images/';
+        if (!File::exists(public_path($path_upload))) {
+            File::makeDirectory(public_path($path_upload), 0755, true);
+        }
+        $filePaths = [];
+        if($request->hasFile('file_img')){
+            foreach($request->file('file_img') as $file){
+                $filename = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path($path_upload), $filename);
+                $filePaths[] = $path_upload . $filename;
+            }
+            $product->thumb = json_encode($filePaths);
+        }
+
+        $product->save();
+        $productSize = SizeModel::where('product_id',$data['product_id'])->delete();
+        foreach($data['size'] as $item){
+            $productSize = new SizeModel();
+            $productSize->product_id = $product->id;
+            $productSize->size = $item;
+            $productSize->save();
+        }
+        
+        return redirect()->back()->with('success', 'Sản phẩm đã được lưu thành công');
+    }
+
     public static function getSizeByProductId($id){
         $productSize = SizeModel::where('product_id',$id)->get();
         return $productSize;
-    } 
+    }  
     
+    public static function getSizeByProductIdSize($id){
+        $productSize = SizeModel::where('product_id',$id)->pluck('size');
+        return $productSize;
+    }  
 }
