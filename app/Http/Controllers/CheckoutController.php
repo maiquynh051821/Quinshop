@@ -9,7 +9,7 @@ use App\Models\Customer;
 use App\Models\Cart;
 use App\Models\ProductModel;
 use PayOS\PayOS;
-
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Session;
 
 class CheckoutController extends Controller
@@ -23,7 +23,7 @@ class CheckoutController extends Controller
   {
   
       $data = $request->all();
-
+      $mailUser = $data['email'];
       $amount = floatval($data['amount']);
       $customer = new Customer();
       $customer->user_id = $data['user_id'];
@@ -37,6 +37,7 @@ class CheckoutController extends Controller
       $customer->save();
 
       $sanphamgiohang = $data['sanphamgiohang'];
+      
       foreach($sanphamgiohang as $item){
         $cart = new Cart();
         $cart->customer_id = $customer->id;
@@ -48,6 +49,14 @@ class CheckoutController extends Controller
         $cart->name = $item['name'];
         $cart->save();
       }
+      $dataMail = [
+        'customer' => $customer,
+        'updatedCarts' => $sanphamgiohang,
+    ];
+    Mail::send('user.mail.product', $dataMail, function ($email) use ($customer) {
+      $email->to($customer->email);
+      $email->subject('Thông báo Shop Quin');
+  });
       
       // tiền mặt == 1 ; chuyển khoản == 2
       $customer_id = $customer->id;
@@ -59,6 +68,7 @@ class CheckoutController extends Controller
         $payos->save();
         $customer->pay_status = 1;
         $customer->save();
+        Session::forget('carts');
         return redirect()->route('cart_list',['customer_id'=>$customer->id]);
       }else if($data['pay_method'] == 2){
         $payos = new PayosUserModel();
@@ -66,6 +76,7 @@ class CheckoutController extends Controller
         $payos->amount = $amount;
         $payos->status = 0;
         $payos->save();
+        Session::forget('carts');
         $YOUR_DOMAIN = "http://127.0.0.1:8000"; 
         $ordercode = intval(substr(strval(microtime(true) * 10000), -6));
         

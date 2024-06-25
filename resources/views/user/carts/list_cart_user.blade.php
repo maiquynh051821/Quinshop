@@ -7,7 +7,10 @@ use App\Http\Controllers\User\CartshopController;
 </style>
     <section class="cart">
         @include('login.alert')
+        <?php $vitri = 0 ?>
         @foreach ($customer as $customerItems)
+        <?php $vitri += 1 ;
+        ?>
             <div class="customer mt-3">
                 <ul>
                     <li>Tên khách hàng: <strong>{{ $customerItems->name }}</strong></li>
@@ -33,10 +36,12 @@ use App\Http\Controllers\User\CartshopController;
                             <th>Số lượng</th>
                             <th>Đơn giá</th>
                             <th>Tổng tiền SP</th>
+                            <th>Phương thức thanh toán</th>
                             <th>Trạng thái đơn hàng</th>
                             <th style="width: 12%;">Hủy đơn hàng</th>
                         </tr>
                     </thead>
+                    
                     @foreach ($carts as $key=>$cart)
                         @php
                             $priceEnd = $cart->price * $cart->qty;
@@ -64,6 +69,16 @@ use App\Http\Controllers\User\CartshopController;
                             </td>
                             <td>
                                 <p>{{ number_format($priceEnd, 0, ',', '.') }} <sup>đ</sup></p>
+                            </td>
+                            <?php
+                            $pay_method = CartshopController::getPaymethod($cart->customer_id);
+                            ?>
+                            <td>
+                                @if($pay_method == 1)
+                                Tiền mặt
+                                @else
+                                Chuyển khoản
+                                @endif
                             </td>
                             <td class="">
                                 <div class="d-flex">
@@ -97,17 +112,17 @@ use App\Http\Controllers\User\CartshopController;
                                                         <div class="modal-body">
                                                             <div class="">
                                                                 <div class="feedback">
-                                                                  <div class="rating{{ $key }}">
-                                                                    <input type="radio" name="rating" id="rating{{ $key }}-5" value="5">
-                                                                    <label for="rating{{ $key }}-5"></label>
-                                                                    <input type="radio" name="rating" id="rating{{ $key }}-4" value="4">
-                                                                    <label for="rating{{ $key }}-4"></label>
-                                                                    <input type="radio" name="rating" id="rating{{ $key }}-3" value="3">
-                                                                    <label for="rating{{ $key }}-3"></label>
-                                                                    <input type="radio" name="rating" id="rating{{ $key }}-2" value="2">
-                                                                    <label for="rating{{ $key }}-2"></label>
-                                                                    <input type="radio" name="rating" id="rating{{ $key }}-1" value="1">
-                                                                    <label for="rating{{ $key }}-1"></label>
+                                                                  <div class="rating{{ $key }}{{ $vitri }}">
+                                                                    <input type="radio" name="rating" id="rating{{ $key }}{{ $vitri }}-5" value="5">
+                                                                    <label for="rating{{ $key }}{{ $vitri }}-5"></label>
+                                                                    <input type="radio" name="rating" id="rating{{ $key }}{{ $vitri }}-4" value="4">
+                                                                    <label for="rating{{ $key }}{{ $vitri }}-4"></label>
+                                                                    <input type="radio" name="rating" id="rating{{ $key }}{{ $vitri }}-3" value="3">
+                                                                    <label for="rating{{ $key }}{{ $vitri }}-3"></label>
+                                                                    <input type="radio" name="rating" id="rating{{ $key }}{{ $vitri }}-2" value="2">
+                                                                    <label for="rating{{ $key }}{{ $vitri }}-2"></label>
+                                                                    <input type="radio" name="rating" id="rating{{ $key }}{{ $vitri }}-1" value="1">
+                                                                    <label for="rating{{ $key }}{{ $vitri }}-1"></label>
                                                                     <div class="emoji-wrapper">
                                                                       <div class="emoji">
                                                                         <svg class="rating-0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
@@ -222,7 +237,7 @@ use App\Http\Controllers\User\CartshopController;
                             </td>
 
                             <td><a class="font-weight-bold" href="{{ route('disCart',['id'=>$cart->id]) }}">
-                            @if($cart->cart_status != 2 && $cart->cart_status != 3)
+                            @if($cart->cart_status == 0)
                             Hủy đơn hàng
                             @endif    
                             </a></td>

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Admin\Product;
 use App\Models\CommentModel;
+use App\Models\User;
 use App\Models\FavorivteModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -84,5 +85,10 @@ class ProductshopController extends Controller
         $products = Product::whereIn('id', $productIds)->get();
         $title = 'Sản phẩm được yêu thích nhất';
         return view('user.trending',compact('products','title'));
+    }
+
+    public static function getNameUser($userId){
+        $userName = User::where('id',$userId)->pluck('name')->first();
+        return $userName;
     }
 }

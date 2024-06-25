@@ -87,10 +87,14 @@ class CartshopController extends Controller
     }
 
     public function cartListUser(){
-        $userId = Auth::user()->id;
-        $customer = Customer::where('user_id',$userId)->where('pay_status',1)->get();
-        $title = 'Tất cả sản phẩm bạn đã mua';
-        return view('user.carts.list_cart_user',compact('customer','title'));
+        if (Auth::check()) {
+            $userId = Auth::user()->id; // Lấy id của người dùng hiện tại đã đăng nhập
+            $customer = Customer::where('user_id', $userId)->where('pay_status', 1)->get();
+            $title = 'Tất cả sản phẩm bạn đã mua';
+            return view('user.carts.list_cart_user', compact('customer', 'title'));
+        } else {
+            return redirect()->route('login');
+        }
     }
 
     public static function getCart($customerId){
@@ -104,6 +108,8 @@ class CartshopController extends Controller
         $comment->product_id = $data['product_id'];
         $comment->star = $data['rating'];
         $comment->comment = $data['comment'];
+        $userId = Auth::user()->id;
+        $comment->user_id = $userId;
         $comment->status = 0;
         $comment->save();
         return redirect()->back()->with('success', 'Bạn đã thêm bài nhận xét thành công.');
@@ -114,5 +120,10 @@ class CartshopController extends Controller
         $cart->cart_status = 3;
         $cart->save();
         return redirect()->back()->with('success', 'Bạn đã hủy đơn hàng thành công.');
+    }
+
+    public static function getPaymethod($id){
+        $pay_method = Customer::where('id',$id)->pluck('pay_method')->first();
+        return $pay_method;
     }
 }
