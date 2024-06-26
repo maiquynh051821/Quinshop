@@ -56,7 +56,7 @@
         <input required name="file_img[]" type="file" id="upload" class="form-control" multiple> 
       </div>
       <div class="img-preview" id="imgPreview"></div>
-      <div class="form-group">
+      <div class="form-group form-error-css">
         <label class="ms-4" for="">Chọn Size</label>
         <div class="ms-4 d-flex align-items-center font-weight-bold">
             <div class="form-check mr-3 d-flex align-items-center">
@@ -79,6 +79,10 @@
                 <input class="form-check-input " type="checkbox" name="size[]" value="XXL" id="sizeXXL">
                 <label class="form-check-label" for="sizeXXL">XXL</label>
             </div>
+        </div>
+
+        <div class="invalid-feedback">
+
         </div>
     </div>
       <div class="">
@@ -113,7 +117,6 @@
 
 {{-- Xem truoc anh  --}}
 <script>
-
 document.getElementById('upload').addEventListener('change', function(event) {
             var files = event.target.files;
             var imgPreview = document.getElementById('imgPreview');
@@ -142,6 +145,27 @@ document.getElementById('upload').addEventListener('change', function(event) {
             }
         });
 
+</script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var form = document.getElementById('form_product');
+    form.addEventListener('submit', function(event) {
+        var checkboxes = document.querySelectorAll('input[name="size[]"]');
+        var checked = Array.prototype.slice.call(checkboxes).some(function(el) {
+            return el.checked;
+        });
+
+        if (!checked) {
+            event.preventDefault();
+            var sizeFormGroup = document.querySelector('.form-error-css');
+            var errorMessage = '<div class="invalid-feedback d-block">Vui lòng chọn ít nhất một size.</div>';
+            sizeFormGroup.insertAdjacentHTML('beforeend', errorMessage);
+            sizeFormGroup.classList.add('is-invalid');
+            sizeFormGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    });
+});
 </script>
 
 @if (session()->has('success'))

@@ -53,10 +53,7 @@ class CheckoutController extends Controller
         'customer' => $customer,
         'updatedCarts' => $sanphamgiohang,
     ];
-    Mail::send('mail.success', $dataMail, function ($email) use ($customer) {
-      $email->to($customer->email);
-      $email->subject('Thông báo Shop Quin');
-  });
+    
       
       // tiền mặt == 1 ; chuyển khoản == 2
       $customer_id = $customer->id;
@@ -67,6 +64,10 @@ class CheckoutController extends Controller
         $payos->status = 1;
         $payos->save();
         $customer->pay_status = 1;
+        Mail::send('mail.success', $dataMail, function ($email) use ($customer) {
+          $email->to($customer->email);
+          $email->subject('Thông báo Shop Quin');
+      });
         $customer->save();
         Session::forget('carts');
         return redirect()->route('cart_list',['customer_id'=>$customer->id]);

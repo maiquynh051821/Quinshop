@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\PaymentModel;
 use Illuminate\Http\Request;
 use App\Models\Customer;
+use App\Models\Cart;
 use Illuminate\Support\Facades\Auth;
 use App\Models\PayosUserModel;
 use Illuminate\Support\Facades\Session;
@@ -27,6 +28,10 @@ class SuccessController extends Controller
     }
     public function cancelPayment(Request $request) {
         $data=$request->all();
+        $userId = Auth::user()->id;
+        $customer = Customer::where('user_id', $userId)->latest()->first();
+        $cart = Cart::where('customer_id',$customer->id)->delete();
+        $customer->delete();
         return redirect()->route('user');
     }
 }

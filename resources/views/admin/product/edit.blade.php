@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\ProductController;
 @endsection
 
 @section('content')
-    <form action="{{ route('update_product') }}" method="POST" enctype="multipart/form-data">
+    <form id="form_product" action="{{ route('update_product') }}" method="POST" enctype="multipart/form-data">
         @csrf
         <input type="hidden" value="{{ $product->id }}" name="product_id">
         <div class="card-body">
@@ -69,15 +69,34 @@ use App\Http\Controllers\Admin\ProductController;
                 $sizeCollection = ProductController::getSizeByProductIdSize($product->id);
                 $size = $sizeCollection->toArray();
                 ?>
-                <div class="form-group">
+                
+                <div class="form-group form-error-css">
                     <label class="ms-4" for="">Chọn Size</label>
-                    <select multiple class="ms-4" name="size[]" id="">
-                        <option value="S" <?php echo in_array("S", $size) ? 'selected' : ''; ?>>S</option>
-                        <option value="M" <?php echo in_array("M", $size) ? 'selected' : ''; ?>>M</option>
-                        <option value="L" <?php echo in_array("L", $size) ? 'selected' : ''; ?>>L</option>
-                        <option value="XL" <?php echo in_array("XL", $size) ? 'selected' : ''; ?>>XL</option>
-                        <option value="XXL" <?php echo in_array("XXL", $size) ? 'selected' : ''; ?>>XXL</option>
-                    </select>
+                    <div class="ms-4 d-flex align-items-center font-weight-bold">
+                        <div class="form-check mr-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" name="size[]" value="S" id="sizeS" <?php echo in_array("S", $size) ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="sizeS">S</label>
+                        </div>
+                        <div class="form-check mr-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" name="size[]" value="M" id="sizeM" <?php echo in_array("M", $size) ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="sizeM">M</label>
+                        </div>
+                        <div class="form-check mr-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" name="size[]" value="L" id="sizeL" <?php echo in_array("L", $size) ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="sizeL">L</label>
+                        </div>
+                        <div class="form-check mr-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" name="size[]" value="XL" id="sizeXL" <?php echo in_array("XL", $size) ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="sizeXL">XL</label>
+                        </div>
+                        <div class="form-check mr-3 d-flex align-items-center">
+                            <input class="form-check-input" type="checkbox" name="size[]" value="XXL" id="sizeXXL" <?php echo in_array("XXL", $size) ? 'checked' : ''; ?>>
+                            <label class="form-check-label" for="sizeXXL">XXL</label>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback font-weight-bold">
+
+                    </div>
                 </div>
             </div>
             <div class="form-group">
@@ -98,14 +117,32 @@ use App\Http\Controllers\Admin\ProductController;
 
         </div>
         <!-- /.card-body -->
-
         <div class="card-footer">
             <button type="submit" class="btn btn-primary">Cập nhật sản phẩm</button>
         </div>
         @csrf
     </form>
 @endsection
-
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var form = document.getElementById('form_product');
+      form.addEventListener('submit', function(event) {
+          var checkboxes = document.querySelectorAll('input[name="size[]"]');
+          var checked = Array.prototype.slice.call(checkboxes).some(function(el) {
+              return el.checked;
+          });
+  
+          if (!checked) {
+              event.preventDefault();
+              var sizeFormGroup = document.querySelector('.form-error-css');
+              var errorMessage = '<div class="invalid-feedback font-weight-bold d-block">Vui lòng chọn ít nhất một size.</div>';
+              sizeFormGroup.insertAdjacentHTML('beforeend', errorMessage);
+              sizeFormGroup.classList.add('is-invalid');
+              sizeFormGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+      });
+  });
+  </script>
 @section('footer')
     {{-- Tạo ckeditor cho mục mô tả chi tiết --}}
     <script>

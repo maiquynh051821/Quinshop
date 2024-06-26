@@ -180,7 +180,11 @@ use App\Http\Controllers\User\ProductshopController;
             </div>
             <style>
                 .checked {
-                    color: orange;
+                    color: #FCD93A;
+                }
+
+                .aa{
+                    color: #E3E3E3;
                 }
             </style>
             <ul>
@@ -195,26 +199,26 @@ use App\Http\Controllers\User\ProductshopController;
                             <p class="mb-2">
                                 @if ($star == 1)
                                     <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star aa"></span>
+                                    <span class="fa fa-star aa"></span>
+                                    <span class="fa fa-star aa"></span>
+                                    <span class="fa fa-star aa"></span>
                                 @endif
 
                                 @if ($star == 2)
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star aa"></span>
+                                    <span class="fa fa-star aa"></span>
+                                    <span class="fa fa-star aa"></span>
                                 @endif
 
                                 @if ($star == 3)
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
-                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star aa"></span>
+                                    <span class="fa fa-star aa"></span>
                                 @endif
 
                                 @if ($star == 4)
@@ -222,7 +226,7 @@ use App\Http\Controllers\User\ProductshopController;
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
                                     <span class="fa fa-star checked"></span>
-                                    <span class="fa fa-star"></span>
+                                    <span class="fa fa-star aa"></span>
                                 @endif
 
                                 @if ($star == 5)
