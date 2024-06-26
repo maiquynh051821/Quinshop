@@ -40,7 +40,7 @@ class Helper
 
                 // Gọi đệ quy cho các danh mục con với số thứ tự mới
                 $html .= self::menu($menus, $menu->id, $char . ' |--> ', $current_stt, $sub_stt = 1);
-                
+
                 // Tăng số thứ tự của mục hiện tại
                 $stt++;
             }
@@ -55,7 +55,7 @@ class Helper
     }
 
     #Load danh muc ra trang chu
-    public static function menus($menus, $parent_id = 0):string
+    public static function menus($menus, $parent_id = 0): string
     {
         $html = '';
         foreach ($menus as $key => $menu) {
@@ -66,9 +66,9 @@ class Helper
                 ' . $menu->name . '
                 </a>';
                 unset($menus[$key]); // Xoa phan tu cua mang , muc dich loai bo cac danh muc da duoc xu ly ra khoi mang
-                if(self::isChild($menus,$menu->id)){
+                if (self::isChild($menus, $menu->id)) {
                     $html .= '<ul class="sub-menu">';
-                    $html .= self::menus($menus,$menu->id);
+                    $html .= self::menus($menus, $menu->id);
                     $html .= '</ul>';
                 }
                 $html .= '</li>';
@@ -77,19 +77,19 @@ class Helper
         return $html;
     }
     #Kiem tra danh muc cha co danh muc con khong
-    public static function isChild($menus, $id):bool
+    public static function isChild($menus, $id): bool
     {
-        foreach($menus as $key => $menu){
-            if($menu->parent_id == $id){
+        foreach ($menus as $key => $menu) {
+            if ($menu->parent_id == $id) {
                 return true;
-            }  
+            }
         }
         return false;
     }
     public static function price($price = 0, $priceSale = 0)
     {
-        if($priceSale != 0) return number_format($priceSale);
-        if($price != 0) return number_format($price);
-        return '<a href="/lien-he.html">Liên hệ</a>';
+        if ($priceSale != 0) return number_format($priceSale);
+        if ($price != 0) return number_format($price);
+        return '<a target="_blank" href="/contact">Liên hệ</a>';
     }
 }

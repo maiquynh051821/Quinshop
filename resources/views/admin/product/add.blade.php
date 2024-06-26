@@ -37,19 +37,19 @@
     </div>
     <div class="form-group">
       <label for="price">Giá gốc</label>
-      <input type="number" name="price" value="{{old('price')}}" class="form-control" id="price" min="1" required>
+      <input type="number" name="price" value="{{old('price')}}" class="form-control" id="price" min="1">
     </div>
     <div class="form-group">
       <label for="price_sale">Giá sale</label>
-      <input type="number" name="price_sale" value="{{old('price_sale')}}" class="form-control" id="price_sale" min="1" required>
+      <input type="number" name="price_sale" value="{{old('price_sale')}}" class="form-control" id="price_sale" min="1">
     </div>
     <div class="form-group">
         <label for="description">Mô tả chi tiết</label>
-        <textarea name="description" id="description" class="form-control" required>{{old('description')}}</textarea>
+        <textarea name="description" id="description" class="form-control" >{{old('description')}}</textarea>
       </div>
       <div class="form-group">
         <label for="content">Cách bảo quản</label>
-        <textarea name="content" id="content" class="form-control" required>{{old('content')}} </textarea>
+        <textarea name="content" id="content" class="form-control">{{old('content')}} </textarea>
       </div>
       <div class="form-group">
         <label for="">Ảnh sản phẩm</label><br>
@@ -110,7 +110,8 @@
    CKEDITOR.replace('content');
     CKEDITOR.replace('description');
 </script>
-{{-- kiểm tra xem giá và giá sale  --}}
+
+{{-- Xem truoc anh  --}}
 <script>
 
 document.getElementById('upload').addEventListener('change', function(event) {
@@ -141,24 +142,6 @@ document.getElementById('upload').addEventListener('change', function(event) {
             }
         });
 
-  document.getElementById('form_product').addEventListener('submit', function(event) {
-      var price = document.getElementById('price').value;
-      var priceSale = document.getElementById('price_sale').value;
-      var alertPlaceholder = document.getElementById('alert-placeholder');
-
-      // Clear previous alert
-      alertPlaceholder.innerHTML = '';
-
-      if (parseFloat(price) <= parseFloat(priceSale)) {
-          var alertDiv = document.createElement('div');
-          alertDiv.className = 'alert alert-danger';
-          alertDiv.role = 'alert';
-          alertDiv.innerText = 'Giá gốc phải lớn hơn giá sale.';
-          alertPlaceholder.append(alertDiv);
-          event.preventDefault();
-          event.stopPropagation();
-      }
-  });
 </script>
 
 @if (session()->has('success'))

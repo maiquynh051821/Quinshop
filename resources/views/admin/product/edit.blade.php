@@ -112,4 +112,5 @@ use App\Http\Controllers\Admin\ProductController;
         CKEDITOR.replace('content');
         CKEDITOR.replace('description');
     </script>
+    
 @endsection

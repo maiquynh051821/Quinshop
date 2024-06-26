@@ -10,6 +10,8 @@ use App\Http\Requests\Product\ProductRequest;
 use App\Http\Services\Product\ProductAdminService;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Session;
+
 class ProductController extends Controller
 {
     /**
@@ -65,15 +67,7 @@ class ProductController extends Controller
         ]);
     }
 
-    /**
-     * Luu san pham
-     */
-    public function store(ProductRequest $request)
-    {
-        $this->productService->insert($request);
-        return redirect()->back();
-    }
-
+  
     /**
      * Hien thi man hinh edit san pham
      */
@@ -87,19 +81,7 @@ class ProductController extends Controller
     }
 
 
-    /**
-     * Update san pham.
-     */
-    public function update(Request $request, Product $product)
-    {
-        $result = $this->productService->update($request,$product);
-        if($result){
-            return redirect('/admin/products/list');
-        }
-       
-        return redirect()->back();
-    }
-
+   
     /**
      * Xoa san pham
      */
@@ -115,7 +97,28 @@ class ProductController extends Controller
         return response()->json(['error' => true]);
     }
 
+    
+    #Kiem tra gia giam so voi gia goc
+    protected function isValidPrice($request)
+    {
+        if (
+            $request->input('price') != 0 && $request->input('price_sale') != 0
+            && $request->input('price_sale') >= $request->input('price')
+        ) {
+            // Session::flash('error', 'Giá Sale phải nhỏ hơn giá gốc');
+            return false;
+        }
+        if ($request->input('price_sale') != 0 && (int)$request->input('price') == 0) {
+            // Session::flash('error','Vui lòng nhập giá gốc');
+            return false;
+        }
+        return true;
+    }
+
+    //Them sản phẩm
     public function store_product(Request $request){
+        $isValidPrice = $this->isValidPrice($request);
+        if($isValidPrice == false) return redirect()->back()->with('error', 'Giá không hợp lệ: yêu cầu nhập giá sale nhỏ hơn giá gốc và để nhập giá sale phải có giá gốc');
         $data = $request->all();
         $product = new Product();
         $product->name = $data['name'];
@@ -140,18 +143,24 @@ class ProductController extends Controller
         }
 
         $product->save();
-        foreach($data['size'] as $item){
-            $productSize = new SizeModel();
-            $productSize->product_id = $product->id;
-            $productSize->size = $item;
-            $productSize->save();
+        // Kiểm tra nếu có tồn tại 'size' trong $data
+        if (isset($data['size']) && is_array($data['size'])) {
+            foreach ($data['size'] as $item) {
+                $productSize = new SizeModel();
+                $productSize->product_id = $product->id;
+                $productSize->size = $item;
+                $productSize->save();
+            }
         }
         
-        return redirect()->back()->with('success', 'Sản phẩm đã được lưu thành công');
+        return redirect()->back()->with('success', 'Sản phẩm đã được thêm thành công');
         
     }
 
+    //Cap nhat san pham
     public function update_product(Request $request){
+        $isValidPrice = $this->isValidPrice($request);
+        if($isValidPrice == false) return redirect()->back()->with('error', 'Giá không hợp lệ: yêu cầu nhập giá sale nhỏ hơn giá gốc và để nhập giá sale phải có giá gốc');
         $data = $request->all();
         $product =  Product::where('id',$data['product_id'])->first();
         $product->name = $data['name'];
@@ -178,12 +187,13 @@ class ProductController extends Controller
 
         $product->save();
         $productSize = SizeModel::where('product_id',$data['product_id'])->delete();
+        if (isset($data['size']) && is_array($data['size'])) {
         foreach($data['size'] as $item){
             $productSize = new SizeModel();
             $productSize->product_id = $product->id;
             $productSize->size = $item;
             $productSize->save();
-        }
+        }}
         
         return redirect()->back()->with('success', 'Sản phẩm đã được lưu thành công');
     }
