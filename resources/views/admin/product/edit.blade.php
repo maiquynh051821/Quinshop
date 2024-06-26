@@ -5,7 +5,22 @@ use App\Http\Controllers\Admin\ProductController;
 @section('head')
     <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
 @endsection
+<style>
+    .img-preview {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+    }
 
+    .img-preview img {
+        max-width: 150px;
+        max-height: 150px;
+        border: 1px solid #ddd;
+        padding: 5px;
+        border-radius: 5px;
+    }
+</style>
 @section('content')
     <form id="form_product" action="{{ route('update_product') }}" method="POST" enctype="multipart/form-data">
         @csrf
@@ -46,51 +61,59 @@ use App\Http\Controllers\Admin\ProductController;
             </div>
             <div class="form-group">
                 <label for="">Ảnh sản phẩm</label><br>
-                <input name="file_img[]" type="file" id="upload" class="form-control" multiple> 
+                <input name="file_img[]" type="file" id="upload" class="form-control" multiple>
+                <div class="img-preview" id="imgPreview"></div>
+
                 <?php
-                 $thumbs = json_decode($product->thumb);
-                    $firstThumb = $thumbs[0] ?? null;   
-                    $oneThumb = $thumbs[1] ?? null;
-                    $twoThumb = $thumbs[2] ?? null;
-                    if(isset($thumbs[3])){
-                        $threeThumb = $thumbs[3] ?? null; 
-                    }else{
-                        $threeThumb = '';
-                    }
+                $thumbs = json_decode($product->thumb);
+                $firstThumb = $thumbs[0] ?? null;
+                $oneThumb = $thumbs[1] ?? null;
+                $twoThumb = $thumbs[2] ?? null;
+                if (isset($thumbs[3])) {
+                    $threeThumb = $thumbs[3] ?? null;
+                } else {
+                    $threeThumb = '';
+                }
                 ?>
+
                 <div>
-                        <img src="{{ asset($firstThumb) }}" alt="" width="100px">
-                        <img src="{{ asset($oneThumb) }}" alt="" width="100px">
-                        <img src="{{ asset($oneThumb) }}" alt="" width="100px">
-                        <img src="{{ asset($threeThumb) }}" alt="" width="100px">
+                    <img src="{{ asset($firstThumb) }}" alt="" width="100px">
+                    <img src="{{ asset($oneThumb) }}" alt="" width="100px">
+                    <img src="{{ asset($oneThumb) }}" alt="" width="100px">
+                    <img src="{{ asset($threeThumb) }}" alt="" width="100px">
                 </div>
 
                 <?php
                 $sizeCollection = ProductController::getSizeByProductIdSize($product->id);
                 $size = $sizeCollection->toArray();
                 ?>
-                
+
                 <div class="form-group form-error-css">
                     <label class="ms-4" for="">Chọn Size</label>
                     <div class="ms-4 d-flex align-items-center font-weight-bold">
                         <div class="form-check mr-3 d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" name="size[]" value="S" id="sizeS" <?php echo in_array("S", $size) ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="checkbox" name="size[]" value="S" id="sizeS"
+                                <?php echo in_array('S', $size) ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="sizeS">S</label>
                         </div>
                         <div class="form-check mr-3 d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" name="size[]" value="M" id="sizeM" <?php echo in_array("M", $size) ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="checkbox" name="size[]" value="M" id="sizeM"
+                                <?php echo in_array('M', $size) ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="sizeM">M</label>
                         </div>
                         <div class="form-check mr-3 d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" name="size[]" value="L" id="sizeL" <?php echo in_array("L", $size) ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="checkbox" name="size[]" value="L" id="sizeL"
+                                <?php echo in_array('L', $size) ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="sizeL">L</label>
                         </div>
                         <div class="form-check mr-3 d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" name="size[]" value="XL" id="sizeXL" <?php echo in_array("XL", $size) ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="checkbox" name="size[]" value="XL" id="sizeXL"
+                                <?php echo in_array('XL', $size) ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="sizeXL">XL</label>
                         </div>
                         <div class="form-check mr-3 d-flex align-items-center">
-                            <input class="form-check-input" type="checkbox" name="size[]" value="XXL" id="sizeXXL" <?php echo in_array("XXL", $size) ? 'checked' : ''; ?>>
+                            <input class="form-check-input" type="checkbox" name="size[]" value="XXL"
+                                id="sizeXXL" <?php echo in_array('XXL', $size) ? 'checked' : ''; ?>>
                             <label class="form-check-label" for="sizeXXL">XXL</label>
                         </div>
                     </div>
@@ -123,31 +146,67 @@ use App\Http\Controllers\Admin\ProductController;
         @csrf
     </form>
 @endsection
+
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-      var form = document.getElementById('form_product');
-      form.addEventListener('submit', function(event) {
-          var checkboxes = document.querySelectorAll('input[name="size[]"]');
-          var checked = Array.prototype.slice.call(checkboxes).some(function(el) {
-              return el.checked;
-          });
-  
-          if (!checked) {
-              event.preventDefault();
-              var sizeFormGroup = document.querySelector('.form-error-css');
-              var errorMessage = '<div class="invalid-feedback font-weight-bold d-block">Vui lòng chọn ít nhất một size.</div>';
-              sizeFormGroup.insertAdjacentHTML('beforeend', errorMessage);
-              sizeFormGroup.classList.add('is-invalid');
-              sizeFormGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
-          }
-      });
-  });
-  </script>
+        var form = document.getElementById('form_product');
+        form.addEventListener('submit', function(event) {
+            var checkboxes = document.querySelectorAll('input[name="size[]"]');
+            var checked = Array.prototype.slice.call(checkboxes).some(function(el) {
+                return el.checked;
+            });
+
+            if (!checked) {
+                event.preventDefault();
+                var sizeFormGroup = document.querySelector('.form-error-css');
+                var errorMessage =
+                    '<div class="invalid-feedback font-weight-bold d-block">Vui lòng chọn ít nhất một size.</div>';
+                sizeFormGroup.insertAdjacentHTML('beforeend', errorMessage);
+                sizeFormGroup.classList.add('is-invalid');
+                sizeFormGroup.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+</script>
 @section('footer')
     {{-- Tạo ckeditor cho mục mô tả chi tiết --}}
     <script>
         CKEDITOR.replace('content');
         CKEDITOR.replace('description');
     </script>
+
+    {{-- Xem truoc anh  --}}
+<script>
+    document.getElementById('upload').addEventListener('change', function(event) {
+                var files = event.target.files;
+                var imgPreview = document.getElementById('imgPreview');
+                
+                // Clear previous images
+                imgPreview.innerHTML = '';
     
+                // Loop through files and create image elements
+                for (var i = 0; i < files.length; i++) {
+                    var file = files[i];
+    
+                    if (file.type.match('image.*')) {
+                        var reader = new FileReader();
+    
+                        reader.onload = (function(theFile) {
+                            return function(e) {
+                                var imgElement = document.createElement('img');
+                                imgElement.src = e.target.result;
+                                imgElement.title = theFile.name;
+                                imgPreview.appendChild(imgElement);
+                            };
+                        })(file);
+    
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+    
+    </script>
 @endsection
