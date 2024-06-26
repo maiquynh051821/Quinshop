@@ -14,7 +14,9 @@
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/css/adminlte.min.css">
     <link rel="stylesheet" href="/template/bootstrap-5.3.3-dist/js/bootstrap.js">
     <link rel="shortcut icon" type="image/png" href="/template/images/icons/logo-quinshop.png" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+        integrity="sha512-SnH5WK+bZxgPHs44uWIX+LLJAJ9/2PkPKZ5QiAj6Ta86w+fsb2TkcmfRyVX3pBnMFcV7oQPJkl9QevSCWr3W6A=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>{{ $title }}</title>
 </head>
 @php
@@ -24,7 +26,11 @@
 <body>
     <section class="fixed-header">
         <div class="logo">
-            <b>QUIN-SHOP</b>
+            <b>
+                @foreach ($infoSites as $infoSite)
+                    {{ $infoSite->name }}
+                @endforeach
+            </b>
         </div>
         <div class="menu">
             <li><a href="/">Trang chủ</a></li>
@@ -79,6 +85,3 @@
     </section>
 
     @yield('user.header')
-
-
-

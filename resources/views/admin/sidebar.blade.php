@@ -1,7 +1,9 @@
 <aside class="main-sidebar elevation-4" style="background-color: rgb(235, 223, 230)">
     <!-- Brand Logo -->
     <div class="ml-2 mt-4 ">
-        <b style="font-size: 30px">QUIN-SHOP</b>
+        <b style="font-size: 30px"> @foreach ($infoSites as $infoSite)
+            {{ $infoSite->name }}
+        @endforeach</b>
     </div>
     <!-- Sidebar -->
     <div class="sidebar">
@@ -97,7 +99,7 @@
                     <a href="#" class="nav-link">
                         <i class="fas fa-shopping-cart"></i>
                         <p>
-                            Giỏ hàng
+                            Đơn hàng
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -131,7 +133,7 @@
                     <a href="#" class="nav-link">
                         <i class="fa-solid fa-list"> </i>
                         <p>
-                           Quản lý Comment
+                           Đánh giá
                             <i class="right fas fa-angle-left"></i>
                         </p>
                     </a>
@@ -139,7 +141,7 @@
                         <li class="nav-item">
                             <a href="{{ route('quanly_comment') }}" class="nav-link">
                                 <i class="fa-solid fa-carrot"></i>
-                                <p>Danh sách</p>
+                                <p>Danh sách đánh giá</p>
                             </a>
                         </li>
                         

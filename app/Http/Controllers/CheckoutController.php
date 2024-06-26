@@ -53,7 +53,7 @@ class CheckoutController extends Controller
         'customer' => $customer,
         'updatedCarts' => $sanphamgiohang,
     ];
-    Mail::send('user.mail.product', $dataMail, function ($email) use ($customer) {
+    Mail::send('mail.success', $dataMail, function ($email) use ($customer) {
       $email->to($customer->email);
       $email->subject('Thông báo Shop Quin');
   });

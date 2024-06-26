@@ -53,7 +53,7 @@ class GoogleLoginController extends Controller
         if ($user->active == 1) {
             $role = $user->role;
             if ($role === 'admin') {
-                return redirect()->route("admin");
+                return redirect()->route("dashboard");
             } elseif ($role === 'user') {
                 return redirect()->route("user");
             }

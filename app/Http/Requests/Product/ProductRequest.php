@@ -24,9 +24,10 @@ class ProductRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'thumb' => 'required',//|mimes:jpg,jpeg,gif,png,svg|mime_types:image/jpeg,image/gif,image/png,image/svg+xml
-            'description' => 'required', 
+            'thumb' => 'required', //|mimes:jpg,jpeg,gif,png,svg|mime_types:image/jpeg,image/gif,image/png,image/svg+xml
+            'description' => 'required',
             'content' => 'required',
+            // 'size' => 'required'
         ];
     }
 
@@ -37,6 +38,7 @@ class ProductRequest extends FormRequest
             'thumb.required' => 'Không được để trống ảnh',
             'description.required' => 'Vui lòng nhập mô tả chi tiết',
             'content.required' => 'Vui lòng nhập cách bảo quản',
+            'size.required' => 'Vui lomgf nhập size'
             //   'thumb.mimes' => 'Tệp ảnh phải có định dạng JPG, JPEG, GIF, PNG hoặc SVG',
         ];
     }

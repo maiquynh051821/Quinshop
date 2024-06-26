@@ -37,10 +37,11 @@ class ViewServiceProvider extends ServiceProvider
             $footers =$this->getFooter();
             $view->with('footers',$footers);
         });
-        View::composer(['user.footer'], function ($view) {
+        View::composer(['admin.sidebar','user.header','user.footer'], function ($view) {
             $infoSites =$this->getInfo();
             $view->with('infoSites',$infoSites);
         });
+       
     }
 
     // Dem so san pham trong gio hang

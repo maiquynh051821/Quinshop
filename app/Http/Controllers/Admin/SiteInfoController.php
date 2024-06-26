@@ -43,4 +43,6 @@ class SiteInfoController extends Controller
     
         return redirect()->route('admin.site_info.list');
     }
+
+
 }
