@@ -141,7 +141,14 @@
                         <li class="nav-item">
                             <a href="{{ route('quanly_comment') }}" class="nav-link">
                                 <i class="fa-solid fa-carrot"></i>
-                                <p>Danh sách đánh giá</p>
+                                <p>Đánh giá theo sản phẩm</p>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a href="{{ route('list_comment') }}" class="nav-link">
+                                <i class="fa-solid fa-carrot"></i>
+                                <p>Bình luận mới nhất</p>
                             </a>
                         </li>
                         

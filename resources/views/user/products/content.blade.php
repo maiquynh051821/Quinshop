@@ -159,22 +159,54 @@ use App\Http\Controllers\User\ProductshopController;
             <div class="d-flex align-items-center">
                 <h3 class="font-weight-bold mt-4 text-uppercase">Bình luận</h3>
                 <div class="">
-                    <div class="rating0">
-                        <input type="radio" @if ($rating > 4 && $rating <= 5 || $rating <= 0 ) checked @endif name="rating" id="rating0-5"
-                            value="5">
-                        <label for="rating0-5"></label>
-                        <input type="radio" @if ($rating > 3 && $rating <= 4) checked @endif name="rating" id="rating0-4"
-                            value="4">
-                        <label for="rating0-4"></label>
-                        <input type="radio" @if ($rating > 2 && $rating <= 3) checked @endif name="rating" id="rating0-3"
-                            value="3">
-                        <label for="rating0-3"></label>
-                        <input type="radio" @if ($rating > 1 && $rating <= 2) checked @endif name="rating" id="rating0-2"
-                            value="2">
-                        <label for="rating0-2"></label>
-                        <input type="radio" @if ($rating <= 1 && $rating > 0) checked @endif name="rating" id="rating0-1"
-                            value="1">
-                        <label for="rating0-1"></label>
+                    <div class="mt-3 ml-3">
+                        @if ($rating > 4 && $rating <= 5 ) 
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        @endif
+
+                        @if ($rating > 3 && $rating <= 4)
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star aa"></span>
+                        @endif
+
+                        @if ($rating > 2 && $rating <= 3) 
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        @endif
+
+                        @if ($rating > 1 && $rating <= 2) 
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        @endif
+
+                        @if ($rating <= 1 && $rating > 0) 
+                        <span class="fa fa-star checked"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        @endif
+
+                        @if ($rating <= 0) 
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        <span class="fa fa-star aa"></span>
+                        @endif
                     </div>
                 </div>
             </div>

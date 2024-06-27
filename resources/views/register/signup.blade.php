@@ -62,8 +62,8 @@
               </form>
               <div class="text-center">
             
-                <p>Bạn đã có tài khoản? <a href="/login" > Đăng nhập</a></p>
-                <p><a href="/">Quay về trang chủ</a></p>
+                <p>Bạn chưa có tài khoản? <a href="/login" class="text-decoration-none text-primary fw-bold">Đăng nhập</a></p>
+                <p><a href="/" class="text-decoration-none text-secondary fw-bold">Quay về trang chủ</a></p>
               </div>
             </div>
           </div> 

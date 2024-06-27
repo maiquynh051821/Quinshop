@@ -1,16 +1,17 @@
 @extends('admin.main')
-
-
 @section('content')
-    <form action="" method="POST">
+
+    <form action="{{ route('update_slider') }}" method="POST" enctype="multipart/form-data">
+        @csrf
+        <input type="hidden" value="{{ $slider->id}}" name="id">
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Tiêu đề</label>
-                <input type="text" name="name" value="{{ $slider->name}}" class="form-control" id="name">
+                <input type="text" name="name" value="{{ $slider->name}}" class="form-control" id="name" required>
             </div>
             <div class="form-group">
                 <label for="name">Đường dẫn</label>
-                <input type="text" name="url" value="{{ $slider->url }}" class="form-control" id="name">
+                <input type="text" name="url" value="{{ $slider->url }}" class="form-control" id="name" required>
             </div>
             <div class="form-group">
                 <label for="price">Sắp xếp</label>
@@ -19,13 +20,13 @@
 
             <div class="form-group">
                 <label for="">Ảnh Slider</label><br>
-                <input type="file" id="upload" class="form-control" multiple>
+                <input type="file" name="file_img" id="upload" class="form-control" >
                 <div id="image_show">
-                    <a href="{{$slider->thumb}}">
-                    <img src="{{$slider->thumb}}" alt="" width="100px">
+                    <a>
+                    <img src="{{asset($slider->thumb)}}" alt="" width="100px">
                     </a>
                 </div>
-                <input type="hidden" name="thumb" id="thumb" value="{{$slider->thumb}}">
+                
             </div>
             <div class="form-group">
                 <label for="">Kích hoạt</label>

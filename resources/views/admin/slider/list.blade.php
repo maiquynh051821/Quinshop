@@ -31,8 +31,8 @@
             <td style="text-align:center;">{{$loop->iteration}}</td>
             <td style="padding-left:20px">{{$slider->name}}</td>
             <td style="padding-left:20px">{{$slider->url}}</td>
-            <td style="text-align:center"><a href="{{$slider->thumb}}">
-                <img src="{{ $slider->thumb }}" alt="Thumbnail" class="img-thumbnail"></a>
+            <td style="text-align:center"><a>
+                <img src="{{ asset($slider->thumb) }}" alt="Thumbnail" class="img-thumbnail"></a>
             </td>
             <td style="text-align:center;">{!! \App\Helpers\Helper::active($slider->active) !!} </td>
             <td style="text-align:center;">{{$slider->updated_at}}</td>

@@ -7,6 +7,7 @@ use Illuminate\Contracts\Session\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use Illuminate\Support\Facades\Mail;
 
 class LoginController extends Controller
 {
@@ -16,6 +17,40 @@ class LoginController extends Controller
         return view("login.login", [
             "title" => "Login Quin-Shop",
         ]);
+    }
+
+    public function forget_password()
+    {
+        return view("login.forget_pass", [
+            "title" => "Login Quin-Shop",
+        ]);
+    }
+
+    public function check_email(Request $request)
+    {
+        $userName = $request->email;
+        $user = User::where('email',$userName)->first();
+        if ($user) {
+            $code = rand(100000, 999999);
+            session(['code' => $code]);
+            $dataMail = ['code' => $code];
+            Mail::send('login.mail_code', $dataMail, function ($email) use ($userName) {
+                $email->to($userName);
+                $email->subject('Thông báo Shop Quin');
+            });
+           return view('login.view_code',compact('userName'));
+        } else {
+            return redirect()->back()->with('error','Email của bạn chưa được đăng kí');
+        }
+    }
+
+    public function reset_password(Request $request){
+        $userName = $request->userName;
+        $passWord = $request->password;
+        $user = User::where('email',$userName)->first();
+        $user->password = bcrypt($passWord);
+        $user->save();
+        return redirect()->back()->with('success','Bạn đã thay đổi mật khẩu thành công');
     }
     //Ham xu ly du lieu gui tu form dang nhap
     public function store(Request $request)

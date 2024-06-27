@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Services\Slider\SliderService;
 use App\Models\Admin\Slider;
+use Illuminate\Support\Facades\File;
 class SliderController extends Controller
 {
     protected $slider;
@@ -24,13 +25,25 @@ class SliderController extends Controller
     #Tao slider
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'thumb' => 'required',
-            'url' => 'required',
-        ]);
-        $this->slider->insert($request);
-        return redirect()->back();
+        $data = $request->all();
+        $slider = new Slider();
+        $slider->name = $data['name'];
+        $slider->url = $data['url'];
+        $slider->sort_by = $data['sort_by'];
+        $slider->active = $data['active'];
+        $slider->name = $data['name'];
+        $path_upload = 'uploads/sliders/';
+        if (!File::exists(public_path($path_upload))) {
+            File::makeDirectory(public_path($path_upload), 0755, true);
+        }
+        if ($request->hasFile('file_img')) {
+            $file = $request->file('file_img');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path($path_upload), $filename);
+            $slider->thumb = $path_upload . $filename;
+        }
+        $slider->save();
+        return redirect()->back()->with('success', 'Thêm mới slider  thành công');
     }
     #Hien thi list
     public function index()
@@ -49,18 +62,27 @@ class SliderController extends Controller
     }
 
     #Cap nhat slider
-    public function update(Request $request, Slider $slider)
+    public function update(Request $request)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'thumb' => 'required',
-            'url' => 'required',
-        ]);
-        $result = $this->slider->update($request,$slider);
-        if($request){
-            return redirect('/admin/sliders/list');
+        $data = $request->all();
+        $slider = Slider::where('id',$data['id'])->first();
+        $slider->name = $data['name'];
+        $slider->url = $data['url'];
+        $slider->sort_by = $data['sort_by'];
+        $slider->active = $data['active'];
+        $slider->name = $data['name'];
+        $path_upload = 'uploads/sliders/';
+        if (!File::exists(public_path($path_upload))) {
+            File::makeDirectory(public_path($path_upload), 0755, true);
         }
-        return redirect()->back();
+        if ($request->hasFile('file_img')) {
+            $file = $request->file('file_img');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path($path_upload), $filename);
+            $slider->thumb = $path_upload . $filename;
+        }
+        $slider->save();
+        return redirect()->back()->with('success', 'Chỉnh sửa slider  thành công');
     }
 
     #Xoa slider

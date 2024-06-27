@@ -5,9 +5,9 @@
     <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
         <div class="carousel-inner">
             @foreach ($sliders as $key => $slider)
-            <div class="carousel-item{{ $key == 0 ? ' active' : '' }}" data-bs-interval="10000">
+            <div class="carousel-item{{ $key == 0 ? ' active' : '' }}" data-bs-interval="2000">
                  {{-- Tu dong chuyen slider sau 10s --}}
-                <img src="{{ $slider->thumb }}" class="d-block w-100" alt="...">
+                <img src="{{ asset($slider->thumb) }}" class="d-block w-100" alt="...">
                 <div class="carousel-caption d-none d-md-block">
                     <h5>{{$slider->name }}</h5>
                     <a href="{{$slider->url}}"><button class="btn btn-sm">Shop now</button></a>

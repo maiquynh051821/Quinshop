@@ -1,25 +1,24 @@
 @extends('admin.main')
-
-
 @section('content')
-    <form action="" method="POST">
+    <form action="" method="POST" enctype="multipart/form-data">
+        @csrf
         <div class="card-body">
             <div class="form-group">
                 <label for="name">Tiêu đề</label>
-                <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name">
+                <input type="text" name="name" value="{{ old('name') }}" class="form-control" id="name" required>
             </div>
             <div class="form-group">
                 <label for="name">Đường dẫn</label>
-                <input type="text" name="url" value="{{ old('url') }}" class="form-control" id="name">
+                <input type="text" name="url" value="{{ old('url') }}" class="form-control" id="name" required>
             </div>
             <div class="form-group">
                 <label for="price">Sắp xếp</label>
-                <input type="number" name="sort_by" value="1" class="form-control" id="price" min="0">
+                <input type="number" name="sort_by" value="1" class="form-control" id="price" min="0" required>
             </div>
 
             <div class="form-group">
                 <label for="">Ảnh Slider</label><br>
-                <input type="file" id="upload" class="form-control" multiple>
+                <input type="file" name="file_img" id="upload" class="form-control" required>
                 <div id="image_show">
 
                 </div>

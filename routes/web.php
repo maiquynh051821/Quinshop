@@ -57,13 +57,16 @@ Route::middleware(['admin'])->group(function () {
         Route::prefix('products')->group(function () {
             Route::get('add', [ProductController::class, 'create']);
             Route::post('store_product', [ProductController::class, 'store_product'])->name('store_product');
-            Route::get('list', [ProductController::class, 'index']);
+            Route::get('list', [ProductController::class, 'index'])->name('list_product');
             Route::get('quan-ly-comment', [ProductController::class, 'comment'])->name('quanly_comment');
+            Route::get('list-comment', [ProductController::class, 'list_comment'])->name('list_comment');
+            Route::get('status_comment/{id}', [ProductController::class, 'status_comment'])->name('status_comment');
             Route::get('chi-tiet-comment/{id}', [ProductController::class, 'delatilcomment'])->name('delatil_comment');
             Route::get('edit-comment/{id}', [ProductController::class, 'editcomment'])->name('edit_comment');
             Route::get('edit/{product}', [ProductController::class, 'show']);
             Route::post('update_product', [ProductController::class, 'update_product'])->name('update_product');
             Route::delete('destroy', [ProductController::class, 'destroy']);
+            Route::get('search_product', [ProductController::class, 'search'])->name('search_product');
         });
         #Slider
         Route::prefix('sliders')->group(function () {
@@ -71,7 +74,7 @@ Route::middleware(['admin'])->group(function () {
             Route::post('add', [SliderController::class, 'store']);
             Route::get('list', [SliderController::class, 'index']);
             Route::get('edit/{slider}', [SliderController::class, 'show']);
-            Route::post('edit/{slider}', [SliderController::class, 'update']);
+            Route::post('update_slider', [SliderController::class, 'update'])->name('update_slider');
             Route::delete('destroy', [SliderController::class, 'destroy']);
         });
 
@@ -89,6 +92,7 @@ Route::middleware(['admin'])->group(function () {
             Route::get('edit/{user}', [UserController::class, 'show']);
             Route::post('edit/{user}', [UserController::class, 'update']);
             Route::delete('destroy', [UserController::class, 'destroy']);
+            Route::get('search_user', [UserController::class, 'search'])->name('search_user');
         });
 
         #Footer
@@ -121,6 +125,9 @@ Route::middleware(['admin'])->group(function () {
 });
 
 Route::get('login', [LoginController::class, 'index'])->name('login');
+Route::get('forget_password', [LoginController::class, 'forget_password'])->name('forget_password');
+Route::get('check_email', [LoginController::class, 'check_email'])->name('check_email');
+Route::get('reset_password', [LoginController::class, 'reset_password'])->name('reset_password');
 Route::post('login/store', [LoginController::class, 'store']);
 Route::get('register', [RegisterController::class, 'index'])->name('register');
 Route::post('/register/store', [RegisterController::class, 'store']);

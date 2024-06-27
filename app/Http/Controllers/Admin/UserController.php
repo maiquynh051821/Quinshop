@@ -15,7 +15,6 @@ class UserController extends Controller
         $this->user = $user;
     }
 
-   
     // Lay danh sach tai khoan
     public function index()
     {
@@ -63,6 +62,15 @@ class UserController extends Controller
             ]);
         }
         return response()->json(['error'=>true]);
+    }
+
+    public function search(Request $request){
+        $name_user = $request->input('name_user');
+        $user = User::where('name', 'like', '%'.$name_user.'%')->paginate(10);
+        return view("admin.user.list",[
+            "title" => "Danh sách người dùng",
+            'users' => $user,
+        ]);
     }
     
 }
