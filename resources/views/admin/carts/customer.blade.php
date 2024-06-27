@@ -41,7 +41,7 @@ use App\Http\Controllers\Admin\CartController;
 <div class="py-3 mr-3 d-flex justify-content-end">
   <form action="{{ route('search_carts') }}" method="get">
     <div class="others">
-        <input name="name_phone" placeholder="Tìm kiếm" type="text">
+        <input name="name_phone" placeholder="Tìm kiếm số điện thoại" type="text">
         <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
     </div>
 </form>

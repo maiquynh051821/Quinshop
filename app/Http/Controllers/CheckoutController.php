@@ -53,8 +53,8 @@ class CheckoutController extends Controller
         'customer' => $customer,
         'updatedCarts' => $sanphamgiohang,
     ];
+    Session::put('dataMail', $dataMail);
     
-      
       // tiền mặt == 1 ; chuyển khoản == 2
       $customer_id = $customer->id;
       if($data['pay_method'] == 1){

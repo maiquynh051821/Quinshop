@@ -42,7 +42,7 @@
     <div class="py-3 mr-3 d-flex justify-content-end">
         <form action="{{ route('search_comment') }}" method="get">
           <div class="others">
-              <input name="name_product" placeholder="Tìm kiếm" type="text">
+              <input name="name_product" placeholder="Tìm kiếm sản phẩm" type="text">
               <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
           </div>
       </form>
