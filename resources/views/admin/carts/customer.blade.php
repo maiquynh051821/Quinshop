@@ -13,8 +13,39 @@ use App\Http\Controllers\Admin\CartController;
         border: 1px solid rgb(252, 207, 207); /* Đặt đường viền 1px đen cho các ô */
         padding: 8px;
     }
- 
+    .others button {
+    background-color: #007bff;
+    border: 1px solid #ccc;
+    border-left: none;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 0 5px 5px 0;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.others {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+}
+
+.others input[type="text"] {
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px 0 0 5px;
+    outline: none;
+    border-right: none;
+}
 </style>
+<div class="py-3 mr-3 d-flex justify-content-end">
+  <form action="{{ route('search_carts') }}" method="get">
+    <div class="others">
+        <input name="name_phone" placeholder="Tìm kiếm" type="text">
+        <button type="submit"><i class="fas fa-search" aria-hidden="true"></i></button>
+    </div>
+</form>
+</div>
     <table class="table">
       <thead>
         <tr>

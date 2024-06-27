@@ -74,6 +74,18 @@ class ProductshopController extends Controller
         ]);
     }
 
+    public function search_comment(Request $request){
+        $name_product = $request->input('name_product');
+        $comments = CommentModel::select('comment.id as comment_id', 'comment.*', 'products.*')
+        ->join('products', 'products.id', '=', 'comment.product_id')
+        ->where('name', 'like', '%'.$name_product.'%')
+        ->paginate(30);
+        return view('admin.product.list_comment',[
+            'title' => 'Danh sách sản phẩm',
+            'products' => $comments,
+        ]);
+    }
+
     public function getLikeMax(){
         $favoriteProducts = FavorivteModel::selectRaw('product_id, COUNT(*) as count')
         ->groupBy('product_id')

@@ -210,7 +210,7 @@ class ProductController extends Controller
     
     public function search(Request $request){
         $name_product = $request->input('name_product');
-        $products = Product::where('name', 'like', '%'.$name_product.'%')->paginate(10);
+        $products = Product::where('name', 'like', '%'.$name_product.'%')->paginate(30);
         return view('admin.product.list',[
             'title' => 'Danh sách sản phẩm',
             'products' => $products,
@@ -238,15 +238,5 @@ class ProductController extends Controller
         return redirect()->back()->with('success', 'Bạn đã chỉnh sửa trạng thái thành công');
     }
 
-    public function search_comment(Request $request){
-        $name_product = $request->input('name_product');
-        $comments = CommentModel::select('comment.id as comment_id', 'comment.*', 'products.*')
-        ->join('products', 'products.id', '=', 'comment.product_id')
-        ->where('name', 'like', '%'.$name_product.'%')
-        ->paginate(20);
-        return view('admin.product.list_comment',[
-            'title' => 'Danh sách sản phẩm',
-            'products' => $comments,
-        ]);
-    }
+    
 }

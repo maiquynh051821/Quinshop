@@ -20,7 +20,6 @@ class CartController extends Controller
         return view('admin.carts.customer', [
             'title' => 'Danh Sách Đơn Đặt Hàng',
             'customers' => $this->cart->getCustomer()
-
         ]);
     }
     public function show(Customer $customer)
@@ -57,9 +56,19 @@ class CartController extends Controller
         if ($allCancelled) {
             return 'Đã hủy';
         } elseif ($anyProcessing) {
-            return 'Đang xử lý hoặc đang giao'; 
+            return 'Đã hoàn thành'; 
         } else {
             return 'Đã hoàn thành';
         }
+    }
+
+    public function search_carts(Request $request){
+        $name_phone = $request->input('name_phone');
+        $customers = Customer::where('phone', 'like', '%'.$name_phone.'%')
+        ->paginate(50);
+        return view('admin.carts.customer', [
+            'title' => 'Danh Sách Đơn Đặt Hàng',
+            'customers' => $customers
+        ]);
     }
 }
