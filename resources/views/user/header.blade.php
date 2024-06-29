@@ -60,8 +60,8 @@
                 </a></li>
         </div>
 
-        <div class="shopping">
-            <li>
+        <div class="shopping ml-0">
+            <li class="m-0">
                 <a href="{{ route('cart_list_user') }}" class="fa fa-shopping-bag "></a>
             </li>
         </div>

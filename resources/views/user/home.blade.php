@@ -28,7 +28,7 @@
     </section>
     <section class="category">
         <h2>Tổng quan sản phẩm</h2>
-        <h6>Tất cả sản phẩm</h6>
+        {{-- <h5>Tất cả sản phẩm</h5> --}}
         <div id="loadProduct">
             @include('user.products.list')
         </div>

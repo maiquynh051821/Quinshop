@@ -17,7 +17,7 @@
             </a>
             <div class="product-details">
                 <a href="/san-pham/{{ $product->id }}-{{ \Str::slug($product->name, '-') }}.html">
-                    <h1>{{ $product->name }}</h1>
+                    <h1 class="text-capitalize">{{ $product->name }}</h1>
                 </a>
 
 

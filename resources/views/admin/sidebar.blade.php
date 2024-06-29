@@ -138,7 +138,7 @@
                         </p>
                     </a>
                     <ul class="nav nav-treeview ml-3">
-                        <li class="nav-item">
+                        <li class="nav-item d-none">
                             <a href="{{ route('quanly_comment') }}" class="nav-link">
                                 <i class="fa-solid fa-carrot"></i>
                                 <p>Đánh giá theo sản phẩm</p>

@@ -35,8 +35,8 @@ use App\Http\Controllers\User\ProductshopController;
                     </div>
                 </div>
                 <div class="product-content-right">
-                    <div class="product-content-right-name">
-                        <h1>{{ $product->name }}</h1>
+                    <div class="product-content-right-name d-flex align-items-center">
+                        <h1 class="text-capitalize font-weight-bold mr-3">{{ $product->name }}</h1>
                         <div class="favorite-icon">
                             @if (Auth::check())
                                 <!-- Kiểm tra xem có người dùng đã đăng nhập hay không -->
@@ -76,8 +76,9 @@ use App\Http\Controllers\User\ProductshopController;
 
                         @if ($product->price_sale !== null || $product->price !== null)
                             <div class="product-content-right-size">
-                                <p style="font-weight: bold;">Size :
-                                    <select class="size" name="size">
+                                <div class="d-flex align-items-center" style="font-weight: bold;">
+                                    <p class="mb-0 font-weight-bold  mr-3">Size :</p>
+                                    <select  class="size form-control w-75 mb-0" name="size">
                                         <?php
                                         $size = ProductController::getSizeByProductId($product->id);
                                         ?>
@@ -86,13 +87,13 @@ use App\Http\Controllers\User\ProductshopController;
                                         @endforeach
 
                                     </select>
-                                </p>
+                                </div>
                                 <p style="color: red;font-size: 12px;">Vui lòng chọn size *</p>
                             </div>
 
-                            <div class="quantity">
-                                <p style="font-weight:bold">Số lượng : </p>
-                                <input type="number" name="num_product" min="1" value="1">
+                            <div class="quantity d-flex align-items-center">
+                                <p style="font-weight:bold" class="mb-0 mr-3">Số lượng : </p>
+                                <input style="height: 30px" type="number" class="form-control" name="num_product" min="1" value="1">
                             </div>
 
                             <input type="hidden" name="product_id" value="{{ $product->id }}">
