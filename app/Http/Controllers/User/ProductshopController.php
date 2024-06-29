@@ -11,6 +11,7 @@ use App\Models\FavorivteModel;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use App\Http\Services\Product\ProductService;
+use Illuminate\Support\Facades\DB;
 
 class ProductshopController extends Controller
 {
@@ -31,8 +32,9 @@ class ProductshopController extends Controller
         ]);
     }
 
-    public static function getCommnet($id){
-        $comment = CommentModel::where('product_id',$id)->where('STATUS',1)->get();
+    public static function getCommnet($id)
+    {
+        $comment = CommentModel::where('product_id', $id)->where('STATUS', 1)->get();
         return $comment;
     }
     public function like(Product $product)
@@ -68,39 +70,44 @@ class ProductshopController extends Controller
     public function search(Request $request)
     {
         $query = $request->input('query');
-        $products = Product::where('name','LIKE','%' . $query . '%')->get();
-        return view('user.result', compact('products','query'),[
+        $products = Product::where('name', 'LIKE', '%' . $query . '%')->get();
+        return view('user.result', compact('products', 'query'), [
             'title' => 'Danh sách kết quả tìm kiếm',
         ]);
     }
 
-    public function search_comment(Request $request){
+    public function search_comment(Request $request)
+    {
         $name_product = $request->input('name_product');
         $comments = CommentModel::select('comment.id as comment_id', 'comment.*', 'products.*')
-        ->join('products', 'products.id', '=', 'comment.product_id')
-        ->where('name', 'like', '%'.$name_product.'%')
-        ->paginate(30);
-        return view('admin.product.list_comment',[
+            ->join('products', 'products.id', '=', 'comment.product_id')
+            ->where('name', 'like', '%' . $name_product . '%')
+            ->paginate(30);
+        return view('admin.product.list_comment', [
             'title' => 'Danh sách sản phẩm',
             'products' => $comments,
         ]);
     }
 
-    public function getLikeMax(){
-        $favoriteProducts = FavorivteModel::selectRaw('product_id, COUNT(*) as count')
+    public function getLikeMax()
+{
+    $favoriteProducts = FavorivteModel::selectRaw('product_id, COUNT(*) as count')
         ->groupBy('product_id')
-        ->orderBy('count', 'desc')
-        ->limit(12)
+        ->orderByDesc('count')
+        ->limit(50)
         ->get();
 
-        $productIds = $favoriteProducts->pluck('product_id')->toArray();
-        $products = Product::whereIn('id', $productIds)->get();
-        $title = 'Sản phẩm được yêu thích nhất';
-        return view('user.trending',compact('products','title'));
-    }
+    $productIds = $favoriteProducts->pluck('product_id')->toArray();
+    $products = Product::whereIn('id', $productIds)
+        ->orderBy(\DB::raw('FIELD(id, ' . implode(',', $productIds) . ')')) 
+        ->paginate(12);
+    $title = 'Sản phẩm được yêu thích nhất';
+    return view('user.trending', compact('products', 'title'));
+}
 
-    public static function getNameUser($userId){
-        $userName = User::where('id',$userId)->pluck('name')->first();
+    public static function getNameUser($userId)
+    {
+        $userName = User::where('id', $userId)->pluck('name')->first();
         return $userName;
     }
 }

@@ -30,7 +30,7 @@ class LoginController extends Controller
     {
         $userName = $request->email;
         $user = User::where('email',$userName)->first();
-        if ($user) {
+        if ($user && $user->google_id == null) {
             $code = rand(100000, 999999);
             session(['code' => $code]);
             $dataMail = ['code' => $code];
@@ -39,6 +39,8 @@ class LoginController extends Controller
                 $email->subject('Thông báo Shop Quin');
             });
            return view('login.view_code',compact('userName'));
+        }elseif($user && $user->google_id != null){
+            return redirect()->back()->with('error','Tài khoản này đã được đăng nhập bằng google nên không cần mật khẩu');
         } else {
             return redirect()->back()->with('error','Email của bạn chưa được đăng kí');
         }
@@ -50,7 +52,7 @@ class LoginController extends Controller
         $user = User::where('email',$userName)->first();
         $user->password = bcrypt($passWord);
         $user->save();
-        return redirect()->back()->with('success','Bạn đã thay đổi mật khẩu thành công');
+        return redirect()->route('login')->with('success','Bạn đã thay đổi mật khẩu thành công');
     }
     //Ham xu ly du lieu gui tu form dang nhap
     public function store(Request $request)

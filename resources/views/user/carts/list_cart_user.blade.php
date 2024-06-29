@@ -21,7 +21,7 @@ use App\Http\Controllers\User\CartshopController;
                 </ul>
             </div>
             <?php
-            $carts = CartshopController::getCart($customerItems->id);
+            $carts = CartshopController::getCart($customerItems->customer_id);
             ?>
             <div class="carts">
                 @php
@@ -94,7 +94,7 @@ use App\Http\Controllers\User\CartshopController;
                                     @endif
 
                                     @if ($cart->cart_status == 2)
-                                        <p class="font-weight-bold mb-0 text-white px-2 mr-2"
+                                        <p class="font-weight-bold mb-0 text-white px-2 mr-2 d-flex align-items-center"
                                             style="background: rgb(32, 128, 0); border-radius: 10px"> Đã giao hàng</p>
                                         <button type="button" class="btn btn-primary" data-bs-toggle="modal"
                                             data-bs-target="#comment{{ $cart->id }}">Nhận xét</button>

@@ -64,8 +64,8 @@
                     @csrf
                 </form>
                 <div class="text-center">
-                    <p>Quay lại trang <a href="/login"> Đăng nhập</a></p>
-                    <p><a href="/">Quay về trang chủ</a></p>
+                    <p>Quay lại trang <a href="/login" class="text-decoration-none text-primary fw-bold"> Đăng nhập</a></p>
+                    <p><a href="/" class="text-decoration-none text-secondary fw-bold">Quay về trang chủ</a></p>
                 </div>
             </div>
         </div>
@@ -96,7 +96,9 @@
             const sessionCode = '{{ session('code') }}';
             const errorMessageElement = document.getElementById('error-message');
             errorMessageElement.innerHTML = '';
+    
             console.log(sessionCode);
+    
             if (codeInput !== sessionCode) {
                 errorMessageElement.innerHTML = `
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -105,6 +107,16 @@
             </div>`;
                 return;
             }
+    
+            if (password.length < 5 || password.length > 20) {
+                errorMessageElement.innerHTML = `
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                Mật khẩu phải có độ dài từ 5 đến 20 ký tự!
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>`;
+                return;
+            }
+    
             if (password !== resetpassword) {
                 errorMessageElement.innerHTML = `
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
@@ -113,6 +125,7 @@
             </div>`;
                 return;
             }
+    
             event.target.submit();
         });
     </script>

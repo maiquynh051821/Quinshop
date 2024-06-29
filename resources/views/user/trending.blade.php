@@ -59,6 +59,7 @@
                     </div>
                 @endforeach
             </div>
+            
             <script>
                 document.addEventListener('DOMContentLoaded', function() {
                     const loginPrompts = document.querySelectorAll('.login-prompt');

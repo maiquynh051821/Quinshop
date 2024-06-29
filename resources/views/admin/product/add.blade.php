@@ -164,9 +164,29 @@ document.getElementById('upload').addEventListener('change', function(event) {
             sizeFormGroup.classList.add('is-invalid');
             sizeFormGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
+
+        // Kiểm tra các file ảnh được tải lên có đúng định dạng
+        var files = document.getElementById('upload').files;
+        var validExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'heif'];
+        var invalidFiles = [];
+
+        for (var i = 0; i < files.length; i++) {
+            var fileExtension = files[i].name.split('.').pop().toLowerCase();
+            if (validExtensions.indexOf(fileExtension) === -1) {
+                invalidFiles.push(files[i].name);
+            }
+        }
+
+        if (invalidFiles.length > 0) {
+            event.preventDefault();
+            var errorMessage = 'Các tệp sau không phải định dạng hợp lệ: ' + invalidFiles.join(', ');
+            alert(errorMessage);
+            return false;
+        }
     });
 });
 </script>
+
 
 @if (session()->has('success'))
 <script>

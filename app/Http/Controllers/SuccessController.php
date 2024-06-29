@@ -20,9 +20,10 @@ class SuccessController extends Controller
         $data=$request->all();
         $userId = Auth::user()->id;
         $customer = Customer::where('user_id', $userId)->latest()->first();
+        $payosUser = PayosUserModel::where('customer_id',$customer->id)->first();
        if($data['status'] == 'PAID' && $customer){
-            $customer->pay_status = 1;
-            $customer->save();
+            $payosUser->status = 1;
+            $payosUser->save();
             $dataMail = Session::get('dataMail');
             Mail::send('mail.success', $dataMail, function ($email) use ($customer) {
                 $email->to($customer->email);
@@ -36,6 +37,9 @@ class SuccessController extends Controller
         $data=$request->all();
         $userId = Auth::user()->id;
         $customer = Customer::where('user_id', $userId)->latest()->first();
+        $payosUser = PayosUserModel::where('customer_id',$customer->id)->first();
+        $payosUser->status = 0;
+        $payosUser->save();
         $cart = Cart::where('customer_id',$customer->id)->delete();
         $customer->delete();
         return redirect()->route('user');

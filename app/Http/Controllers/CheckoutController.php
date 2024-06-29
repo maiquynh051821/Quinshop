@@ -33,7 +33,6 @@ class CheckoutController extends Controller
       $customer->email = $data['email'];
       $customer->content = $data['content'];
       $customer->pay_method = $data['pay_method'];
-      $customer->pay_status = 0;
       $customer->save();
 
       $sanphamgiohang = $data['sanphamgiohang'];
@@ -63,12 +62,11 @@ class CheckoutController extends Controller
         $payos->amount = $amount;
         $payos->status = 1;
         $payos->save();
-        $customer->pay_status = 1;
         Mail::send('mail.success', $dataMail, function ($email) use ($customer) {
           $email->to($customer->email);
           $email->subject('Thông báo Shop Quin');
       });
-        $customer->save();
+      
         Session::forget('carts');
         return redirect()->route('cart_list',['customer_id'=>$customer->id]);
       }else if($data['pay_method'] == 2){

@@ -149,28 +149,43 @@ use App\Http\Controllers\Admin\ProductController;
 
 <script>
     document.addEventListener('DOMContentLoaded', function() {
-        var form = document.getElementById('form_product');
-        form.addEventListener('submit', function(event) {
-            var checkboxes = document.querySelectorAll('input[name="size[]"]');
-            var checked = Array.prototype.slice.call(checkboxes).some(function(el) {
-                return el.checked;
-            });
-
-            if (!checked) {
-                event.preventDefault();
-                var sizeFormGroup = document.querySelector('.form-error-css');
-                var errorMessage =
-                    '<div class="invalid-feedback font-weight-bold d-block">Vui lòng chọn ít nhất một size.</div>';
-                sizeFormGroup.insertAdjacentHTML('beforeend', errorMessage);
-                sizeFormGroup.classList.add('is-invalid');
-                sizeFormGroup.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-            }
-        });
-    });
-</script>
+      var form = document.getElementById('form_product');
+      form.addEventListener('submit', function(event) {
+          var checkboxes = document.querySelectorAll('input[name="size[]"]');
+          var checked = Array.prototype.slice.call(checkboxes).some(function(el) {
+              return el.checked;
+          });
+  
+          if (!checked) {
+              event.preventDefault();
+              var sizeFormGroup = document.querySelector('.form-error-css');
+              var errorMessage = '<div class="invalid-feedback d-block">Vui lòng chọn ít nhất một size.</div>';
+              sizeFormGroup.insertAdjacentHTML('beforeend', errorMessage);
+              sizeFormGroup.classList.add('is-invalid');
+              sizeFormGroup.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          }
+  
+         
+          var files = document.getElementById('upload').files;
+          var validExtensions = ['jpeg', 'jpg', 'png', 'gif', 'bmp', 'tiff', 'webp', 'svg', 'heif'];
+          var invalidFiles = [];
+  
+          for (var i = 0; i < files.length; i++) {
+              var fileExtension = files[i].name.split('.').pop().toLowerCase();
+              if (validExtensions.indexOf(fileExtension) === -1) {
+                  invalidFiles.push(files[i].name);
+              }
+          }
+  
+          if (invalidFiles.length > 0) {
+              event.preventDefault();
+              var errorMessage = 'Các tệp sau không phải định dạng hợp lệ: ' + invalidFiles.join(', ');
+              alert(errorMessage);
+              return false;
+          }
+      });
+  });
+  </script>
 @section('footer')
     {{-- Tạo ckeditor cho mục mô tả chi tiết --}}
     <script>

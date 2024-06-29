@@ -281,45 +281,43 @@ use App\Http\Controllers\User\ProductshopController;
     </section>
 
     <script>
-        const bigImg = document.querySelector(".product-content-left-big-img img")
-        const smallImg = document.querySelectorAll(".product-content-left-small-img img")
-        smallImg.forEach(function(imgItem, X) {
-            imgItem.addEventListener("click", function() {
-                bigImg.src = imgItem.src
-            })
-        })
-        const baoquan = document.querySelector(".baoquan")
-        const chitiet = document.querySelector(".chitiet")
-        if (baoquan) {
-            baoquan.addEventListener("click", function() {
-                document.querySelector(".product-content-right-bottom-content-chitiet").style.display = "none"
-                document.querySelector(".product-content-right-bottom-content-baoquan").style.display = "block"
-            })
-        }
-        if (baoquan) {
-            baoquan.addEventListener("click", function() {
-                baoquan.style.fontWeight = "bold"
-                chitiet.style.fontWeight = "normal"
-            })
-        }
-        if (chitiet) {
-            chitiet.addEventListener("click", function() {
-                chitiet.style.fontWeight = "bold"
-                baoquan.style.fontWeight = "normal"
-            })
-        }
-        if (chitiet) {
-            chitiet.addEventListener("click", function() {
-                document.querySelector(".product-content-right-bottom-content-chitiet").style.display = "block"
-                document.querySelector(".product-content-right-bottom-content-baoquan").style.display = "none"
-            })
-        }
-        const Button = document.querySelector(".product-content-right-bottom-top")
-        if (Button) {
-            Button.addEventListener("click", function() {
-                document.querySelector(".product-content-right-bottom-content-big").classList.toggle("active")
-            })
-        }
+        document.addEventListener("DOMContentLoaded", function() {
+    const bigImg = document.querySelector(".product-content-left-big-img img");
+    const smallImgs = document.querySelectorAll(".product-content-left-small-img img");
+
+    smallImgs.forEach(function(imgItem, index) {
+        imgItem.addEventListener("click", function() {
+            const currentBigImgSrc = bigImg.src;
+            bigImg.src = imgItem.src;
+            imgItem.src = currentBigImgSrc;
+        });
+    });
+
+    const baoquan = document.querySelector(".baoquan");
+    const chitiet = document.querySelector(".chitiet");
+    if (baoquan) {
+        baoquan.addEventListener("click", function() {
+            document.querySelector(".product-content-right-bottom-content-chitiet").style.display = "none";
+            document.querySelector(".product-content-right-bottom-content-baoquan").style.display = "block";
+            baoquan.style.fontWeight = "bold";
+            chitiet.style.fontWeight = "normal";
+        });
+    }
+    if (chitiet) {
+        chitiet.addEventListener("click", function() {
+            chitiet.style.fontWeight = "bold";
+            baoquan.style.fontWeight = "normal";
+            document.querySelector(".product-content-right-bottom-content-chitiet").style.display = "block";
+            document.querySelector(".product-content-right-bottom-content-baoquan").style.display = "none";
+        });
+    }
+    const Button = document.querySelector(".product-content-right-bottom-top");
+    if (Button) {
+        Button.addEventListener("click", function() {
+            document.querySelector(".product-content-right-bottom-content-big").classList.toggle("active");
+        });
+    }
+});
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -360,7 +358,7 @@ use App\Http\Controllers\User\ProductshopController;
             });
         });
         .then(data => {
-            console.log(data); // Thêm dòng này để kiểm tra dữ liệu trả về
+            console.log(data); 
             if (data.liked) {
                 heartIcon.classList.add('liked');
             } else {
