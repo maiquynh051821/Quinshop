@@ -20,6 +20,72 @@ use App\Http\Controllers\User\CartshopController;
                     <li>Ghi chú: <strong>{{ $customerItems->content }}</strong></li>
                 </ul>
             </div>
+            <style>
+                .table {
+                    border-collapse: separate;
+                    border-spacing: 0 10px;
+                }
+        
+                .table thead th {
+                    background-color: #343a40;
+                    color: #fff;
+                    border: none;
+                }
+        
+                .table tbody tr {
+                    background-color: #f8f9fa;
+                    border-top: 1px solid #dee2e6;
+                    border-bottom: 1px solid #dee2e6;
+                }
+        
+                .table tbody tr td {
+                    border-top: none;
+                    border-bottom: none;
+                }
+        
+                .table tbody tr:hover {
+                    background-color: #e9ecef;
+                }
+        
+                .table img.css_img {
+                    width: 80px;
+                    height: 80px;
+                    object-fit: cover;
+                    border-radius: 8px;
+                }
+        
+                .btn-primary {
+                    background-color: #6f42c1;
+                    border: none;
+                }
+        
+                .btn-primary:hover {
+                    background-color: #5a32a3;
+                }
+        
+                .modal-content {
+                    border-radius: 10px;
+                }
+        
+                .rating {
+                    display: flex;
+                    align-items: center;
+                }
+        
+                .rating input {
+                    display: none;
+                }
+        
+                .rating label {
+                    cursor: pointer;
+                    font-size: 2rem;
+                    color: #ffdd00;
+                }
+        
+                .rating input:checked ~ label {
+                    color: #ffdd00;
+                }
+            </style>
             <?php
             $carts = CartshopController::getCart($customerItems->customer_id);
             ?>
@@ -30,12 +96,13 @@ use App\Http\Controllers\User\CartshopController;
                 <table class="table table-striped">
                     <thead>
                         <tr>
-                            <th style="width: 18%;">Sản phẩm</th>
+                            <th>Sản phẩm</th>
                             <th>Tên sản phẩm </th>
                             <th>Size</th>
                             <th>Số lượng</th>
                             <th>Đơn giá</th>
                             <th>Tổng tiền SP</th>
+                            <th>Ngày đặt</th>
                             <th>Phương thức thanh toán</th>
                             <th>Trạng thái đơn hàng</th>
                             <th style="width: 12%;">Hủy đơn hàng</th>
@@ -53,7 +120,7 @@ use App\Http\Controllers\User\CartshopController;
                         ?>
                         <tr>
                             <td>
-                                <img class="w-25" src="{{ asset($firstThumb) }}" alt="{{ $cart->name }}"></a>
+                                <img class="css_img" src="{{ asset($firstThumb) }}" alt="{{ $cart->name }}"></a>
                             </td>
                             <td>
                                 <p>{{ $cart->name }}</p>
@@ -70,6 +137,7 @@ use App\Http\Controllers\User\CartshopController;
                             <td>
                                 <p>{{ number_format($priceEnd, 0, ',', '.') }} <sup>đ</sup></p>
                             </td>
+                            <td>{{ \Carbon\Carbon::parse($cart->created_at)->format('d/m/Y H:i') }}</td>
                             <?php
                             $pay_method = CartshopController::getPaymethod($cart->customer_id);
                             ?>

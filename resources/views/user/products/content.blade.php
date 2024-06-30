@@ -102,7 +102,7 @@ use App\Http\Controllers\User\ProductshopController;
                             <div class="product-content-right-button">
                                 <button type="submit">
                                     <i class="fas fa-shopping-cart">
-                                        <p style="padding-top: 7px;">Thêm vào giỏ hàng</p>
+                                        <p class="mb-0">Thêm vào giỏ hàng</p>
                                     </i>
                                 </button>
                             </div>
@@ -115,10 +115,10 @@ use App\Http\Controllers\User\ProductshopController;
                         <div class="product-content-right-bottom-top">
                             &#8711;
                         </div>
-                        <div class="product-content-right-bottom-content-big">
+                        <div class="product-content-right-bottom-content-big active">
                             <div style="border-bottom:1px solid #e2e2e2;"
                                 class="product-content-right-bottom-content-title">
-                                <div class="product-content-right-bottom-content-title-item chitiet">
+                                <div class="product-content-right-bottom-content-title-item chitiet" style="font-weight: bold">
                                     <p>Mô tả chi tiết</p>
                                 </div>
                                 <div class="product-content-right-bottom-content-title-item baoquan">
@@ -227,7 +227,7 @@ use App\Http\Controllers\User\ProductshopController;
                     $star = $commentItem->star;
                     ?>
                     <div style="border-bottom: 2px solid #ccc" class="mb-2">
-                        <p class="mb-2">{!! $userName !!}</p>
+                        <p class="mb-2 text-uppercase">{!! $userName !!}</p>
                         <div class="ml-5">
                             <p class="mb-2">
                                 @if ($star == 1)
@@ -271,7 +271,7 @@ use App\Http\Controllers\User\ProductshopController;
                                 @endif
 
                             </p>
-                            <p class="text-uppercase">{{ $commentItem->COMMENT }}</p>
+                            <p class="">{{ $commentItem->COMMENT }}</p>
                         </div>
                     </div>
                 @endforeach
