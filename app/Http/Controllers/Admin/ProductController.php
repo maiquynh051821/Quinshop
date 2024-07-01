@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Admin\Product;
 use App\Models\Admin\SizeModel;
 use App\Models\CommentModel;
+use App\Models\FavorivteModel;
+use App\Models\Cart;
+use App\Models\Customer;
+use App\Models\PayosUserModel;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\Product\ProductRequest;
@@ -87,14 +91,38 @@ class ProductController extends Controller
      */
     public function destroy(Request $request)
     {
-        $result = $this->productService->delete($request);
-        if($result){
-            return response()->json([
-                'error' => false,
-                'message' => 'Xóa thành công sản phẩm',
-            ]);
+       
+        $data = $request->all();
+        $products = Product::where('id', $data['product_id'])->first();
+        // xoa yeu thich san pham
+        $favorite = FavorivteModel::where('product_id', $data['product_id']);
+        $favorite->delete();
+
+        $sizes = SizeModel::where('product_id', $data['product_id']);
+        $sizes->delete();
+
+        $comment = CommentModel::where('product_id', $data['product_id']);
+        $comment->delete();
+
+        $cart = Cart::where('product_id', $data['product_id'])->get();
+        if($cart->count() == 1){
+            $cumtomer = Customer::where('id',$cart[0]->customer_id)->first();
+            $payos = PayosUserModel::where('customer_id',$cumtomer->id)->delete();
+            $cart = Cart::where('product_id', $data['product_id']);
+            $cart->delete();
+            $cumtomer->delete();
+        }else{
+            $cart = Cart::where('product_id', $data['product_id']);
+            $cart->delete();
         }
-        return response()->json(['error' => true]);
+
+        
+       
+
+        $products->delete();
+
+        return redirect()->back()->with('success', 'Sản phẩm đã được xóa thành công');
+
     }
 
     

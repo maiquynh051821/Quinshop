@@ -83,8 +83,9 @@
             </table>
         </div>
         <div class="cart-content-right">
+            @if($customer[0]->pay_method == 2)
             <div>
-                <h3 class="font-weight-bold">Số tiền bạn đã thanh toán</h3>
+                <h3 class="font-weight-bold">Số tiền bạn đã chuyển khoản</h3>
                 <div class="d-flex ">
                     <p class="mr-3 font-weight-bold">Tổng tiền hàng</p>
                     <p class="font-weight-bold">{{ number_format($total, 0, ',', '.') }} <sup>đ</sup></p>
@@ -96,6 +97,23 @@
                         {{ number_format($total, 0, ',', '.') }}<sup> đ</sup></p>
                 </div>
             </div>
+            @else
+
+            <div>
+                <h3 class="font-weight-bold"></h3>
+                <div class="d-flex ">
+                    <p class="mr-3 font-weight-bold">Tổng tiền hàng</p>
+                    <p class="font-weight-bold">{{ number_format($total, 0, ',', '.') }} <sup>đ</sup></p>
+                </div>
+
+                <div class="d-flex ">
+                    <p class="mr-3 font-weight-bold">Tổng tiền :</p>
+                    <p style="color: black;font-weight: bold;">
+                        {{ number_format($total, 0, ',', '.') }}<sup> đ</sup></p>
+                </div>
+            </div>
+            
+            @endif
         </div>
     </section>
 @endsection

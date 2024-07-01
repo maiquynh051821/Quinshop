@@ -94,7 +94,8 @@ class CartshopController extends Controller
             $customer = Customer::where('user_id', $userId)
                 ->join('payos_user', 'payos_user.customer_id', '=', 'customers.id')
                 ->where('payos_user.status', 1)
-                ->select('customers.id as customer_id', 'customers.*', 'payos_user.*') // Đặt tên alias cho cột id của Customer
+                ->select('customers.id as customer_id', 'customers.*', 'payos_user.*')
+                ->orderBy('customers.created_at', 'desc')
                 ->get();
             $title = 'Tất cả sản phẩm bạn đã mua';
             return view('user.carts.list_cart_user', compact('customer', 'title'));

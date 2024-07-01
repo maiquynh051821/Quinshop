@@ -65,7 +65,7 @@ Route::middleware(['admin'])->group(function () {
             Route::get('edit-comment/{id}', [ProductController::class, 'editcomment'])->name('edit_comment');
             Route::get('edit/{product}', [ProductController::class, 'show']);
             Route::post('update_product', [ProductController::class, 'update_product'])->name('update_product');
-            Route::delete('destroy', [ProductController::class, 'destroy']);
+            Route::get('destroy', [ProductController::class, 'destroy'])->name('product.destroy');
             Route::get('search_product', [ProductController::class, 'search'])->name('search_product');
         });
         #Slider

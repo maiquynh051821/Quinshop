@@ -91,44 +91,37 @@
             </a>
             </td>
             <td> 
-            <a class="btn btn-danger" href="#" onclick="removeRow({{$product->id}},'/admin/products/destroy')">
-            <i class="fa-solid fa-trash-can"></i>
-            </a> 
+              <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal{{ $product->id }}">
+                <i class="fa-solid fa-trash-can"></i>
+            </button> 
             </td>
             </tr>
+
+            <!-- Modal -->
+<div class="modal fade" id="deleteModal{{ $product->id }}" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+      <div class="modal-content">
+          <div class="modal-header">
+              <h5 class="modal-title" id="deleteModalLabel">Xác nhận xóa {{$product->name}}</h5>
+          </div>
+          <div class="modal-body">
+              Bạn có chắc chắn muốn xóa sản phẩm này không?
+          </div>
+          <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+              <form method="get" action="{{ route('product.destroy') }}">
+                  <input type="hidden" value="{{ $product->id }}" name="product_id">
+                  <button type="submit" class="btn btn-danger">Xóa</button>
+              </form>
+          </div>
+      </div>
+  </div>
+</div>
+
         @endforeach
       </tbody>
     </table>
     {{-- Phan trang --}}
     {{ $products->links() }}
-    <script>
-      $(document).ready(function() {
-          $('#example').DataTable({
-              language: {
-                  "decimal": "",
-                  "emptyTable": "Không có dữ liệu trong bảng",
-                  "info": "Hiển thị _START_ đến _END_ của _TOTAL_ mục",
-                  "infoEmpty": "Hiển thị 0 đến 0 của 0 mục",
-                  "infoFiltered": "(lọc từ _MAX_ mục)",
-                  "infoPostFix": "",
-                  "thousands": ",",
-                  "lengthMenu": "Hiển thị _MENU_ mục",
-                  "loadingRecords": "Đang tải...",
-                  "processing": "Đang xử lý...",
-                  "search": "Tìm kiếm:",
-                  "zeroRecords": "Không tìm thấy kết quả",
-                  "paginate": {
-                      "first": "Đầu tiên",
-                      "last": "Cuối cùng",
-                      "next": "Tiếp",
-                      "previous": "Trước"
-                  },
-                  "aria": {
-                      "sortAscending": ": sắp xếp cột tăng dần",
-                      "sortDescending": ": sắp xếp cột giảm dần"
-                  }
-              }
-          });
-      });
-  </script>
+    
 @endsection

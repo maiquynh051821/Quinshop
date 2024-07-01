@@ -38,8 +38,7 @@ class SuccessController extends Controller
         $userId = Auth::user()->id;
         $customer = Customer::where('user_id', $userId)->latest()->first();
         $payosUser = PayosUserModel::where('customer_id',$customer->id)->first();
-        $payosUser->status = 0;
-        $payosUser->save();
+        $payosUser->delete();
         $cart = Cart::where('customer_id',$customer->id)->delete();
         $customer->delete();
         return redirect()->route('user');
