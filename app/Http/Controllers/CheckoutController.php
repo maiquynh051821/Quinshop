@@ -57,11 +57,11 @@ class CheckoutController extends Controller
       // tiền mặt == 1 ; chuyển khoản == 2
       $customer_id = $customer->id;
       if($data['pay_method'] == 1){
-        $payos = new PayosUserModel();
-        $payos->customer_id =  $customer->id;
-        $payos->amount = $amount;
-        $payos->status = 1;
-        $payos->save();
+        // $payos = new PayosUserModel();
+        // $payos->customer_id =  $customer->id;
+        // $payos->amount = $amount;
+        // $payos->status = 1;
+        // $payos->save();
         Mail::send('mail.success', $dataMail, function ($email) use ($customer) {
           $email->to($customer->email);
           $email->subject('Thông báo Shop Quin');
