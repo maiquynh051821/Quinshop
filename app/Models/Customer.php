@@ -23,4 +23,5 @@ class Customer extends Model
         return $this->hasMany(Cart::class,'customer_id','id');
     }
 
+
 }

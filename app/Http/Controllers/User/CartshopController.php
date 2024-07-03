@@ -91,12 +91,23 @@ class CartshopController extends Controller
     {
         if (Auth::check()) {
             $userId = Auth::user()->id; // Lấy id của người dùng hiện tại đã đăng nhập
-            $customer = Customer::where('user_id', $userId)
+            $customer1 = Customer::where('user_id', $userId)
+                ->where('customers.pay_method', 1)
+                ->select('customers.id as customer_id', 'customers.*')
+                ->get();
+
+            $customer2 = Customer::where('user_id', $userId)
+                ->where('customers.pay_method', 2)
                 ->join('payos_user', 'payos_user.customer_id', '=', 'customers.id')
                 ->where('payos_user.status', 1)
-                ->select('customers.id as customer_id', 'customers.*', 'payos_user.*')
-                ->orderBy('customers.created_at', 'desc')
+                ->select('customers.id as customer_id', 'customers.*')
                 ->get();
+
+            $customer = $customer1->merge($customer2);
+            $customer = $customer->sortByDesc('created_at');
+            $customer = $customer->values();
+
+
             $title = 'Tất cả sản phẩm bạn đã mua';
             return view('user.carts.list_cart_user', compact('customer', 'title'));
         } else {
