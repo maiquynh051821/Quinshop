@@ -31,7 +31,7 @@
                     @endphp
                     <table>
 
-                        <tr>
+                        <tr class="list_cart_session">
                             <th>Sản phẩm</th>
                             <th>Tên sản phẩm </th>
                             <th>Size</th>
@@ -54,10 +54,10 @@
                                 $priceEnd = $price * $cartProduct['quantity'];
                                 $total += $priceEnd;
                             @endphp
-                            <tr>
+                            <tr class="list_cart_product">
                                 <td><a
                                         href="/san-pham/{{ $cartProduct['product']->id }}-{{ \Str::slug($cartProduct['product']->name, '-') }}.html">
-                                        <img src="{{ asset($firstThumb) }}"
+                                        <img style="border-radius: 10px " src="{{ asset($firstThumb) }}"
                                             alt="{{ $cartProduct['product']->name }}"></a>
                                 </td>
                                 <td>
@@ -122,26 +122,26 @@
                             <th colspan="2">Tổng tiền trong giỏ hàng</th>
                         </tr>
                         <tr>
-                            <td>Tổng số sản phẩm </td>
-                            <td>{{ $totalQuantity }}</td>
+                            <td class="font-weight-bold" style="font-size:20px ">Tổng số sản phẩm </td>
+                            <td class="font-weight-bold" style="font-size:20px ">{{ $totalQuantity }}</td>
                         </tr>
                         <tr>
-                            <td>Tổng tiền hàng</td>
-                            <td>
+                            <td class="font-weight-bold" style="font-size:20px ">Tổng tiền hàng</td>
+                            <td class="font-weight-bold" style="font-size:20px ">
 
-                                <p>{{ number_format($total, 0, ',', '.') }} <sup>đ</sup></p>
+                                <p class="mb-0">{{ number_format($total, 0, ',', '.') }} <sup>đ</sup></p>
                             </td>
                         </tr>
                         <tr>
-                            <td>Tạm tính</td>
-                            <td>
+                            <td class="font-weight-bold" style="font-size:20px ">Tạm tính</td>
+                            <td class="font-weight-bold" style="font-size:20px ">
                                 <p style="color: black;font-weight: bold;">
                                     {{ number_format($total, 0, ',', '.') }}<sup> đ</sup></p>
                             </td>
                         </tr>
                     </table>
                     <div class="cart-content-right-text">
-                        <p style="color: red;">* Miễn phí ship với hóa đơn trên 1.000.000 <sup>đ</sup> . @if ($total < 1000000)
+                        <p class="font-weight-bold" style="font-size:20px;color: red; ">* Miễn phí ship với hóa đơn trên 1.000.000 <sup>đ</sup> . @if ($total < 1000000)
                                 Mua thêm {{ number_format(1000000 - $total, 0, ',', '.') }}<sup>đ</sup> để được miễn phí
                                 ship
                             @endif
@@ -171,5 +171,11 @@
             });
         </script>
     @endif
-
+    <style>
+        .cart-content table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 0 12px; /* Khoảng cách giữa các hàng */
+        }
+    </style>
 @endsection
