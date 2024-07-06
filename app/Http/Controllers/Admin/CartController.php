@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Services\CartService;
 use App\Models\Customer;
 use App\Models\Cart;
+use Illuminate\Pagination\LengthAwarePaginator;
+use Illuminate\Support\Collection;
 
 class CartController extends Controller
 {
@@ -17,12 +19,11 @@ class CartController extends Controller
     }
     public function index()
     {
-        $customers = Customer::join('payos_user', 'customers.id', '=', 'payos_user.customer_id')
+        $customers1 = Customer::join('payos_user', 'customers.id', '=', 'payos_user.customer_id')
             ->where('payos_user.status', 1)
             ->orderByDesc('customers.id')
             ->select(
                 'customers.id as id',
-                'payos_user.id as payos_id',
                 'customers.name',
                 'customers.phone',
                 'customers.address',
@@ -31,12 +32,37 @@ class CartController extends Controller
                 'customers.pay_method',
                 'customers.created_at as created_at',
                 'customers.updated_at as updated_at',
-                'payos_user.customer_id',
-                'payos_user.amount',
-                'payos_user.status as payos_status',
-                'payos_user.created_at as payos_user_created_at'
-            )
-            ->paginate(15);
+            )->get();
+
+        $customers2 =  Customer::where('pay_method', 1)->select(
+            'customers.id as id',
+            'customers.name',
+            'customers.phone',
+            'customers.address',
+            'customers.email',
+            'customers.content',
+            'customers.pay_method',
+            'customers.created_at as created_at',
+            'customers.updated_at as updated_at',
+        )->get();
+
+        $customers = $customers1->merge($customers2);
+        $customers = $customers->sortByDesc('created_at');
+        $customers = $customers->values();
+
+        $page = LengthAwarePaginator::resolveCurrentPage();
+        $perPage = 10;
+        $startingPoint = ($page * $perPage) - $perPage;
+        $slicedCollection = $customers->slice($startingPoint, $perPage)->values();
+
+       
+        $customers = new LengthAwarePaginator(
+            $slicedCollection,
+            $customers->count(),
+            $perPage,
+            $page,
+            ['path' => LengthAwarePaginator::resolveCurrentPath()]
+        );
         $title = 'Danh sách đơn hàng';
         return view('admin.carts.customer', compact('customers', 'title'));
     }
