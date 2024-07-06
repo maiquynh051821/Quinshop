@@ -123,6 +123,9 @@ class CartshopController extends Controller
 
     public function comment(Request $request)
     {
+        if (!$request->has('rating')) {
+            return redirect()->back()->with('error', 'Bạn cần chọn số sao để đánh giá.');
+        }
         $data = $request->all();
         $comment = new CommentModel();
         $comment->product_id = $data['product_id'];
