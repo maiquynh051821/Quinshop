@@ -17,10 +17,28 @@ class CartController extends Controller
     }
     public function index()
     {
-        return view('admin.carts.customer', [
-            'title' => 'Danh Sách Đơn Đặt Hàng',
-            'customers' => $this->cart->getCustomer()
-        ]);
+        $customers = Customer::join('payos_user', 'customers.id', '=', 'payos_user.customer_id')
+            ->where('payos_user.status', 1)
+            ->orderByDesc('customers.id')
+            ->select(
+                'customers.id as id',
+                'payos_user.id as payos_id',
+                'customers.name',
+                'customers.phone',
+                'customers.address',
+                'customers.email',
+                'customers.content',
+                'customers.pay_method',
+                'customers.created_at as created_at',
+                'customers.updated_at as updated_at',
+                'payos_user.customer_id',
+                'payos_user.amount',
+                'payos_user.status as payos_status',
+                'payos_user.created_at as payos_user_created_at'
+            )
+            ->paginate(15);
+        $title = 'Danh sách đơn hàng';
+        return view('admin.carts.customer', compact('customers', 'title'));
     }
     public function show(Customer $customer)
     {
@@ -43,7 +61,7 @@ class CartController extends Controller
     public static function checkStatusCart($customerId)
     {
         $carts = Cart::where('customer_id', $customerId)->get();
-        $allCancelled = true; 
+        $allCancelled = true;
         $anyProcessing = false;
         foreach ($carts as $cart) {
             if ($cart->cart_status == 0 || $cart->cart_status == 1) {
@@ -56,16 +74,17 @@ class CartController extends Controller
         if ($allCancelled) {
             return 'Đã hủy';
         } elseif ($anyProcessing) {
-            return 'Đã hoàn thành'; 
+            return 'Đã hoàn thành';
         } else {
             return 'Đã hoàn thành';
         }
     }
 
-    public function search_carts(Request $request){
+    public function search_carts(Request $request)
+    {
         $name_phone = $request->input('name_phone');
-        $customers = Customer::where('phone', 'like', '%'.$name_phone.'%')
-        ->paginate(50);
+        $customers = Customer::where('phone', 'like', '%' . $name_phone . '%')
+            ->paginate(50);
         return view('admin.carts.customer', [
             'title' => 'Danh Sách Đơn Đặt Hàng',
             'customers' => $customers
