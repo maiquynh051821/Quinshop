@@ -513,4 +513,22 @@ use App\Http\Controllers\User\CartshopController;
             });
         });
     </script>
+
+@foreach ($customer as $customerItem)
+<?php $vitri += 1; ?>
+@foreach ($carts as $key => $cart)
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Lấy element cần thêm class hoặc thuộc tính
+            let element = document.querySelector(`#element-id-${key}-${vitri}`);
+
+            // Thêm class vào element
+            element.classList.add('class-name');
+
+            // Thêm thuộc tính vào element
+            element.setAttribute('data-attribute', 'attribute-value');
+        });
+    </script>
+@endforeach
+@endforeach
 @endsection
