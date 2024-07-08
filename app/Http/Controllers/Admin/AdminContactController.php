@@ -11,7 +11,7 @@ class AdminContactController extends Controller
 {
     public function index()
     {
-        $contacts = Contact::paginate(5);
+        $contacts = Contact::orderBy('id','desc')->paginate(5);
         return view('admin.contacts.list', compact('contacts'), [
             'title' => 'Danh sách thông tin liên hệ'
         ]);
