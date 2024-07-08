@@ -145,7 +145,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/products/{product}/like', [ProductshopController::class, 'like'])->name('products.like');
     Route::post('/products/{product}/unlike', [ProductshopController::class, 'unlike'])->name('products.unlike');
     Route::get('/likes', [ProductshopController::class, 'show']);
-    Route::get('/trending', [ProductshopController::class, 'getLikeMax'])->name('trending');
+   
 
     // pay os
     Route::get('/nap-tien', [CheckoutController::class, 'index'])->name('package.index');
@@ -183,3 +183,4 @@ Route::get('/search_comment', [ProductshopController::class, 'search_comment'])-
 Route::get('/footer/{id}', [MainshopController::class, 'footerContent'])->name('footers.show');
 Route::get('/contact', [ContactController::class, 'show'])->name('contact.form');
 Route::post('/contact', [ContactController::class, 'submit'])->name('contact.submit');
+Route::get('/trending', [ProductshopController::class, 'getLikeMax'])->name('trending');
