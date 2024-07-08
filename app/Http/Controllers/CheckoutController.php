@@ -76,7 +76,7 @@ class CheckoutController extends Controller
         $payos->status = 0;
         $payos->save();
         Session::forget('carts');
-        $YOUR_DOMAIN = "http://127.0.0.1:8000"; 
+        $YOUR_DOMAIN = "https://quinshop.shop"; 
         $ordercode = intval(substr(strval(microtime(true) * 10000), -6));
         
         if ($amount <= 0.01 || $amount > 10000000000) {
