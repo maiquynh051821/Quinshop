@@ -17,6 +17,7 @@ class SuccessController extends Controller
     {
     }
     public function successPayment(Request $request) {
+        
         $data=$request->all();
         $userId = Auth::user()->id;
         $customer = Customer::where('user_id', $userId)->latest()->first();
@@ -29,6 +30,7 @@ class SuccessController extends Controller
                 $email->to($customer->email);
                 $email->subject('Thông báo Shop Quin');
             });
+            Session::forget('carts');
             return redirect()->route('cart_list',['customer_id'=>$customer->id]);
        }
        return redirect()->route('user');

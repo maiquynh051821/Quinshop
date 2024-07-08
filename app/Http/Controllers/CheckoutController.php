@@ -21,7 +21,6 @@ class CheckoutController extends Controller
   
   public function createPaymentLink(Request $request)
   {
-  
       $data = $request->all();
       $mailUser = $data['email'];
       $amount = floatval($data['amount']);
@@ -57,11 +56,6 @@ class CheckoutController extends Controller
       // tiền mặt == 1 ; chuyển khoản == 2
       $customer_id = $customer->id;
       if($data['pay_method'] == 1){
-        // $payos = new PayosUserModel();
-        // $payos->customer_id =  $customer->id;
-        // $payos->amount = $amount;
-        // $payos->status = 1;
-        // $payos->save();
         Mail::send('mail.success', $dataMail, function ($email) use ($customer) {
           $email->to($customer->email);
           $email->subject('Thông báo Shop Quin');
@@ -75,7 +69,7 @@ class CheckoutController extends Controller
         $payos->amount = $amount;
         $payos->status = 0;
         $payos->save();
-        Session::forget('carts');
+       
         $YOUR_DOMAIN = "https://quinshop.shop"; 
         $ordercode = intval(substr(strval(microtime(true) * 10000), -6));
         
