@@ -69,7 +69,7 @@
                             <span class="badge badge-pill bg-soft-success text-success me-2">
                                
                             </span>
-                            <span class="text-nowrap text-xs text-muted css_muted"></span>
+                            <a class="text-nowrap text-xs text-muted css_muted" href="admin/users/list">Xem chi tiết</a>
                         </div>
                     </div>
                 </div>
