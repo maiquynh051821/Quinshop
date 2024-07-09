@@ -250,7 +250,7 @@ class ProductController extends Controller
         ->join('products', 'products.id', '=', 'comment.product_id')
         ->paginate(20);
         return view('admin.product.list_comment',[
-            'title' => 'Danh sách sản phẩm',
+            'title' => 'Danh sách đánh giá',
             'products' => $comments,
         ]);
     }
